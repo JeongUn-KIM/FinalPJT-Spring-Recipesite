@@ -5,16 +5,19 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 import chatbot.ChatbotController;
+import user.UserController;
+
 
 @SpringBootApplication
 
 @ComponentScan
 @ComponentScan(basePackageClasses = ChatbotController.class)
+@ComponentScan(basePackageClasses = UserController.class)
 public class FinalprojectApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(FinalprojectApplication.class, args);
-		System.out.println("ai 9003서버 시작");
+		System.out.println("ai 9009서버 시작");
 		
 	}
 

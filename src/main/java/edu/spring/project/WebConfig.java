@@ -9,7 +9,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/naverimages/**")   //사용하는 이미지들을 호출하는 url = naverimages
-        .addResourceLocations("file:///C:/Users/jjyju/OneDrive/바탕 화면/멀티캠퍼스/네이버AI 수업/images/");
+        .addResourceLocations("file:///C:/kdigital2/images/projectimages/");
     }
 }
 
