@@ -6,8 +6,8 @@
 <configuration>
 
 <!-- 1. sql 실행 결과 EmpVO 매핑 -->
-<typeAliases>
- 	<typeAlias type="admin.AdminVO" alias="adminVO" />
-</typeAliases>
+<!-- <typeAliases>
+ <typeAlias type="mybatis.EmpVO"   alias="empVO" />
+</typeAliases> -->
 
 </configuration>
