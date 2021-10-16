@@ -5,9 +5,11 @@
   <!-- mybatis db 연결정보 세팅 파일 -->
 <configuration>
 
-<!-- 1. sql 실행 결과 EmpVO 매핑 -->
-<!-- <typeAliases>
- <typeAlias type="mybatis.EmpVO"   alias="empVO" />
-</typeAliases> -->
+<!-- 1. sql 실행 결과 UserVO 매핑 -->
+<typeAliases>
+ <typeAlias type="main.UserVO" alias="userVO" />
+ <typeAlias type="recipe.RecipeVO" alias="recipeVO" />
+ <typeAlias type="recipe.IngredientVO" alias="ingredientVO"/>
+</typeAliases>
 
 </configuration>
