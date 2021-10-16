@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mypage.MypageDAO" >
+
+<select id="getMyZzimRecipeList" resultType="myrecipeVO" parameterType="int">
+select * from recipe where recipe_no in (select recipe_no from zzim_recipe where user_no = #{user_no})
+</select>
+
+<select id="getMyRecipeList" resultType="myrecipeVO" parameterType="int">
+select * from recipe where user_no = #{user_no}
+</select>
+
+<select id="getMyZzimRecipeListDesc" resultType="myrecipeVO" parameterType="mydescVO">
+select * from recipe where recipe_desc = #{recipe_desc} and recipe_no in (select recipe_no from zzim_recipe where user_no = #{user_no})
+</select>
+
+<select id="getMyRecipeListDesc" resultType="myrecipeVO" parameterType="mydescVO">
+select * from recipe where recipe_desc = #{recipe_desc} and user_no = #{user_no}
+</select>
+
+<delete id="deleteZzimRecipeOne" parameterType="myzzimVO">
+delete from zzim_recipe where recipe_no = #{recipe_no} and user_no = #{user_no}
+</delete>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
