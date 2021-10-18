@@ -54,4 +54,37 @@ public class UserController {
 	}
 	
 	
+	//회원가입 사이트
+	@RequestMapping("/join")
+	public String joinPage(){
+		
+		return "/join/join";
+	}
+	
+	
+	//회원가입 과정 및 결과사이트
+	@RequestMapping(value = "/joinresult", method = RequestMethod.POST)
+	public String insertUser(UserVO vo) {
+		
+		service.insertUser(vo);
+		
+		
+		return "/join/joinresult";
+	}
+	
+	//회원탈퇴 사이트
+	@RequestMapping("/delete")
+	public String deletePage() {
+		return "/delete/delete";
+	}
+	
+	
+	//회원탈퇴 과정 및 결과 사이트
+	@RequestMapping("/deleteresult")
+	public String deleteUser(String user_email, String user_pw) {
+		service.deleteUser(user_email, user_pw);
+		return "/delete/deleteresult";
+	}
+	
+	
 }
