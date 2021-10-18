@@ -1,11 +1,20 @@
 package user;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class UserVO {
 //employees 테이블 컬럼 변수 = 레코드 1개 객체
 	String user_email;
 	String user_pw;
 	String user_name;
-	int user_phone;
+	String user_phone;
+	public String getUser_phone() {
+		return user_phone;
+	}
+	public void setUser_phone(String user_phone) {
+		this.user_phone = user_phone;
+	}
 	String user_address;
 	public String getUser_email() {
 		return user_email;
@@ -25,13 +34,7 @@ public class UserVO {
 	public void setUser_name(String user_name) {
 		this.user_name = user_name;
 	}
-	public int getUser_phone() {
-		return user_phone;
-	}
 	
-	public void setUser_phone(int user_phone) {
-		this.user_phone = user_phone;
-	}
 	public String getUser_address() {
 		return user_address;
 	}
@@ -39,6 +42,13 @@ public class UserVO {
 		this.user_address = user_address;
 	}
 	
+	public UserVO() {
+		
+	}
+	@Override
+	public String toString() {
+		return "UserVO [user_email=" + user_email + ", user_pw=" + user_pw + "]";
+	}
 	
 	
 }

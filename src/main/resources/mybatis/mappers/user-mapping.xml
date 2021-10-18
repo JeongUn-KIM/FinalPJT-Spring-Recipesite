@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="user.UserDAO" >
+
+<select id="listUser" resultType="UserVO">
+select * from user
+</select>
+
+
+<select id ="login" resultType="UserVO" parameterType="String">
+select * from user where user_email = #{user_email} and user_pw = #{user_pw}
+</select>
+
+<select id ="checkPw" resultType="UserVO" parameterType="String">
+select * from user where user_pw = #{user_pw}
+</select>
+
+<insert id="insertUser" parameterType="UserVO">
+insert into user(user_email, user_pw, user_name, user_phone, user_address)
+values(#{user_email}, #{user_pw}, #{user_name}, #{user_phone}, #{user_address})
+</insert>
+
+<update id="updateUser" parameterType="UserVO"> 
+update user set user_pw = #{user_pw} , user_email=#{user_email}, user_name=#{user_name}, user_phone=#{user_phone}, user_address=#{user_address},  where user_email = #{user_email} 
+</update>
+
+<delete id="deleteUser" parameterType="String" >
+delete from user where user_email = #{user_email} and user_pw = #{user_pw}
+</delete>
+
+
+
+
+
+
+
+</mapper>
+
+
+
