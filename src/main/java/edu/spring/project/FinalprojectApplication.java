@@ -12,6 +12,8 @@ import main.UserDAO;
 import recipe.IngredientDAO;
 import recipe.RecipeController;
 import recipe.RecipeDAO;
+import notice.NoticeController;
+import notice.NoticeDAO;
 
 @SpringBootApplication
 
@@ -20,9 +22,11 @@ import recipe.RecipeDAO;
 @ComponentScan(basePackageClasses = UserController.class)
 @ComponentScan(basePackageClasses = MainController.class)
 @ComponentScan(basePackageClasses = RecipeController.class)
+@MapperScan
 @MapperScan(basePackageClasses = UserDAO.class)
 @MapperScan(basePackageClasses = RecipeDAO.class)
 @MapperScan(basePackageClasses = IngredientDAO.class)
+@MapperScan(basePackageClasses = NoticeDAO.class)
 public class FinalprojectApplication {
 
 	public static void main(String[] args) {
