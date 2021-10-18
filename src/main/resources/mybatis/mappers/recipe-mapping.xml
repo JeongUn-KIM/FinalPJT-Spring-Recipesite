@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="recipe.RecipeDAO" >
+
+<select id="getRecipeList" resultType="recipeVO">
+	select * from recipe
+</select>
+<select id="moreRecipeList" resultType="recipeVO" parameterType="int">
+	SELECT recipe_no, recipe_title, recipe_img
+	FROM (
+	SELECT @ROWNUM := @ROWNUM + 1 AS r, recipe.*
+	FROM recipe, (SELECT @ROWNUM := 0) R
+	order by recipe_no desc
+	) A
+	where r between #{number} - 5 and #{number}
+</select>
+<select id="SearchTitle" resultType="recipeVO">
+	select * from recipe where recipe_title like #{search}
+</select>
+<select id="SearchDesc" resultType="recipeVO">
+	select * from recipe where recipe_desc like #{search}
+</select>
+<select id="SearchTitleDesc" resultType="recipeVO">
+	select * from recipe where recipe_title like #{search} or recipe_desc like #{search} 
+</select>
+<insert id="addRecipe" parameterType="recipeVO">
+	insert into recipe values(#{recipe_no}, #{user_no}, now(), #{recipe_title}, #{recipe_name}, #{recipe_emotion},
+	#{recipe_desc}, #{recipe_img1}, #{recipe_img2},#{recipe_img3},#{recipe_img4},#{recipe_img5},#{recipe_img6},
+	#{recipe_img7},#{recipe_img8},#{recipe_img9},#{recipe_img10}, #{recipe_cate})
+</insert>
+<!-- 
+<select id="emplist" resultType="empVO">
+ select * from employees
+</select>
+
+ 
+<select id="empone" resultType="empVO" parameterType="int"> 
+select * from employees where employee_id=#{id}
+</select>
+
+<insert id="insertemp" parameterType="empVO" >
+insert into employees(employee_id, first_name, last_name, email, phone_number, job_id , hire_date) 
+values( #{employee_id}, #{first_name}, #{last_name},#{email},#{phone_number},#{job_id} , sysdate )
+</insert>
+
+<update id="updateemp" parameterType="empVO">
+update employees
+set last_name = #{last_name} ,  department_id=#{department_id}
+where employee_id= #{employee_id}
+
+</update>
+
+<delete id="deleteemp" parameterType="String">
+delete employees where last_name like #{name}
+</delete>
+
+<select id="cnt" resultType="int">
+select count(*) from employees
+</select>
+
+<select id="empdeptlist"  resultType="empVO" parameterType="int[]">
+ select * from employees where department_id in 
+ 	<foreach collection="array" item="d_list" open="(" close=")" separator=","  >
+ 		#{d_list}
+ 	</foreach>
+</select>
+-->
+</mapper>
+
+
+
+
+
+
+
+
+
+
+

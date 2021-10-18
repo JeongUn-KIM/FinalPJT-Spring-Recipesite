@@ -6,15 +6,26 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 import chatbot.ChatbotController;
+import main.MainController;
+import main.UserController;
+import main.UserDAO;
+import recipe.IngredientDAO;
+import recipe.RecipeController;
+import recipe.RecipeDAO;
 import notice.NoticeController;
 import notice.NoticeDAO;
 
 @SpringBootApplication
 
 @ComponentScan
-//@ComponentScan(basePackageClasses = ChatbotController.class)
-@ComponentScan(basePackageClasses = NoticeController.class)
+@ComponentScan(basePackageClasses = ChatbotController.class)
+@ComponentScan(basePackageClasses = UserController.class)
+@ComponentScan(basePackageClasses = MainController.class)
+@ComponentScan(basePackageClasses = RecipeController.class)
 @MapperScan
+@MapperScan(basePackageClasses = UserDAO.class)
+@MapperScan(basePackageClasses = RecipeDAO.class)
+@MapperScan(basePackageClasses = IngredientDAO.class)
 @MapperScan(basePackageClasses = NoticeDAO.class)
 public class FinalprojectApplication {
 
