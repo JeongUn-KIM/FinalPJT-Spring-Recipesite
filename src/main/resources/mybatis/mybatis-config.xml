@@ -9,7 +9,7 @@
 <typeAliases>
  <typeAlias type="main.UserVO" alias="userVO" />
  <typeAlias type="recipe.RecipeVO" alias="recipeVO" />
- <typeAlias type="recipe.IngredientVO" alias="ingredientVO"/>  
+ <typeAlias type="recipe.IngredientVO" alias="ingredientVO"/>
 </typeAliases>
 
 </configuration>
