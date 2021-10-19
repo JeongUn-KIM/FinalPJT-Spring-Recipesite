@@ -72,6 +72,22 @@ public class UserController {
 		return "/join/joinresult";
 	}
 	
+	//회원수정사이트
+	@RequestMapping("/myinform")
+	public String updatePage() {
+		return "/update/myinform";
+		
+	}
+	
+	//
+	@RequestMapping("/main/header")
+	public String updateUser(UserVO vo) {
+		
+		service.updateUser(vo);
+		
+		return "/main/header";
+	}
+	
 	//회원탈퇴 사이트
 	@RequestMapping("/delete")
 	public String deletePage() {

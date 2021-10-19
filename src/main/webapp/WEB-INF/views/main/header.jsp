@@ -35,7 +35,7 @@ header ul, header ul li {
 				</span>
 			</li>
 			<li><button id="btn_login" >로그인</button></li>
-			<li><a class="btn" href="">회원가입</a>
+			<li><a class="btn" href="/join">회원가입</a>
 		</ul>
 	</c:if>
 	<!-- 로그인 한 경우 -->
