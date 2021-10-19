@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="recipe.IngredientDAO" >
+
+<select id="getIngredientList" resultType="ingredientVO">
+	select * from ingredient
+</select>
+
+<insert id="addIngredient">
+	insert into ingredient values(#{recipe_no}, #{user_no}, #{fork}, #{beef}, #{chicken}, #{bean}, #{apple} )
+</insert>
+
+<select id="getColumn_nameList" resultType="String">
+SELECT column_name
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_SCHEMA='finaldb'  
+   AND TABLE_NAME='ingredient';
+</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
