@@ -9,8 +9,13 @@
 <typeAliases>
  <typeAlias type="main.UserVO" alias="userVO" />
  <typeAlias type="recipe.RecipeVO" alias="recipeVO" />
+<<<<<<< HEAD
+ <typeAlias type="recipe.RecipeImgVO" alias="recipeimgVO"/>
+  <typeAlias type="recipe.RecipeDescVO" alias="recipedescVO"/>
+=======
  <typeAlias type="recipe.IngredientVO" alias="ingredientVO"/>
  <typeAlias type="notice.NoticeVO"   alias="noticeVO" />
+>>>>>>> branch 'pang' of https://github.com/mellunk/FinalPJT-Spring-Recipesite.git
 </typeAliases>
 
 </configuration>

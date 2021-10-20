@@ -19,17 +19,25 @@
 <select id="SearchTitle" resultType="recipeVO">
 	select * from recipe where recipe_title like #{search}
 </select>
-<select id="SearchDesc" resultType="recipeVO">
+<select id="SearchName" resultType="recipeVO">
 	select * from recipe where recipe_desc like #{search}
 </select>
-<select id="SearchTitleDesc" resultType="recipeVO">
-	select * from recipe where recipe_title like #{search} or recipe_desc like #{search} 
+<select id="SearchIngredient" resultType="recipeVO">
+	select * from recipe where recipe_Ingredient like #{search}
+</select>
+<select id="SearchNation" resultType="recipeVO">
+	select * from recipe where recipe_Nation like #{search}
 </select>
 <insert id="addRecipe" parameterType="recipeVO">
-	insert into recipe values(#{recipe_no}, #{user_no}, now(), #{recipe_title}, #{recipe_name}, #{recipe_emotion},
-	#{recipe_desc}, #{recipe_img1}, #{recipe_img2},#{recipe_img3},#{recipe_img4},#{recipe_img5},#{recipe_img6},
-	#{recipe_img7},#{recipe_img8},#{recipe_img9},#{recipe_img10}, #{recipe_cate})
+	insert into recipe values(#{recipe_no}, #{user_no}, Date_FORMAT(now(), '%y-%m-%d %H:%i:%s'), #{recipe_img1}, #{recipe_title}, #{recipe_name}, #{recipe_ingredient},
+	#{recipe_emotion}, #{recipe_cate}, #{recipe_nation})
 </insert>
+<select id="getRecipeDetail" resultType="recipeVO">
+	select * from recipe where recipe_no = #{no}
+</select>
+<delete id="deleteRecipe">
+	delete from recipe where recipe_no = #{recipe_no}
+</delete>
 <!-- 
 <select id="emplist" resultType="empVO">
  select * from employees
