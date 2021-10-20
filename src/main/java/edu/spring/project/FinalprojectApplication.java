@@ -11,8 +11,13 @@ import main.UserController;
 import main.UserDAO;
 import recipe.RecipeController;
 import recipe.RecipeDAO;
+<<<<<<< HEAD
 import recipe.RecipeDescDAO;
 import recipe.RecipeImgDAO;
+=======
+import notice.NoticeController;
+import notice.NoticeDAO;
+>>>>>>> branch 'pang' of https://github.com/mellunk/FinalPJT-Spring-Recipesite.git
 
 @SpringBootApplication
 
@@ -21,10 +26,16 @@ import recipe.RecipeImgDAO;
 @ComponentScan(basePackageClasses = UserController.class)
 @ComponentScan(basePackageClasses = MainController.class)
 @ComponentScan(basePackageClasses = RecipeController.class)
+@MapperScan
 @MapperScan(basePackageClasses = UserDAO.class)
 @MapperScan(basePackageClasses = RecipeDAO.class)
+<<<<<<< HEAD
 @MapperScan(basePackageClasses = RecipeDescDAO.class)
 @MapperScan(basePackageClasses = RecipeImgDAO.class)
+=======
+@MapperScan(basePackageClasses = IngredientDAO.class)
+@MapperScan(basePackageClasses = NoticeDAO.class)
+>>>>>>> branch 'pang' of https://github.com/mellunk/FinalPJT-Spring-Recipesite.git
 public class FinalprojectApplication {
 
 	public static void main(String[] args) {
