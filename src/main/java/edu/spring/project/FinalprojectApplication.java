@@ -9,9 +9,10 @@ import chatbot.ChatbotController;
 import main.MainController;
 import main.UserController;
 import main.UserDAO;
-import recipe.IngredientDAO;
 import recipe.RecipeController;
 import recipe.RecipeDAO;
+import recipe.RecipeDescDAO;
+import recipe.RecipeImgDAO;
 
 @SpringBootApplication
 
@@ -22,7 +23,8 @@ import recipe.RecipeDAO;
 @ComponentScan(basePackageClasses = RecipeController.class)
 @MapperScan(basePackageClasses = UserDAO.class)
 @MapperScan(basePackageClasses = RecipeDAO.class)
-@MapperScan(basePackageClasses = IngredientDAO.class)
+@MapperScan(basePackageClasses = RecipeDescDAO.class)
+@MapperScan(basePackageClasses = RecipeImgDAO.class)
 public class FinalprojectApplication {
 
 	public static void main(String[] args) {

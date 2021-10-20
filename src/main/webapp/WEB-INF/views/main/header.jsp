@@ -18,7 +18,7 @@ header ul, header ul li {
 <header style="border-bottom: 1px solid; text-align:left">
 	<div class="category">
 		<ul>
-			<li><a href=""><img width="100" height="100" src="/imgs/logo.png"></a></li>
+			<li><a href="/main"><img width="100" height="100" src="/imgs/logo.png"></a></li>
 			<li><a href="">공지사항</a></li>
 			<li><a href="/recipelist">레시피</a></li>
 		</ul>
