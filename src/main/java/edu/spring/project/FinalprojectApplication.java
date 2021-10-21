@@ -5,19 +5,23 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
+import admin.AdminController;
+import admin.AdminDAO;
 import chatbot.ChatbotController;
 import main.MainController;
 import main.UserController;
 import main.UserDAO;
+import mypage.MypageController;
+import mypage.MypageDAO;
 import recipe.RecipeController;
 import recipe.RecipeDAO;
-<<<<<<< HEAD
+
 import recipe.RecipeDescDAO;
 import recipe.RecipeImgDAO;
-=======
+
 import notice.NoticeController;
 import notice.NoticeDAO;
->>>>>>> branch 'pang' of https://github.com/mellunk/FinalPJT-Spring-Recipesite.git
+
 
 @SpringBootApplication
 
@@ -26,16 +30,17 @@ import notice.NoticeDAO;
 @ComponentScan(basePackageClasses = UserController.class)
 @ComponentScan(basePackageClasses = MainController.class)
 @ComponentScan(basePackageClasses = RecipeController.class)
+@ComponentScan(basePackageClasses = MypageController.class)
+@ComponentScan(basePackageClasses = AdminController.class)
 @MapperScan
 @MapperScan(basePackageClasses = UserDAO.class)
 @MapperScan(basePackageClasses = RecipeDAO.class)
-<<<<<<< HEAD
 @MapperScan(basePackageClasses = RecipeDescDAO.class)
 @MapperScan(basePackageClasses = RecipeImgDAO.class)
-=======
-@MapperScan(basePackageClasses = IngredientDAO.class)
 @MapperScan(basePackageClasses = NoticeDAO.class)
->>>>>>> branch 'pang' of https://github.com/mellunk/FinalPJT-Spring-Recipesite.git
+@MapperScan(basePackageClasses = MypageDAO.class)
+@MapperScan(basePackageClasses = AdminDAO.class)
+
 public class FinalprojectApplication {
 
 	public static void main(String[] args) {
