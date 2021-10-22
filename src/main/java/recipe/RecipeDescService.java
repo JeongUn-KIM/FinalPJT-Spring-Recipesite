@@ -8,4 +8,5 @@ public interface RecipeDescService {
 	public void addDesc(RecipeDescVO vo);
 	public List<Integer> SearchDesc(String search);
 	public void deleteDesc(int recipe_no);
+	public void modifyDesc(RecipeDescVO vo);
 }

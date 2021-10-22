@@ -25,4 +25,7 @@ public class RecipeDescServiceImpl implements RecipeDescService {
 	public void deleteDesc(int recipe_no) {
 		dao.deleteDesc(recipe_no);
 	}
+	public void modifyDesc(RecipeDescVO vo) {
+		dao.modifyDesc(vo);
+	}
 }

@@ -37,7 +37,7 @@
 <c:when test="${recipelist_search eq null and empty recipelist_search }">
 	<c:forEach items="${recipelist }" var="recipe">
 		<tr>
-			<td><a href="/recipedetail?no=${recipe.recipe_no }"><img src="/upload/${recipe.recipe_img1 }"></a></td>
+			<td><a href="/recipedetail?no=${recipe.recipe_no }"><img src="/upload/${recipe.recipe_img }"></a></td>
 			<td><a href="/recipedetail?no=${recipe.recipe_no }">${recipe.recipe_title }</a></td>
 		</tr>
 	</c:forEach>
@@ -45,7 +45,7 @@
 <c:when test="${ recipelist_search ne null and empty recipelist_search}">
 	<c:forEach items="${recipelist_search }" var="recipe">
 		<tr>
-			<td><a href="/recipedetail?no=${recipe.recipe_no }"><img src="/upload/${recipe.recipe_img1 }"></a></td>
+			<td><a href="/recipedetail?no=${recipe.recipe_no }"><img src="/upload/${recipe.recipe_img }"></a></td>
 			<td><a href="/recipedetail?no=${recipe.recipe_no }">${recipe.recipe_title }</a></td>
 		</tr>
 	</c:forEach>
@@ -53,7 +53,7 @@
 <c:when test="${ recipelist_search ne null and not empty recipelist_search}">
 	<c:forEach items="${recipelist_search }" var="recipe">
 		<tr>
-			<td><a href="/recipedetail?no=${recipe.recipe_no }"><img src="/upload/${recipe.recipe_img1 }"></a></td>
+			<td><a href="/recipedetail?no=${recipe.recipe_no }"><img src="/upload/${recipe.recipe_img }"></a></td>
 			<td><a href="/recipedetail?no=${recipe.recipe_no }">${recipe.recipe_title }</a></td>
 		</tr>
 	</c:forEach>
@@ -66,7 +66,7 @@
 	<a id="more_list_btn" href="javascript:moreContent();">더보기</a>
 </div>
 
-<!-- 검색기능 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@동호님 여기부터-->
+
 <form action="/recipelist" onSubmit="return form_submit()">
 <select name="type">
 	<option value="recipe_title">레시피 제목</option>
@@ -78,7 +78,7 @@
 <input type="search" id="search" name="search">
 <input type="submit" value="검색">
 </form>
-<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@여기랑 밑에 자바스크립트 form_submit() 가져가요 -->
+
 
 <!-- 로그인 하지 못하면 글 작성 버튼 안보이도록 -->
 <c:if test="${not empty login_info.user_email }">
@@ -94,7 +94,7 @@ function goSearchRecipe(kinds, val){
 	$("#condition").submit();
 }
 
-/* @@@@@@@@@@@@@@@@@@@@@@@여기 검색 함수부분 */
+
 function form_submit(){
 	if($("#search").val().length > 1){
 		return true;
@@ -104,7 +104,7 @@ function form_submit(){
 		return false;
 	}
 }
-/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@여기까지요 */
+
 function moreContent(){
 	$.ajax({
 		url: "/recipelist",

@@ -13,4 +13,5 @@ public interface RecipeService {
 	public void addRecipe(RecipeVO vo);
 	public RecipeVO getRecipeDetail(int no);
 	public void deleteRecipe(int recipe_no);
+	public void modifyRecipe(RecipeVO vo);
 }

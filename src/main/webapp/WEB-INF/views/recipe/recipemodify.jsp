@@ -11,14 +11,29 @@
 <body>
 <jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include>
 <%
-String[] ingredient = {"소고기","돼지고기", "닭고기", "양고기", "무슨고기"};
+String[] ingredient = {"소고기","돼지고기","닭고기","양고기","무슨고기"};
 %>
 <!-- 1. recipe_title, recipe_name, 사진, recipe_date, recipe_emotion  -->
 <form action="recipemodify" method="post" enctype="multipart/form-data" onsubmit="return send()">
-<table>
+<table border="1">
 	<tr>
 		<th>제목</th>
-		<td><input type="text" name="recipe_title" value="${recipe.recipe_title }"></td>
+		<td><input type="text" name="recipe_title" id="recipe_title" value="${recipe.recipe_title }"></td>
+	</tr>
+	<tr>
+		<th>썸네일 사진</th>
+		<td>
+		<input type="file" name="recipe_img" id="recipe_img" accept="image/*" onchange="view(event, 'img');"><br>
+		<table border ="1">
+			<tr>
+			<th>기존 이미지</th>
+			<td><img src="upload/${recipe.recipe_img}"></td>
+			<input type="hidden" name="img1" value="${recipe.recipe_img }">
+			<th>변경 이미지</th>
+			<td><div id="img1"></div></td>
+			</tr>
+		</table>
+		</td>
 	</tr>
 	<tr>
 		<th>음식 이름</th>
@@ -40,7 +55,7 @@ String[] ingredient = {"소고기","돼지고기", "닭고기", "양고기", "�
 		</td>
 	</tr>
 	
-<!-- 모달창 재료 -->
+<!-- 팝업창 재료 -->
 	<tr>
 		<th>재료</th>
 		<td>
@@ -63,130 +78,215 @@ String[] ingredient = {"소고기","돼지고기", "닭고기", "양고기", "�
 	<tr>
 		<th>이런 감정일 때 먹으면 좋아요</th>
 		<td>
-		<input type="radio" name="recipe_emotion" value="좋음">좋아요
-		<input type="radio" name="recipe_emotion" value="보통">보통이예요
-		<input type="radio" name="recipe_emotion" value="안좋음">별로예요
+		<input type="radio" name="recipe_emotion" id="좋음" value="좋음">좋아요
+		<input type="radio" name="recipe_emotion" id="보통" value="보통">보통이예요
+		<input type="radio" name="recipe_emotion" id="안좋음" value="안좋음">별로예요
+		
 		</td>
 	</tr>
 <!-- 사진 및 레시피 내용 -->
 		<tr>
 			<th>사진1</th>
 			<td>
-			<input type="file" name="recipe_img" accept="image/*" onchange="view(event, 'img1');">
-			<img src="upload/${img.recipe_img1}">기존 이미지
-			<div id="img1"></div>
+			<input type="file" name="recipe_img" accept="image/*" onchange="view(event, 'img1');"><br>
+			<table border ="1">
+				<tr>
+				<th>기존 이미지</th>
+				<td><img src="upload/${img.recipe_img1}"></td>
+				<input type="hidden" name="img1" value="${img.recipe_img1 }">
+				<th>변경 이미지</th>
+				<td><div id="img1"></div></td>
+				</tr>
+			</table>
 			</td>
 			<th>레시피 내용1</th>
 			<td><textarea rows="5" cols="50" name="recipe_desc">${desc.recipe_desc1}</textarea></td>
 		</tr>
-	<c:if test="${!empty img.recipe_img2 }">
+		
 		<tr>
 			<th>사진2</th>
 			<td>
 			<input type="file" name="recipe_img" accept="image/*" onchange="view(event, 'img2');">
-			<img src="upload/${img.recipe_img2}">기존 이미지
+	<c:if test="${!empty img.recipe_img2 }">
+			<table border ="1">
+				<tr>
+				<th>기존 이미지</th>
+				<td><img src="upload/${img.recipe_img2}"></td>
+				<input type="hidden" name="img2" value="${img.recipe_img2 }">
+				<th>변경 이미지</th>
+				<td><div id="img2"></div></td>
+				</tr>
+			</table>
+	</c:if>
 			<div id="img2"></div>
 			</td>
 			<th>레시피 내용2</th>
 			<td><textarea rows="5" cols="50" name="recipe_desc">${desc.recipe_desc2}</textarea></td>
 		</tr>
-	</c:if>
-	<c:if test="${!empty img.recipe_img3 }">
+		
 		<tr>
 			<th>사진3</th>
 			<td>
 			<input type="file" name="recipe_img" accept="image/*" onchange="view(event, 'img3');">
-			<img src="upload/${img.recipe_img3}">기존 이미지
+	<c:if test="${!empty img.recipe_img3 }">
+			<table border ="1">
+				<tr>
+				<th>기존 이미지</th>
+				<td><img src="upload/${img.recipe_img3}"></td>
+				<input type="hidden" name="img3" value="${img.recipe_img3 }">
+				<th>변경 이미지</th>
+				<td><div id="img3"></div></td>
+				</tr>
+			</table>
+	</c:if>
 			<div id="img3"></div>
 			</td>
 			<th>레시피 내용3</th>
 			<td><textarea rows="5" cols="50" name="recipe_desc">${desc.recipe_desc3}</textarea></td>
 		</tr>
-	</c:if>
-	<c:if test="${!empty img.recipe_img4 }">
+		
 		<tr>
 			<th>사진4</th>
 			<td>
 			<input type="file" name="recipe_img" accept="image/*" onchange="view(event, 'img4');">
-			<img src="upload/${img.recipe_img4}">기존 이미지
+	<c:if test="${!empty img.recipe_img4 }">
+			<table border ="1">
+				<tr>
+				<th>기존 이미지</th>
+				<td><img src="upload/${img.recipe_img4}"></td>
+				<input type="hidden" name="img4" value="${img.recipe_img4 }">
+				<th>변경 이미지</th>
+				<td><div id="img4"></div></td>
+				</tr>
+			</table>
+	</c:if>
 			<div id="img4"></div>
 			</td>
 			<th>레시피 내용4</th>
 			<td><textarea rows="5" cols="50" name="recipe_desc">${desc.recipe_desc4}</textarea></td>
 		</tr>
-	</c:if>
-	<c:if test="${!empty img.recipe_img5 }">
+		
 		<tr>
 			<th>사진5</th>
 			<td>
 			<input type="file" name="recipe_img" accept="image/*" onchange="view(event, 'img5');">
-			<img src="upload/${img.recipe_img5}">기존 이미지
+	<c:if test="${!empty img.recipe_img5 }">
+			<table border ="1">
+				<tr>
+				<th>기존 이미지</th>
+				<td><img src="upload/${img.recipe_img5}"></td>
+				<input type="hidden" name="img5" value="${img.recipe_img5 }">
+				<th>변경 이미지</th>
+				<td><div id="img5"></div></td>
+				</tr>
+			</table>
+	</c:if>
 			<div id="img5"></div>
 			</td>
 			<th>레시피 내용5</th>
 			<td><textarea rows="5" cols="50" name="recipe_desc">${desc.recipe_desc5}</textarea></td>
 		</tr>
-	</c:if>
-	<c:if test="${!empty img.recipe_img6 }">
+		
 		<tr>
 			<th>사진6</th>
 			<td>
 			<input type="file" name="recipe_img" accept="image/*" onchange="view(event, 'img6');">
-			<img src="upload/${img.recipe_img6}">기존 이미지
+	<c:if test="${!empty img.recipe_img6 }">
+			<table border ="1">
+				<tr>
+				<th>기존 이미지</th>
+				<td><img src="upload/${img.recipe_img6}"></td>
+				<input type="hidden" name="img6" value="${img.recipe_img6 }">
+				<th>변경 이미지</th>
+				<td><div id="img6"></div></td>
+				</tr>
+			</table>
+	</c:if>
 			<div id="img6"></div>
 			</td>
 			<th>레시피 내용6</th>
 			<td><textarea rows="5" cols="50" name="recipe_desc">${desc.recipe_desc6}</textarea></td>
 		</tr>
-	</c:if>
-	<c:if test="${!empty img.recipe_img7 }">
 		<tr>
 			<th>사진7</th>
 			<td>
 			<input type="file" name="recipe_img" accept="image/*" onchange="view(event, 'img7');">
-			<img src="upload/${img.recipe_img7}">기존 이미지
+	<c:if test="${!empty img.recipe_img7 }">
+			<table border ="1">
+				<tr>
+				<th>기존 이미지</th>
+				<td><img src="upload/${img.recipe_img7}"></td>
+				<input type="hidden" name="img7" value="${img.recipe_img7 }">
+				<th>변경 이미지</th>
+				<td><div id="img7"></div></td>
+				</tr>
+			</table>
+	</c:if>
 			<div id="img7"></div>
 			</td>
 			<th>레시피 내용7</th>
 			<td><textarea rows="5" cols="50" name="recipe_desc">${desc.recipe_desc7}</textarea></td>
 		</tr>
-	</c:if>
-	<c:if test="${!empty img.recipe_img8 }">
 		<tr>
 			<th>사진8</th>
 			<td>
-			<input type="file" name="recipe_img" accept="image/*" onchange="view(event, 'img8');">
-			<img src="upload/${img.recipe_img8}">기존 이미지
+			<input type="file" name="recipe_img" accept="image/*" onchange="view(event, 'img8');">	
+			<c:if test="${!empty img.recipe_img8 }">
+			<table border ="1">
+				<tr>
+				<th>기존 이미지</th>
+				<td><img src="upload/${img.recipe_img8}"></td>
+				<input type="hidden" name="img8" value="${img.recipe_img8 }">
+				<th>변경 이미지</th>
+				<td><div id="img8"></div></td>
+				</tr>
+			</table>
+	</c:if>
 			<div id="img8"></div>
 			</td>
 			<th>레시피 내용8</th>
 			<td><textarea rows="5" cols="50" name="recipe_desc">${desc.recipe_desc8}</textarea></td>
 		</tr>
-	</c:if>
-	<c:if test="${!empty img.recipe_img9 }">
 		<tr>
 			<th>사진9</th>
 			<td>
 			<input type="file" name="recipe_img" accept="image/*" onchange="view(event, 'img9');">
-			<img src="upload/${img.recipe_img9}">기존 이미지
+	<c:if test="${!empty img.recipe_img9 }">
+			<table border ="1">
+				<tr>
+				<th>기존 이미지</th>
+				<td><img src="upload/${img.recipe_img9}"></td>
+				<input type="hidden" name="img9" value="${img.recipe_img9 }">
+				<th>변경 이미지</th>
+				<td><div id="img9"></div></td>
+				</tr>
+			</table>
+	</c:if>
 			<div id="img9"></div>
 			</td>
 			<th>레시피 내용9</th>
 			<td><textarea rows="5" cols="50" name="recipe_desc">${desc.recipe_desc9}</textarea></td>
 		</tr>
-	</c:if>
-	<c:if test="${!empty img.recipe_img10 }">
 		<tr>
 			<th>사진10</th>
 			<td>
 			<input type="file" name="recipe_img" accept="image/*" onchange="view(event, 'img10');">
-			<img src="upload/${img.recipe_img10}">기존 이미지
+	<c:if test="${!empty img.recipe_img10 }">
+			<table border ="1">
+				<tr>
+				<th>기존 이미지</th>
+				<td><img src="upload/${img.recipe_img10}"></td>
+				<input type="hidden" name="img10" value="${img.recipe_img10 }">
+				<th>변경 이미지</th>
+				<td><div id="img10"></div></td>
+				</tr>
+			</table>
+	</c:if>
 			<div id="img10"></div>
 			</td>
 			<th>레시피 내용10</th>
 			<td><textarea rows="5" cols="50" name="recipe_desc">${desc.recipe_desc10}</textarea></td>
 		</tr>
-	</c:if>
 
 </table>
 <!-- 저장이 완료되었습니다 함수 만들기 -->
@@ -194,27 +294,20 @@ String[] ingredient = {"소고기","돼지고기", "닭고기", "양고기", "�
 	<a href="javascript:history.go(-1)">취소</a>
 </form>
 <script>
-//분류 체크 되었던 거 체크
-var cate = document.getElementById("${recipe.recipe_cate }");
-cate.setAttribute("checked", "checked");
-document.write(cate.getAttribute("checked"));
-
-//재료 체크 되었던 거 체크
-var arr = ${recipe.recipe_ingredient }.split(",");
-for(var i = 0 ; i < arr.length ; i++){
-	var ingredient = document.getElementById(arr[i])
-	ingredient.setAttribute("checked", "checked");
-	document.write(ingredient.getAttribute("checked"));
-}
-//감정 체크되었던 거 체크
-var emotion = document.getElementById("${recipe.recipe_emotion }");
-emotion.setAttribute("checked", "checked");
-document.write(emotion.getAttribute("checked"));
-
+//재료 선택 팝업창
+$(function(){
+	$(".openingred").click(function(){
+		$(".modal").fadeIn();
+	});
+	
+	$(".closeingred").click(function(){
+		$(".modal").fadeOut();
+	})
+	
+})
 //레시피 사진 미리보기
-function view(event, img){
+function view(event, img_name){
 	var reader = new FileReader();
-	var img_name = img;
 	reader.onload = function(event){
 		var img = document.createElement("img"); 
 		img.setAttribute("src", event.target.result);
@@ -223,6 +316,22 @@ function view(event, img){
 	}
 	reader.readAsDataURL(event.target.files[0]);
 }
+//분류 체크 되었던 거 체크
+var cate = document.getElementById("${recipe.recipe_cate }");
+cate.setAttribute("checked", "checked");
+
+//재료 체크 되었던 거 체크
+var arr = "${recipe.recipe_ingredient }".split(",");
+for(var i = 0 ; i < arr.length ; i++){
+	var ingredient = document.getElementById(arr[i])
+	ingredient.setAttribute("checked", "checked");
+
+}
+//감정 체크되었던 거 체크
+var emotion = document.getElementById("${recipe.recipe_emotion }");
+emotion.setAttribute("checked", "checked");
+
+
 
 //저장시 호출 함수
 function send(){		

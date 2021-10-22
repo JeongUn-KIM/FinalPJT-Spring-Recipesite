@@ -10,10 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class MainController {
 
-	@Autowired
-	@Qualifier("userservice")
-	UserService service;
-	
 	//메인 뷰
 	@RequestMapping(value = "/main", method=RequestMethod.GET)
 	public String main_view() {

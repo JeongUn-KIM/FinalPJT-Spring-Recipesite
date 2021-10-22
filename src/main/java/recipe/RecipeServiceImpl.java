@@ -55,5 +55,7 @@ public class RecipeServiceImpl implements RecipeService {
 	public void deleteRecipe(int recipe_no) {
 		dao.deleteRecipe(recipe_no);
 	}
-	
+	public void modifyRecipe(RecipeVO vo) {
+		dao.modifyRecipe(vo);
+	}
 }

@@ -29,7 +29,7 @@
 	select * from recipe where recipe_Nation like #{search}
 </select>
 <insert id="addRecipe" parameterType="recipeVO">
-	insert into recipe values(#{recipe_no}, #{user_no}, Date_FORMAT(now(), '%y-%m-%d %H:%i:%s'), #{recipe_img1}, #{recipe_title}, #{recipe_name}, #{recipe_ingredient},
+	insert into recipe values(#{recipe_no}, #{user_no}, 0, Date_FORMAT(now(), '%y-%m-%d %H:%i:%s'), #{recipe_img}, #{recipe_title}, #{recipe_name}, #{recipe_ingredient},
 	#{recipe_emotion}, #{recipe_cate}, #{recipe_nation})
 </insert>
 <select id="getRecipeDetail" resultType="recipeVO">
@@ -38,6 +38,12 @@
 <delete id="deleteRecipe">
 	delete from recipe where recipe_no = #{recipe_no}
 </delete>
+<update id="modifyRecipe">
+	update recipe set recipe_img = #{recipe_img1}, recipe_title=#{recipe_title}, recipe_name=#{recipe_name}, 
+	recipe_ingredient=#{recipe_ingredient},	recipe_emotion=#{recipe_emotion}, recipe_cate=#{recipe_cate}, 
+	recipe_nation=#{recipe_nation} 
+	where recipe_no = #{recipe_no}
+</update>
 <!-- 
 <select id="emplist" resultType="empVO">
  select * from employees
