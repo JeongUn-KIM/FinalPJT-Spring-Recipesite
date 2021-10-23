@@ -15,6 +15,12 @@
 		<th>작성 시간</th>
 		<td>${recipe.recipe_date }</td>
 	</tr>
+		<tr>
+		<th>썸네일</th>
+		<td>
+		<img src="upload/${recipe.recipe_img}">
+		</td>
+	</tr>
 	<tr>
 		<th>제목</th>
 		<td>${recipe.recipe_title }</td>
@@ -163,7 +169,7 @@
 function goDelete(){
 	if(confirm("정말 삭제하시겠습니까?")){
 		alert("글을 삭제하였습니다.");
-		location.replace("/recipedelete?recipe_no=${recipe.recipe_no}");
+		location.replace("/recipelist");
 	}
 }
 </script>

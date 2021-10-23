@@ -58,4 +58,10 @@ public class RecipeServiceImpl implements RecipeService {
 	public void modifyRecipe(RecipeVO vo) {
 		dao.modifyRecipe(vo);
 	}
+	public List<RecipeVO> getCateRecipeList(String nation, String emotion, String ingred){
+		nation = "%" + nation + "%";
+		emotion = "%" + emotion + "%";
+		ingred = "%" + ingred + "%";
+		return dao.getCateRecipeList(nation, emotion, ingred);
+	}
 }

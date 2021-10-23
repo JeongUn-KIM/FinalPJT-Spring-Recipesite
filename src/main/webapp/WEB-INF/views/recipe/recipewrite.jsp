@@ -24,8 +24,8 @@ String[] ingredient = {"소고기","돼지고기", "닭고기", "양고기", "�
 <!-- onsubmit에서 send() 함수 return값이 false가 되면 submit이 실행이 안됨 이걸 이용해서 안쓴 내용 말해주기-->
 <form action="/recipewrite" method="post" enctype="multipart/form-data" name="frm" onsubmit="return send()">
 <!-- 보낼것 1. 내용 -->
-<table>
 <input type="hidden" name="user_no" value="<%=User_no%>">
+<table>
 	<tr>
 		<th>제목</th>
 		<td><input type="text" name="recipe_title" id="recipe_title"></td>
@@ -53,7 +53,7 @@ String[] ingredient = {"소고기","돼지고기", "닭고기", "양고기", "�
 		<input type="radio" name="recipe_cate" value="해물류">해물류
 		<input type="radio" name="recipe_cate" value="채소류">채소류
 		<input type="radio" name="recipe_cate" value="달걀유제품류">달걀/유제품류
-		<input type="radio" name="recipe_cate" value="기타">기타
+		<input type="radio" name="recipe_cate" value="기타_cate">기타
 		</td>
 	</tr>
 <!-- 종류 -->
@@ -91,9 +91,11 @@ String[] ingredient = {"소고기","돼지고기", "닭고기", "양고기", "�
 	<tr>
 		<th>이런 감정일 때 먹으면 좋아요</th>
 		<td>
-		<input type="radio" id="recipe_emotion" name="recipe_emotion" value="좋음">좋아요
-		<input type="radio" name="recipe_emotion" value="보통">보통이예요
-		<input type="radio" name="recipe_emotion" value="안좋음">별로예요
+		<input type="radio" id="recipe_emotion" name="recipe_emotion" value="좋음">😀
+		<input type="radio" name="recipe_emotion" value="보통">😐
+		<input type="radio" name="recipe_emotion" value="슬픔">😥
+		<input type="radio" name="recipe_emotion" value="화남">🤬
+		<input type="radio" name="recipe_emotion" value="아픔">😷
 		</td>
 	</tr>
 	

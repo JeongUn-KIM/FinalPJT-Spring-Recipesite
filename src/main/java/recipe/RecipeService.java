@@ -14,4 +14,5 @@ public interface RecipeService {
 	public RecipeVO getRecipeDetail(int no);
 	public void deleteRecipe(int recipe_no);
 	public void modifyRecipe(RecipeVO vo);
+	public List<RecipeVO> getCateRecipeList(String nation, String emotion, String ingred);
 }

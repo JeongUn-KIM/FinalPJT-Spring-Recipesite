@@ -9,7 +9,9 @@
 </select>
 
 <insert id="addImg">
-	insert into rec_imgs values(#{recipe_no}, #{recipe_img1}, #{recipe_img2}, #{recipe_img3}, #{recipe_img4},
+	insert into rec_imgs (recipe_img1, recipe_img2, recipe_img3, recipe_img4,
+	 recipe_img5, recipe_img6, recipe_img7, recipe_img8, recipe_img9, recipe_img10) 
+	 values(#{recipe_img1}, #{recipe_img2}, #{recipe_img3}, #{recipe_img4},
 	 #{recipe_img5}, #{recipe_img6}, #{recipe_img7}, #{recipe_img8}, #{recipe_img9}, #{recipe_img10})
 </insert>
 <delete id="deleteImg">

@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
+
+import org.apache.catalina.Store;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import main.UserVO;
 
 
 
@@ -33,12 +38,12 @@ public class RecipeController {
 	
 	//레시피 게시판 뷰
 	@RequestMapping(value = "/recipelist", method=RequestMethod.GET)
-	public ModelAndView recipelist(String email, String emotion, String ingred, String type, String search){
+	public ModelAndView recipelist(String email, String emotion, String nation, String ingred, String type, String search){
 		
 		List<RecipeVO> recipelist = service.getRecipeList();
 		
+		List<RecipeVO> recipelist_cate = service.getCateRecipeList(nation, emotion, ingred);
 		List<RecipeVO> recipelist_search = new ArrayList<RecipeVO>();
-		
 		if(type==null) {
 			recipelist_search = null;
 		}
@@ -62,10 +67,12 @@ public class RecipeController {
 		}
 		
 		ModelAndView mv = new ModelAndView();
+		mv.addObject("recipelist_cate", recipelist_cate);
 		mv.addObject("recipelist_search", recipelist_search);
 		mv.addObject("recipelist", recipelist);
 		mv.addObject("emotion", emotion);
 		mv.addObject("ingred", ingred);
+		mv.addObject("nation", nation);
 		mv.setViewName("/recipe/recipelist");
 		return mv;
 	}
@@ -114,10 +121,6 @@ public class RecipeController {
 		RecipeVO recipeVO = new RecipeVO();
 		RecipeDescVO descVO = new RecipeDescVO();
 		RecipeImgVO imgVO = new RecipeImgVO();
-		//레시피 번호 저장 현재 recipe_no 시퀀스 없음
-		recipeVO.setRecipe_no(1);
-		imgVO.setRecipe_no(1);
-		descVO.setRecipe_no(1);
 		//세션으로 유저넘버 받기 user_no
 		recipeVO.setUser_no(user_no);
 		recipeVO.setRecipe_title(recipe_title);
@@ -203,20 +206,32 @@ public class RecipeController {
 		return "/recipelist";
 	}
 	@RequestMapping(value="/recipemodify", method=RequestMethod.GET )
-	public ModelAndView recipemodifyview(int recipe_no) {
+	public ModelAndView recipemodifyview(int recipe_no, HttpSession session) {
+		ModelAndView mv = new ModelAndView();
 		RecipeImgVO img = imgservice.getImgOne(recipe_no);
 		RecipeDescVO desc= descservice.getDescOne(recipe_no);
 		RecipeVO recipe= service.getRecipeDetail(recipe_no);
-		ModelAndView mv = new ModelAndView();
+		//아이디 정보가 없으면 진입 불가
+		UserVO vo = (UserVO)session.getAttribute("login_info");
+		if(vo==null) {
+			mv.setViewName("/recipe/usererror");
+			return mv;
+		}
+		int user_no = vo.getUser_no();
+		//아이디 정보가 있지만 관리자가 아니거나 다른 아이디확인 true면 수정페이지 진입 가능 false면 에러페이지로 이동
+		if(user_no==1 || user_no==recipe.getUser_no()) {
 		mv.addObject("img", img);
 		mv.addObject("desc", desc);
 		mv.addObject("recipe", recipe);
 		mv.setViewName("/recipe/recipemodify");
 		return mv;
+		}
+		mv.setViewName("/recipe/usernoerror");
+		return mv;
 	}
 	@RequestMapping(value="/recipemodify", method=RequestMethod.POST )
-	public String recipemodify(int user_no, int recipe_no, String recipe_title, String recipe_name, MultipartFile recipe_img1, MultipartFile recipe_img2, MultipartFile recipe_img3, MultipartFile recipe_img4, MultipartFile recipe_img5, MultipartFile recipe_img6, MultipartFile recipe_img7, MultipartFile recipe_img8, MultipartFile recipe_img9, MultipartFile recipe_img10,
-			String img1, String img2, String img3, String img4, String img5, String img6, String img7, String img8, String img9, String img10,
+	public String recipemodify(int recipe_no, String recipe_title, String recipe_name, MultipartFile recipe_img, MultipartFile recipe_img1, MultipartFile recipe_img2, MultipartFile recipe_img3, MultipartFile recipe_img4, MultipartFile recipe_img5, MultipartFile recipe_img6, MultipartFile recipe_img7, MultipartFile recipe_img8, MultipartFile recipe_img9, MultipartFile recipe_img10,
+			String img, String img1, String img2, String img3, String img4, String img5, String img6, String img7, String img8, String img9, String img10,
 			String recipe_desc, String recipe_cate, String recipe_emotion, String ingredient, String recipe_nation ) throws IOException  {
 		
 		RecipeVO recipeVO = new RecipeVO();
@@ -226,21 +241,20 @@ public class RecipeController {
 		recipeVO.setRecipe_no(recipe_no);
 		imgVO.setRecipe_no(recipe_no);
 		descVO.setRecipe_no(recipe_no);
-		//세션으로 유저넘버 받기 user_no
-		recipeVO.setUser_no(user_no);
+		//제목, 음식이름, 감정, 분류, 종류 vo 저장
 		recipeVO.setRecipe_title(recipe_title);
 		recipeVO.setRecipe_name(recipe_name);
 		recipeVO.setRecipe_emotion(recipe_emotion);
+		recipeVO.setRecipe_ingredient(ingredient);
+		recipeVO.setRecipe_cate(recipe_cate);
+		recipeVO.setRecipe_nation(recipe_nation);
 		
 		//name=recipe_desc가 11개 있어서 분리
 		String[] desc = recipe_desc.split(",");
 		
 		//음식 설명 vo에 저장
 		descVO.setRecipe_desc(desc[0]);
-		//재료, 카테고리, 음식종류 vo저장 현재 recipe_no 시퀀스 없음
-		recipeVO.setRecipe_ingredient(ingredient);
-		recipeVO.setRecipe_cate(recipe_cate);
-		recipeVO.setRecipe_nation(recipe_nation);
+		
 		
 		String filename;
 		String ext;
@@ -248,7 +262,29 @@ public class RecipeController {
 		String savePath = "c:/kdigital2/upload/";
 		File file;
 		
-		//1. 수정 하면 수정된 이미지 저장
+		//썸네일 사진 저장
+		if(!recipe_img.isEmpty()) {
+			filename = recipe_img.getOriginalFilename();
+			//확장자
+			ext = (filename.substring(filename.lastIndexOf(".")));
+			//파일명
+			filename = filename.substring(0, filename.lastIndexOf("."))+getUuid()+ext;
+			//파일 저장
+			file = new File(savePath + filename);
+			//저장
+			recipe_img.transferTo(file);
+			recipeVO.setRecipe_img(filename);
+			
+		}
+		else {
+			//2.1 수정 안하면 기존 이미지 그대로 사용하는데 기존이미지 있다면 그대로 사용
+			if(img!=null) {
+				recipeVO.setRecipe_img(img);
+			}
+			//2.2 수정 안하면 기존 이미지 그대로 사용하는데 기존 이미지도 없다 아무일도 없다.
+		}
+		
+		//1. 레시피 사진 수정 하면 수정된 이미지 저장
 		if(!recipe_img1.isEmpty() && !desc[1].isEmpty()) {
 			filename = recipe_img1.getOriginalFilename();
 			//확장자
@@ -260,11 +296,13 @@ public class RecipeController {
 			//저장
 			recipe_img1.transferTo(file);
 			
+			//store(recipe_img1);
 			imgVO.setRecipe_img1(filename);
 			descVO.setRecipe_desc1(desc[1]);
 		}
 		else {
-			if(!img1.isEmpty() && !desc[1].isEmpty()) {//2.1 수정 안하면 기존 이미지 그대로 사용하는데 기존이미지가 있다.
+			//2.1 수정 안하면 기존 이미지 그대로 사용하는데 기존이미지 있다면 그대로 사용
+			if(img1!=null && !desc[1].isEmpty()) {
 				imgVO.setRecipe_img1(img1);
 				descVO.setRecipe_desc1(desc[1]);
 			}
@@ -286,7 +324,7 @@ public class RecipeController {
 			descVO.setRecipe_desc2(desc[2]);
 		}
 		else {
-			if(!img2.isEmpty() && !desc[2].isEmpty()) {
+			if(img2!=null && !desc[2].isEmpty()) {
 				imgVO.setRecipe_img2(img2);
 				descVO.setRecipe_desc2(desc[2]);
 			}
@@ -306,7 +344,7 @@ public class RecipeController {
 			descVO.setRecipe_desc3(desc[3]);
 		}
 		else {
-			if(!img3.isEmpty() && !desc[3].isEmpty()) {
+			if(img3!=null && !desc[3].isEmpty()) {
 				imgVO.setRecipe_img3(img3);
 				descVO.setRecipe_desc3(desc[3]);
 			}
@@ -326,7 +364,7 @@ public class RecipeController {
 			descVO.setRecipe_desc4(desc[4]);
 		}
 		else {
-			if(!img4.isEmpty() && !desc[4].isEmpty()) {
+			if(img4!=null && !desc[4].isEmpty()) {
 				imgVO.setRecipe_img4(img4);
 				descVO.setRecipe_desc4(desc[4]);
 			}
@@ -346,7 +384,7 @@ public class RecipeController {
 			descVO.setRecipe_desc5(desc[5]);
 		}
 		else {
-			if(!img5.isEmpty() && !desc[5].isEmpty()) {
+			if(img5!=null && !desc[5].isEmpty()) {
 				imgVO.setRecipe_img5(img5);
 				descVO.setRecipe_desc5(desc[5]);
 			}
@@ -366,7 +404,7 @@ public class RecipeController {
 			descVO.setRecipe_desc6(desc[6]);
 		}
 		else {
-			if(!img6.isEmpty() && !desc[6].isEmpty()) {
+			if(img6!=null && !desc[6].isEmpty()) {
 				imgVO.setRecipe_img6(img6);
 				descVO.setRecipe_desc6(desc[6]);
 			}
@@ -386,7 +424,7 @@ public class RecipeController {
 			descVO.setRecipe_desc7(desc[7]);
 		}
 		else {
-			if(!img7.isEmpty() && !desc[7].isEmpty()) {
+			if(img7!=null && !desc[7].isEmpty()) {
 				imgVO.setRecipe_img7(img7);
 				descVO.setRecipe_desc7(desc[7]);
 			}
@@ -406,7 +444,7 @@ public class RecipeController {
 			descVO.setRecipe_desc8(desc[8]);
 		}
 		else {
-			if(!img8.isEmpty() && !desc[8].isEmpty()) {
+			if(img8!=null && !desc[8].isEmpty()) {
 				imgVO.setRecipe_img8(img8);
 				descVO.setRecipe_desc8(desc[8]);
 			}
@@ -426,7 +464,7 @@ public class RecipeController {
 			descVO.setRecipe_desc9(desc[9]);
 		}
 		else {
-			if(!img9.isEmpty() && !desc[9].isEmpty()) {
+			if(img9!=null && !desc[9].isEmpty()) {
 				imgVO.setRecipe_img9(img9);
 				descVO.setRecipe_desc9(desc[9]);
 			}
@@ -446,7 +484,7 @@ public class RecipeController {
 			descVO.setRecipe_desc10(desc[10]);
 		}
 		else {
-			if(!img10.isEmpty() && !desc[10].isEmpty()) {
+			if(img10!=null && !desc[10].isEmpty()) {
 				imgVO.setRecipe_img10(img10);
 				descVO.setRecipe_desc10(desc[10]);
 			}
@@ -454,9 +492,22 @@ public class RecipeController {
 		service.modifyRecipe(recipeVO);
 		descservice.modifyDesc(descVO);
 		imgservice.modifyImg(imgVO);
-		return "/recipe/recipemodify";
+		return "redirect:recipedetail?no=" + recipe_no;
+
 	}
 	public static String getUuid() {
 		return UUID.randomUUID().toString().replaceAll("-", "").substring(0, 10);
+	}
+	public static void store(MultipartFile img) throws IOException {
+		String savePath = "c:/kdigital2/upload/";
+		String filename = img.getOriginalFilename();
+		//확장자
+		String ext = (filename.substring(filename.lastIndexOf(".")));
+		//파일명
+		filename = filename.substring(0, filename.lastIndexOf("."))+getUuid()+ext;
+		//파일 저장
+		File file = new File(savePath + filename);
+		//저장
+		img.transferTo(file);
 	}
 }

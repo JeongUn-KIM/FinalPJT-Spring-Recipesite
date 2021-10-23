@@ -10,23 +10,24 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include>
-<form id="condition" name="recipelist_page" action="/recipelist">
-	<input type="hidden" name="emotion" value="">
-	<input type="hidden" name="ingred" value="">
 
-</form>
 <!-- 필터 -->
+<form id="condition" name="recipelist_page" action="/recipelist">
+	<input type="hidden" name="nation" value="">
+	<input type="hidden" name="ingred" value="">
+	<input type="hidden" name="emotion" value="">
+</form>
 <table border="1">
 	<tr>
 		<th>
-			<span>기분별</span><br>
+			<span>종류별</span><br>
 			<span>재료별</span><br>
-			<span>종류별</span>
+			<span>기분별</span>
 		</th>
 		<td>
-			<a href="javascript:goSearchRecipe('emotion','')">전체</a> / <a href="javascript:goSearchRecipe('emotion','1')">좋아요</a> / <a href="javascript:goSearchRecipe('emotion','2')">별로예요</a> / <a href="javascript:goSearchRecipe('emotion','3')">평범해요</a> / <a href="javascript:goSearchRecipe('emotion','4')">추천해주세요</a><br>
-			<a href="javascript:goSearchRecipe('ingred','')">전체</a> / <a href="javascript:goSearchRecipe('ingred','1')">육류</a> &nbsp;&nbsp;&nbsp;/ <a href="javascript:goSearchRecipe('ingred','2')">채소류</a> &nbsp;&nbsp;/ <a href="javascript:goSearchRecipe('ingred','3')">해물류</a> &nbsp;&nbsp;/ <a href="javascript:goSearchRecipe('ingred','4')">달걀/유제품</a> / <a href="javascript:goSearchRecipe('ingred','5')">기타</a><br>
-			<a href="javascript:goSearchRecipe('nation','')">전체</a> / <a href="javascript:goSearchRecipe('nation','1')">한식</a> &nbsp;&nbsp;&nbsp;/ <a href="javascript:goSearchRecipe('nation','2')">일식</a> &nbsp;&nbsp;/ <a href="javascript:goSearchRecipe('nation','3')">양식</a> &nbsp;&nbsp;/ <a href="javascript:goSearchRecipe('nation','4')">중식</a> / <a href="javascript:goSearchRecipe('nation','5')">기타</a>
+			<a href="javascript:goSearchRecipe('nation','')">전체</a> &nbsp;/ <a href="javascript:goSearchRecipe('nation','1')">한식</a> &nbsp;&nbsp;&nbsp;/ <a href="javascript:goSearchRecipe('nation','2')">일식</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ <a href="javascript:goSearchRecipe('nation','3')">양식</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ <a href="javascript:goSearchRecipe('nation','4')">중식</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ <a href="javascript:goSearchRecipe('nation','5')">기타</a><br>
+			<a href="javascript:goSearchRecipe('ingred','')">전체</a> &nbsp;/ <a href="javascript:goSearchRecipe('ingred','1')">육류</a> &nbsp;&nbsp;&nbsp;/ <a href="javascript:goSearchRecipe('ingred','2')">채소류</a> &nbsp;&nbsp;/ <a href="javascript:goSearchRecipe('ingred','3')">해물류</a> &nbsp;&nbsp;&nbsp;/ <a href="javascript:goSearchRecipe('ingred','4')">달걀/유제품</a> / <a href="javascript:goSearchRecipe('ingred','5')">기타</a><br>
+			<a href="javascript:goSearchRecipe('emotion','')">전체</a> &nbsp;/ <a href="javascript:goSearchRecipe('emotion','1')">좋아요</a> / <a href="javascript:goSearchRecipe('emotion','2')">별로예요</a> / <a href="javascript:goSearchRecipe('emotion','3')">평범해요</a> / <a href="javascript:goSearchRecipe('emotion','4')">추천해주세요</a>
 		</td>
 	</tr>
 </table>
