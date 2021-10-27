@@ -80,7 +80,7 @@ public class RecipeVO {
 	}
 
 	public String toString() {
-		return recipe_no + " " + user_no + " " + recipe_date; 
+		return recipe_no + ""; 
 	}
 	
 }

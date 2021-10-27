@@ -14,6 +14,7 @@ import org.apache.catalina.Store;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,17 +39,17 @@ public class RecipeController {
 	
 	//레시피 게시판 뷰
 	@RequestMapping(value = "/recipelist", method=RequestMethod.GET)
-	public ModelAndView recipelist(String email, String emotion, String nation, String ingred, String type, String search){
-		
-		List<RecipeVO> recipelist = service.getRecipeList();
-		
-		List<RecipeVO> recipelist_cate = service.getCateRecipeList(nation, emotion, ingred);
+	public ModelAndView recipelist(String email, String emotion, String nation, String cate, String type, String search){
+		if(nation==null) {nation="";}
+		if(cate==null) {cate="";}
+		if(emotion==null) {emotion="";}
+		List<RecipeVO> recipelist_cate = service.getCateRecipeList(nation, emotion, cate);
 		List<RecipeVO> recipelist_search = new ArrayList<RecipeVO>();
 		if(type==null) {
 			recipelist_search = null;
 		}
 		else if(type.equals("recipe_title")) {
-			recipelist_search = service.SearchTitle(search);
+			recipelist_search = service.SearchTitle(nation, emotion, cate, search);
 		}
 		else if(type.equals("recipe_desc")) {
 			List<Integer> recipe_no = descservice.SearchDesc(search);
@@ -57,21 +58,17 @@ public class RecipeController {
 			}
 		}
 		else if(type.equals("recipe_name")) {
-			recipelist_search = service.SearchName(search);
+			recipelist_search = service.SearchName(nation, emotion, cate, search);
 		}
 		else if(type.equals("recipe_ingredient")) {
-			recipelist_search = service.SearchIngredient(search);
-		}
-		else if(type.equals("recipe_nation")) {
-			recipelist_search = service.SearchNation(search);
+			recipelist_search = service.SearchIngredient(nation, emotion, cate, search);
 		}
 		
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("recipelist_cate", recipelist_cate);
 		mv.addObject("recipelist_search", recipelist_search);
-		mv.addObject("recipelist", recipelist);
+		mv.addObject("recipelist", recipelist_cate);
 		mv.addObject("emotion", emotion);
-		mv.addObject("ingred", ingred);
+		mv.addObject("cate", cate);
 		mv.addObject("nation", nation);
 		mv.setViewName("/recipe/recipelist");
 		return mv;
@@ -191,6 +188,7 @@ public class RecipeController {
 		RecipeImgVO img = imgservice.getImgOne(no);
 		RecipeDescVO desc= descservice.getDescOne(no);
 		RecipeVO recipe= service.getRecipeDetail(no);
+		service.raiseRecipeHits(no);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("img", img);
 		mv.addObject("desc", desc);
@@ -199,11 +197,22 @@ public class RecipeController {
 		return mv;
 	}
 	@RequestMapping("/recipedelete")
-	public String recipedelete(int recipe_no) {
-		service.deleteRecipe(recipe_no);
-		descservice.deleteDesc(recipe_no);
-		imgservice.deleteImg(recipe_no);
-		return "/recipelist";
+	public String recipedelete(int recipe_no, HttpSession session) {
+		RecipeVO recipe = service.getRecipeDetail(recipe_no);
+		//아이디 정보가 없으면 진입 불가
+		UserVO vo = (UserVO)session.getAttribute("login_info");
+		if(vo==null) {
+			return "/recipe/usererror";
+		}
+		int user_no = vo.getUser_no();
+		//아이디 정보가 있지만 관리자가 아니거나 다른 아이디확인 true면 수정페이지 진입 가능 false면 에러페이지로 이동
+		if(user_no==1 || user_no==recipe.getUser_no()) {
+			descservice.deleteDesc(recipe_no);
+			imgservice.deleteImg(recipe_no);
+			service.deleteRecipe(recipe_no);
+			return "/recipe/recipelist";
+		}
+		return "/recipe/usernoerror";
 	}
 	@RequestMapping(value="/recipemodify", method=RequestMethod.GET )
 	public ModelAndView recipemodifyview(int recipe_no, HttpSession session) {
@@ -211,6 +220,7 @@ public class RecipeController {
 		RecipeImgVO img = imgservice.getImgOne(recipe_no);
 		RecipeDescVO desc= descservice.getDescOne(recipe_no);
 		RecipeVO recipe= service.getRecipeDetail(recipe_no);
+		
 		//아이디 정보가 없으면 진입 불가
 		UserVO vo = (UserVO)session.getAttribute("login_info");
 		if(vo==null) {
@@ -510,4 +520,5 @@ public class RecipeController {
 		//저장
 		img.transferTo(file);
 	}
+
 }

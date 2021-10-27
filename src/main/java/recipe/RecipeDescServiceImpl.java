@@ -20,6 +20,7 @@ public class RecipeDescServiceImpl implements RecipeDescService {
 		dao.addDesc(vo);
 	}
 	public List<Integer> SearchDesc(String search){
+		search = "%" + search + "%";
 		return dao.SearchDesc(search);
 	}
 	public void deleteDesc(int recipe_no) {

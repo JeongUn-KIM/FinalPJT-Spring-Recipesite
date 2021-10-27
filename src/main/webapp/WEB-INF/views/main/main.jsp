@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +15,7 @@
 <body>
 <jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include>
 
-<form action="/recipewrite" method="post" enctype="multipart/form-data" name="frm" onsubmit="return find()">
+<form action="/find" method="get" onsubmit="return find()">
 <table border="1">
 <tr><td><input type="button" id="find" value="레시피를 추천받고 싶나요?"></td></tr>
 
@@ -59,17 +60,28 @@
 	</tr>
 	<tr>
 		<td id="ingredient_a">
-		<input class="ingredient" type="checkbox" name="ingredient" value="땅콩">땅콩
-		<input class="ingredient" type="checkbox" name="ingredient" value="대두">대두
-		<input class="ingredient" type="checkbox" name="ingredient" value="유제품">유제품
-		<input class="ingredient" type="checkbox" name="ingredient" value="갑각류조개류">갑각류/조개류
-		<input class="ingredient" type="checkbox" name="ingredient" value="생선">생선
-		<input class="ingredient" type="checkbox" name="ingredient" value="밀">밀
+		<input class="ingredient" type="checkbox" name="ingred" value="땅콩">땅콩
+		<input class="ingredient" type="checkbox" name="ingred" value="대두">대두
+		<input class="ingredient" type="checkbox" name="ingred" value="유제품">유제품
+		<input class="ingredient" type="checkbox" name="ingred" value="갑각류조개류">갑각류/조개류
+		<input class="ingredient" type="checkbox" name="ingred" value="생선">생선
+		<input class="ingredient" type="checkbox" name="ingred" value="밀">밀
 		</td>
 	</tr>
 </table>
 	<input class="btn" type="submit" value="Find Recipe">
 </form>
+
+
+<table border="1">
+	<tr><th>추천레시피</th></tr>
+	<c:forEach items="${findList }" var="recipe">
+		<tr>
+			<td><a href="/recipedetail?no=${recipe.recipe_no }"><img src="/upload/${recipe.recipe_img }"></a></td>
+			<td><a href="/recipedetail?no=${recipe.recipe_no }">${recipe.recipe_title }</a></td>
+		</tr>
+	</c:forEach>
+</table>
 </body>
 <script type="text/javascript">
 //재료 선택 팝업창
@@ -90,9 +102,7 @@
 		$(".cate").click(function(){
 			$("#ingredient_q").fadeIn();
 			setTimeout(function(){$("#ingredient_a").fadeIn();}, 1000);
-		})
-		$(".ingredient").click(function(){
-			$(".btn").fadeIn();
+			setTimeout(function(){$(".btn").fadeIn();}, 2000);
 		})
 	})
 </script>

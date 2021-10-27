@@ -17,16 +17,13 @@
 	where r between #{number} - 5 and #{number}
 </select>
 <select id="SearchTitle" resultType="recipeVO">
-	select * from recipe where recipe_title like #{search}
+	select * from recipe where recipe_title like #{search} and recipe_emotion like #{emotion} and recipe_cate like #{cate} and recipe_nation like #{nation}
 </select>
 <select id="SearchName" resultType="recipeVO">
-	select * from recipe where recipe_desc like #{search}
+	select * from recipe where recipe_desc like #{search} and recipe_emotion like #{emotion} and recipe_cate like #{cate} and recipe_nation like #{nation}
 </select>
 <select id="SearchIngredient" resultType="recipeVO">
-	select * from recipe where recipe_Ingredient like #{search}
-</select>
-<select id="SearchNation" resultType="recipeVO">
-	select * from recipe where recipe_Nation like #{search}
+	select * from recipe where recipe_Ingredient like #{search} and recipe_emotion like #{emotion} and recipe_cate like #{cate} and recipe_nation like #{nation}
 </select>
 <insert id="addRecipe" parameterType="recipeVO">
 	insert into recipe (user_no, recipe_hits, recipe_date, recipe_img, recipe_title, recipe_name, recipe_ingredient,
@@ -46,8 +43,23 @@
 	where recipe_no = #{recipe_no}
 </update>
 <select id="getCateRecipeList" resultType="recipeVO">
-	select * from recipe where recipe_emotion like #{emotion} and recipe_ingredient like #{ingred} and recipe_nation like #{nation}
+	select * from recipe where recipe_emotion like #{emotion} and recipe_cate like #{cate} and recipe_nation like #{nation}
 </select>
+<update id="raiseRecipeHits">
+	update recipe set recipe_hits = recipe_hits + 1 where recipe_no = #{no}
+</update>
+<select id="findRecipe" resultType="recipeVO">
+	select * from recipe where recipe_emotion like #{emotion} and recipe_nation like #{nation} and recipe_cate like #{cate}
+</select>
+
+<!-- <select id="findRecipe"  resultType="recipeVO" parameterType="String[]">
+ 	select * from recipe
+ 	where recipe_emotion like #{emotion} and recipe_cate like #{cate} and recipe_nation like #{nation} and 
+ 	<foreach collection="array" item="not_eat" separator="and"  >
+ 		recipe_ingredient not like #{not_eat}
+ 	</foreach>
+</select>
+ -->
 <!-- 
 <select id="emplist" resultType="empVO">
  select * from employees

@@ -11,6 +11,58 @@
 <style type="text/css">
 .modal{ position:absolute; width:50%; height:50%; background: rgba(0,0,0,0.8); top:0; left:10;display:none;  }
 .modalbox{ border: 1px solid; top: 10; bottom: 10;}
+
+#tooltip {
+    width: 600px;
+    background: #f3f3f3;
+    border: 1px solid #d8d8d8;
+    text-align: center;
+}
+#tooltip div {
+    position: relative;
+    display: inline-block;
+}
+
+span {
+    display: block;
+    width: 37px;
+    padding: 2px 16px;
+    cursor: pointer;
+}
+.tooltip_box {
+  display: none;
+  position: absolute;
+  width: 200px;
+  padding: 8px;
+  left: -73px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;  
+  border-radius: 8px;
+  background: #333;
+  color: #fff;
+  font-size: 14px;
+}
+
+.tooltip_box:after {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  margin-left: -10px;
+  border: solid transparent;
+  border-color: rgba(51, 51, 51, 0);
+  border-bottom-color: #333;
+  border-width: 10px;
+  pointer-events: none;
+  content: " ";
+}
+
+span:hover + p.tooltip_box {
+  display: block;
+  
+
+}
 </style>
 </head>
 <body>
@@ -25,41 +77,41 @@ String[] ingredient = {"소고기","돼지고기", "닭고기", "양고기", "�
 <form action="/recipewrite" method="post" enctype="multipart/form-data" name="frm" onsubmit="return send()">
 <!-- 보낼것 1. 내용 -->
 <input type="hidden" name="user_no" value="<%=User_no%>">
-<table>
+<table border="1">
 	<tr>
 		<th>제목</th>
-		<td><input type="text" name="recipe_title" id="recipe_title"></td>
+		<td colspan="3"><input type="text" name="recipe_title" id="recipe_title"></td>
 	</tr>
 	<tr>
 		<th>썸네일 사진</th>
-		<td>
+		<td colspan="3">
 		<input type="file" name="recipe_img" id="recipe_img" accept="image/*" onchange="view(event, 'img');">
 		<div id="img"></div>
 		</td>
 	</tr>
 	<tr>
 		<th>음식 이름</th>
-		<td><input type="text" name="recipe_name" id="recipe_name"></td>
+		<td colspan="3"><input type="text" name="recipe_name" id="recipe_name"></td>
 	</tr>
 	<tr>
 		<th>음식 설명</th>
-		<td><textarea rows="5" cols="50" name="recipe_desc" id="recipe_desc"></textarea></td>
+		<td colspan="3"><textarea rows="5" cols="50" name="recipe_desc" id="recipe_desc"></textarea></td>
 	</tr>
 <!-- 분류 -->
 	<tr>
 		<th>분류</th>
-		<td>
+		<td colspan="3">
 		<input type="radio" id="recipe_cate" name="recipe_cate" value="육류">육류
 		<input type="radio" name="recipe_cate" value="해물류">해물류
 		<input type="radio" name="recipe_cate" value="채소류">채소류
 		<input type="radio" name="recipe_cate" value="달걀유제품류">달걀/유제품류
-		<input type="radio" name="recipe_cate" value="기타_cate">기타
+		<input type="radio" name="recipe_cate" value="기타">기타
 		</td>
 	</tr>
 <!-- 종류 -->
 	<tr>
 		<th>음식 종류</th>
-		<td>
+		<td colspan="3">
 		<input type="radio" id="recipe_nation" name="recipe_nation" value="한식">한식
 		<input type="radio" name="recipe_nation" value="일식">일식
 		<input type="radio" name="recipe_nation" value="양식">양식
@@ -70,7 +122,7 @@ String[] ingredient = {"소고기","돼지고기", "닭고기", "양고기", "�
 <!-- 팝업창 재료 -->
 	<tr>
 		<th>재료</th>
-		<td>
+		<td colspan="3">
 		<div class="a">
 			<button class="openingred" type="button" id="ingredient">재료 선택</button>
 			<div class="modal" >
@@ -89,13 +141,15 @@ String[] ingredient = {"소고기","돼지고기", "닭고기", "양고기", "�
 	
 <!-- 감정 -->
 	<tr>
-		<th>이런 감정일 때 먹으면 좋아요</th>
-		<td>
-		<input type="radio" id="recipe_emotion" name="recipe_emotion" value="좋음">😀
-		<input type="radio" name="recipe_emotion" value="보통">😐
-		<input type="radio" name="recipe_emotion" value="슬픔">😥
-		<input type="radio" name="recipe_emotion" value="화남">🤬
-		<input type="radio" name="recipe_emotion" value="아픔">😷
+		<th>어떤 기분일 때 먹으면<br> 도움이 될까요?</th>
+		<td colspan="3">
+		<div id="tooltip">
+		<input type="radio" name="recipe_emotion" value="좋음"><div><span>😀</span><p class="tooltip_box">기분이 좋을 땐 손이 조금 가더라도 근사한 음식이 알맞아요</p></div>
+		<input type="radio" name="recipe_emotion" value="입맛없음"><div><span>😐</span><p class="tooltip_box">입맛이 없을 땐 입맛을 돋궈주는 상큼한 음식이 알맞아요</p></div>
+		<input type="radio" name="recipe_emotion" value="우울"><div><span>😥</span><p class="tooltip_box">우울할 땐 마그네슘, 비타민 B, 엽산 등이 풍부한 음식이 알맞아요</p></div>
+		<input type="radio" name="recipe_emotion" value="화남"><div><span>🤬</span><p class="tooltip_box">화가 날 땐 비타민 D, 오메가 3 등이 들어간 음식이나, 매운음식이 알맞아요</p></div>
+		<input type="radio" name="recipe_emotion" value="아픔"><div><span>😷</span><p class="tooltip_box">아플 땐 든든한 고기류나 염분이 많지 않은 속편한 음식이 알맞아요</p></div>
+		</div>
 		</td>
 	</tr>
 	
