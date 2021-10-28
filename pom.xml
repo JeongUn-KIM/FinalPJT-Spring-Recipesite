@@ -64,6 +64,7 @@
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
         </dependency>
+
         <!-- json 데이터 parsing을 위한 라이브러리 -->
 		<dependency>           
 		   <groupId>org.json</groupId>
@@ -76,7 +77,6 @@
 			  <artifactId>commons-fileupload</artifactId>
  		      <version>1.4</version>
 		</dependency>
-		
 	</dependencies>
 	
 

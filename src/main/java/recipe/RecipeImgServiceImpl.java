@@ -25,5 +25,8 @@ public class RecipeImgServiceImpl implements RecipeImgService {
 	public void deleteImg(int recipe_no) {
 		dao.deleteImg(recipe_no);
 	}
+	public void modifyImg(RecipeImgVO vo) {
+		dao.modifyImg(vo);
+	}
 	
 }

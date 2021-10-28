@@ -1,5 +1,6 @@
 package recipe;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -7,22 +8,30 @@ import org.springframework.web.multipart.MultipartFile;
 public class RecipeVO {
 	int recipe_no, user_no;
 	Date recipe_date;
-	String recipe_img1, recipe_title, recipe_name, recipe_ingredient, recipe_emotion;
+	String recipe_img, recipe_title, recipe_name, recipe_ingredient, recipe_emotion;
 	String recipe_cate;
 	String recipe_nation;
-	int search;
+
+	public RecipeVO() {	}
 	
+	public RecipeVO(int recipe_no, String recipe_img, String recipe_title) {
+		super();
+		this.recipe_no = recipe_no;
+		this.recipe_img = recipe_img;
+		this.recipe_title = recipe_title;
+	}
+
 	public int getRecipe_no() {
 		return recipe_no;
 	}
 	public void setRecipe_no(int recipe_no) {
 		this.recipe_no = recipe_no;
 	}
-	public String getRecipe_img1() {
-		return recipe_img1;
+	public String getRecipe_img() {
+		return recipe_img;
 	}
-	public void setRecipe_img1(String recipe_img1) {
-		this.recipe_img1 = recipe_img1;
+	public void setRecipe_img(String recipe_img1) {
+		this.recipe_img = recipe_img1;
 	}
 	public int getUser_no() {
 		return user_no;
@@ -30,8 +39,10 @@ public class RecipeVO {
 	public void setUser_no(int user_no) {
 		this.user_no = user_no;
 	}
-	public Date getRecipe_date() {
-		return recipe_date;
+	public String getRecipe_date() {
+		SimpleDateFormat format1 = new SimpleDateFormat("yy/MM/dd HH:mm:ss");
+		String date = format1.format(recipe_date);
+		return date;
 	}
 	public void setRecipe_date(Date recipe_date) {
 		this.recipe_date = recipe_date;
@@ -75,15 +86,9 @@ public class RecipeVO {
 	public void setRecipe_cate(String recipe_cate) {
 		this.recipe_cate = recipe_cate;
 	}
-	
-	public int getSearch() {
-		return search;
-	}
-	public void setSearch(int search) {
-		this.search = search;
-	}
+
 	public String toString() {
-		return recipe_no + " " + user_no + " " + recipe_date; 
+		return recipe_no + ""; 
 	}
 	
 }
