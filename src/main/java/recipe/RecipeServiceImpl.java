@@ -19,35 +19,43 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	@Override
-	public List<RecipeVO> moreRecipeList(int number) {
-		// TODO Auto-generated method stub
-		return dao.moreRecipeList(number);
+	public List<RecipeVO> moreRecipeList(int number, String emotion, String nation, String cate, String type, String search){
+		nation = "%" + nation + "%";
+		emotion = "%" + emotion + "%";
+		cate = "%" + cate + "%";
+		search = "%" + search + "%";
+		return dao.moreRecipeList(number, emotion, nation, cate, type, search);
+	}
+	public List<RecipeVO> getCateRecipeList(int number, String nation, String emotion, String cate){
+		nation = "%" + nation + "%";
+		emotion = "%" + emotion + "%";
+		cate = "%" + cate + "%";
+		return dao.getCateRecipeList(number, nation, emotion, cate);
+	}
+	@Override
+	public List<RecipeVO> SearchTitle(int number, String nation, String emotion, String cate, String search) {
+		nation = "%" + nation + "%";
+		emotion = "%" + emotion + "%";
+		cate = "%" + cate + "%";
+		search = "%" + search + "%";
+		return dao.SearchTitle(number, nation, emotion, cate, search);
 	}
 
 	@Override
-	public List<RecipeVO> SearchTitle(String nation, String emotion, String cate, String search) {
+	public List<RecipeVO> SearchName(int number, String nation, String emotion, String cate, String search) {
 		nation = "%" + nation + "%";
 		emotion = "%" + emotion + "%";
 		cate = "%" + cate + "%";
 		search = "%" + search + "%";
-		return dao.SearchTitle(nation, emotion, cate, search);
-	}
-
-	@Override
-	public List<RecipeVO> SearchName(String nation, String emotion, String cate, String search) {
-		nation = "%" + nation + "%";
-		emotion = "%" + emotion + "%";
-		cate = "%" + cate + "%";
-		search = "%" + search + "%";
-		return dao.SearchName(nation, emotion, cate, search);
+		return dao.SearchName(number, nation, emotion, cate, search);
 	}
 	@Override
-	public List<RecipeVO> SearchIngredient(String nation, String emotion, String cate, String search) {
+	public List<RecipeVO> SearchIngredient(int number, String nation, String emotion, String cate, String search) {
 		nation = "%" + nation + "%";
 		emotion = "%" + emotion + "%";
 		cate = "%" + cate + "%";
 		search = "%" + search + "%";
-		return dao.SearchIngredient(nation, emotion, cate, search);
+		return dao.SearchIngredient(number, nation, emotion, cate, search);
 	}
 	@Override
 	public void addRecipe(RecipeVO vo) {
@@ -66,12 +74,7 @@ public class RecipeServiceImpl implements RecipeService {
 	public void modifyRecipe(RecipeVO vo) {
 		dao.modifyRecipe(vo);
 	}
-	public List<RecipeVO> getCateRecipeList(String nation, String emotion, String cate){
-		nation = "%" + nation + "%";
-		emotion = "%" + emotion + "%";
-		cate = "%" + cate + "%";
-		return dao.getCateRecipeList(nation, emotion, cate);
-	}
+
 	public List<RecipeVO> findRecipe(RecipeVO vo) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		String emotion = "%" + vo.getRecipe_emotion() + "%";

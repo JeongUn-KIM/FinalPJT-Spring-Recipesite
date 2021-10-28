@@ -12,7 +12,15 @@ public class RecipeVO {
 	String recipe_cate;
 	String recipe_nation;
 
+	public RecipeVO() {	}
 	
+	public RecipeVO(int recipe_no, String recipe_img, String recipe_title) {
+		super();
+		this.recipe_no = recipe_no;
+		this.recipe_img = recipe_img;
+		this.recipe_title = recipe_title;
+	}
+
 	public int getRecipe_no() {
 		return recipe_no;
 	}

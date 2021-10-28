@@ -7,23 +7,54 @@
 <select id="getRecipeList" resultType="recipeVO">
 	select * from recipe
 </select>
-<select id="moreRecipeList" resultType="recipeVO" parameterType="int">
-	SELECT recipe_no, recipe_title, recipe_img
+<select id="moreRecipeList" resultType="recipeVO">
+	SELECT *
 	FROM (
 	SELECT @ROWNUM := @ROWNUM + 1 AS r, recipe.*
 	FROM recipe, (SELECT @ROWNUM := 0) R
 	order by recipe_no desc
 	) A
-	where r between #{number} - 5 and #{number}
+	where r between #{number} - 5 and #{number} and recipe_nation=#{nation} and recipe_emotion=#{emotion} and recipe_cate=#{cate} and recipe_title=#{search}
+</select>
+<select id="getCateRecipeList" resultType="recipeVO">
+	SELECT *
+	FROM (
+	SELECT @ROWNUM := @ROWNUM + 1 AS r, recipe.*
+	FROM recipe, (SELECT @ROWNUM := 0) R
+	order by recipe_no desc
+	) A
+	where r between #{number} - 5 and #{number} and 
+	recipe_emotion like #{emotion} and recipe_cate like #{cate} and recipe_nation like #{nation}
 </select>
 <select id="SearchTitle" resultType="recipeVO">
-	select * from recipe where recipe_title like #{search} and recipe_emotion like #{emotion} and recipe_cate like #{cate} and recipe_nation like #{nation}
+	SELECT *
+	FROM (
+	SELECT @ROWNUM := @ROWNUM + 1 AS r, recipe.*
+	FROM recipe, (SELECT @ROWNUM := 0) R
+	order by recipe_no desc
+	) A
+	where r between #{number} - 5 and #{number} and recipe_title like #{search} and 
+	recipe_emotion like #{emotion} and recipe_cate like #{cate} and recipe_nation like #{nation}
 </select>
 <select id="SearchName" resultType="recipeVO">
-	select * from recipe where recipe_desc like #{search} and recipe_emotion like #{emotion} and recipe_cate like #{cate} and recipe_nation like #{nation}
+	SELECT *
+	FROM (
+	SELECT @ROWNUM := @ROWNUM + 1 AS r, recipe.*
+	FROM recipe, (SELECT @ROWNUM := 0) R
+	order by recipe_no desc
+	) A
+	where r between #{number} - 5 and #{number} and recipe_desc like #{search} and 
+	recipe_emotion like #{emotion} and recipe_cate like #{cate} and recipe_nation like #{nation}
 </select>
 <select id="SearchIngredient" resultType="recipeVO">
-	select * from recipe where recipe_Ingredient like #{search} and recipe_emotion like #{emotion} and recipe_cate like #{cate} and recipe_nation like #{nation}
+	SELECT *
+	FROM (
+	SELECT @ROWNUM := @ROWNUM + 1 AS r, recipe.*
+	FROM recipe, (SELECT @ROWNUM := 0) R
+	order by recipe_no desc
+	) A
+	where r between #{number} - 5 and #{number} and recipe_Ingredient like #{search} and 
+	recipe_emotion like #{emotion} and recipe_cate like #{cate} and recipe_nation like #{nation}
 </select>
 <insert id="addRecipe" parameterType="recipeVO">
 	insert into recipe (user_no, recipe_hits, recipe_date, recipe_img, recipe_title, recipe_name, recipe_ingredient,
@@ -42,9 +73,7 @@
 	recipe_nation=#{recipe_nation} 
 	where recipe_no = #{recipe_no}
 </update>
-<select id="getCateRecipeList" resultType="recipeVO">
-	select * from recipe where recipe_emotion like #{emotion} and recipe_cate like #{cate} and recipe_nation like #{nation}
-</select>
+
 <update id="raiseRecipeHits">
 	update recipe set recipe_hits = recipe_hits + 1 where recipe_no = #{no}
 </update>

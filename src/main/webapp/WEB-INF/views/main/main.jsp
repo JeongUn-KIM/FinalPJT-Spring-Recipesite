@@ -11,6 +11,57 @@
 <style>
 #emotion_q, #emotion_a, #nation_q, #nation_a ,#cate_q ,#cate_a, #ingredient_q, #ingredient_a, .btn {display:none;}
 
+#tooltip {
+    width: 800px;
+    background: #f3f3f3;
+    border: 1px solid #d8d8d8;
+    text-align: center;
+}
+#tooltip div {
+    position: relative;
+    display: inline-block;
+}
+
+span {
+    display: block;
+    width: 87px;
+    padding: 2px 16px;
+    cursor: pointer;
+}
+.tooltip_box {
+  display: none;
+  position: absolute;
+  width: 100px;
+  padding: 8px;
+  left: 0px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;  
+  border-radius: 8px;
+  background: #333;
+  color: #fff;
+  font-size: 14px;
+}
+
+.tooltip_box:after {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  margin-left: -10px;
+  border: solid transparent;
+  border-color: rgba(51, 51, 51, 0);
+  border-bottom-color: #333;
+  border-width: 10px;
+  pointer-events: none;
+  content: " ";
+}
+
+span:hover + p.tooltip_box {
+  display: block;
+  
+
+}
 </style>
 <body>
 <jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include>
@@ -24,11 +75,23 @@
 	</tr>
 	<tr>
 		<td id="emotion_a">
-		<input class="emotion" type="radio" id="recipe_emotion" name="recipe_emotion" value="좋음">😀
-		<input class="emotion" type="radio" name="recipe_emotion" value="보통">😐
-		<input class="emotion" type="radio" name="recipe_emotion" value="슬픔">😥
-		<input class="emotion" type="radio" name="recipe_emotion" value="화남">🤬
-		<input class="emotion" type="radio" name="recipe_emotion" value="아픔">😷
+			<div id="tooltip">
+				
+				<div><span><input class="emotion" type="radio" id="recipe_emotion" name="recipe_emotion" value="좋음">😀</span>
+				<p class="tooltip_box">기분 좋은 날엔 손이 조금 가더라도 근사한 음식을 해먹어봐요!</p></div>
+				
+				<div><span><input class="emotion" type="radio" name="recipe_emotion" value="입맛없음">😐</span>
+				<p class="tooltip_box">입맛이 없을 땐 입맛을 돋궈주는 상큼한 음식을 먹어봐요</p></div>
+				
+				<div><span><input class="emotion" type="radio" name="recipe_emotion" value="우울">😥</span> 
+				<p class="tooltip_box">우울함엔 마그네슘, 비타민 B, 엽산 등이 풍부한 음식을 추천드려요!</p></div>
+				
+				<div><span><input class="emotion" type="radio" name="recipe_emotion" value="화남">🤬</span>
+				<p class="tooltip_box">화가 나는 날엔  비타민 D, 오메가 3 등이 들어간 음식을 먹어봐요! 또한, 매운음식은 아드레날린과 엔도르핀을 분비합니다.</p></div>
+				
+				<div><span><input class="emotion" type="radio" name="recipe_emotion" value="아픔">😷</span>
+				<p class="tooltip_box">아플 땐 든든한 고기류나 염분이 많지 않은 속편한 음식을 먹어보세요</p></div>
+			</div>
 		</td>
 	</tr>
 	<tr>
@@ -36,11 +99,13 @@
 	</tr>
 	<tr>
 		<td id="nation_a">
-		<input class="nation" type="radio" id="recipe_nation" name="recipe_nation" value="한식">한식
-		<input class="nation" type="radio" name="recipe_nation" value="일식">일식
-		<input class="nation" type="radio" name="recipe_nation" value="양식">양식
-		<input class="nation" type="radio" name="recipe_nation" value="중식">중식
-		<input class="nation" type="radio" name="recipe_nation" value="">상관없어요
+			<div id="tooltip">
+			<div><span><input class="nation" type="radio" id="recipe_nation" name="recipe_nation" value="한식">한식</span></div>
+			<div><span><input class="nation" type="radio" name="recipe_nation" value="일식">일식</span></div>
+			<div><span><input class="nation" type="radio" name="recipe_nation" value="양식">양식</span></div>
+			<div><span><input class="nation" type="radio" name="recipe_nation" value="중식">중식</span></div>
+			<div><span><input class="nation" type="radio" name="recipe_nation" value="">상관없음</span></div>
+			</div>
 		</td>
 	</tr>
 	<tr>
@@ -48,11 +113,13 @@
 	</tr>
 	<tr>
 		<td id="cate_a">
-		<input class="cate" type="radio" id="recipe_cate" name="recipe_cate" value="육류">육류
-		<input class="cate" type="radio" name="recipe_cate" value="해물류">해물류
-		<input class="cate" type="radio" name="recipe_cate" value="채소류">채소류
-		<input class="cate" type="radio" name="recipe_cate" value="달걀유제품류">달걀/유제품류
-		<input class="cate" type="radio" name="recipe_cate" value="">상관없어요
+			<div id="tooltip">
+			<div><span><input class="cate" type="radio" id="recipe_cate" name="recipe_cate" value="육류">육류</span></div>
+			<div><span><input class="cate" type="radio" name="recipe_cate" value="해물류">해물류</span></div>
+			<div><span><input class="cate" type="radio" name="recipe_cate" value="채소류">채소류</span></div>
+			<div><span><input class="cate" type="radio" name="recipe_cate" value="달걀유제품류">달걀/유제품류</span></div>
+			<div><span><input class="cate" type="radio" name="recipe_cate" value="">상관없음</span></div>
+			</div>
 		</td>
 	</tr>
 	<tr>
@@ -60,12 +127,14 @@
 	</tr>
 	<tr>
 		<td id="ingredient_a">
-		<input class="ingredient" type="checkbox" name="ingred" value="땅콩">땅콩
-		<input class="ingredient" type="checkbox" name="ingred" value="대두">대두
-		<input class="ingredient" type="checkbox" name="ingred" value="유제품">유제품
-		<input class="ingredient" type="checkbox" name="ingred" value="갑각류조개류">갑각류/조개류
-		<input class="ingredient" type="checkbox" name="ingred" value="생선">생선
-		<input class="ingredient" type="checkbox" name="ingred" value="밀">밀
+			<div id="tooltip">
+			<div><span><input class="ingredient" type="checkbox" name="ingred" value="땅콩">땅콩</span></div>
+			<div><span><input class="ingredient" type="checkbox" name="ingred" value="대두">대두</span></div>
+			<div><span><input class="ingredient" type="checkbox" name="ingred" value="유제품">유제품</span></div>
+			<div><span><input class="ingredient" type="checkbox" name="ingred" value="갑각류조개류">갑각류/조개류</span></div>
+			<div><span><input class="ingredient" type="checkbox" name="ingred" value="생선">생선</span></div>
+			<div><span><input class="ingredient" type="checkbox" name="ingred" value="밀">밀</span></div>
+			</div>
 		</td>
 	</tr>
 </table>

@@ -39,17 +39,18 @@ public class RecipeController {
 	
 	//레시피 게시판 뷰
 	@RequestMapping(value = "/recipelist", method=RequestMethod.GET)
-	public ModelAndView recipelist(String email, String emotion, String nation, String cate, String type, String search){
+	public ModelAndView recipelist(String emotion, String nation, String cate, String type, String search){
+		if(emotion==null) {emotion="";}
 		if(nation==null) {nation="";}
 		if(cate==null) {cate="";}
-		if(emotion==null) {emotion="";}
-		List<RecipeVO> recipelist_cate = service.getCateRecipeList(nation, emotion, cate);
+		if(search==null) {search="";}
 		List<RecipeVO> recipelist_search = new ArrayList<RecipeVO>();
+		
 		if(type==null) {
-			recipelist_search = null;
+			recipelist_search = service.getCateRecipeList(6, nation, emotion, cate);
 		}
 		else if(type.equals("recipe_title")) {
-			recipelist_search = service.SearchTitle(nation, emotion, cate, search);
+			recipelist_search = service.SearchTitle(6, nation, emotion, cate, search);
 		}
 		else if(type.equals("recipe_desc")) {
 			List<Integer> recipe_no = descservice.SearchDesc(search);
@@ -58,29 +59,58 @@ public class RecipeController {
 			}
 		}
 		else if(type.equals("recipe_name")) {
-			recipelist_search = service.SearchName(nation, emotion, cate, search);
+			recipelist_search = service.SearchName(6, nation, emotion, cate, search);
 		}
 		else if(type.equals("recipe_ingredient")) {
-			recipelist_search = service.SearchIngredient(nation, emotion, cate, search);
+			recipelist_search = service.SearchIngredient(6, nation, emotion, cate, search);
 		}
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("recipelist_search", recipelist_search);
-		mv.addObject("recipelist", recipelist_cate);
 		mv.addObject("emotion", emotion);
+		mv.addObject("search", search);
 		mv.addObject("cate", cate);
 		mv.addObject("nation", nation);
 		mv.setViewName("/recipe/recipelist");
 		return mv;
 	}
 	//레시피 게시판에서 더보기 버튼, 찜하기 버튼 구현
-	@RequestMapping(value="/recipelist", method=RequestMethod.POST )
+	@RequestMapping(value="/morerecipelist", method=RequestMethod.POST)
 	@ResponseBody
-	public List<RecipeVO> morerecipelist(int number) {
-		number += 6;
-		List<RecipeVO> recipelist = service.moreRecipeList(number);
-		//System.out.println(recipelist);
-		return recipelist;
+	public List<RecipeVO> morerecipelist(int number, String emotion, String nation, String cate, String type, String search) {
+		if(emotion==null) {emotion="";}
+		if(nation==null) {nation="";}
+		if(cate==null) {cate="";}
+		if(search==null) {search="";}
+		List<RecipeVO> recipelist = new ArrayList<RecipeVO>();
+		
+		
+		if(type==null) {
+			recipelist = service.getCateRecipeList(number, nation, emotion, cate);
+		}
+		else if(type.equals("recipe_title")) {
+			recipelist = service.SearchTitle(number, nation, emotion, cate, search);
+		}
+		else if(type.equals("recipe_desc")) {
+			List<Integer> recipe_no = descservice.SearchDesc(search);
+			for(int i = 0 ; i < recipe_no.size() ; i++) {
+				recipelist.add(service.getRecipeDetail(recipe_no.get(i)));				
+			}
+		}
+		else if(type.equals("recipe_name")) {
+			recipelist = service.SearchName(number, nation, emotion, cate, search);
+		}
+		else if(type.equals("recipe_ingredient")) {
+			recipelist = service.SearchIngredient(number, nation, emotion, cate, search);
+		}
+		
+		if(recipelist.size()!=0) {			
+			return recipelist;
+		}
+		else {
+			System.out.println(recipelist.size());
+			return null;
+		}
 	}
 	
 	//레시피 글쓰기 뷰

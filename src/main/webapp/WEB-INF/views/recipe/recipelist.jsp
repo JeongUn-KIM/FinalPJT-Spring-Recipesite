@@ -61,6 +61,46 @@ span:hover + p.tooltip_box {
 
 }
 </style>
+<script>
+$(document).ready(function(){
+	$("#more_list_btn").on("click", function(){
+		$.ajax({
+			type:"post",
+			url:"/morerecipelist",
+			data: {"number": $("#number").val(), "emotion":$("#emotion").val(), "nation":$("#nation").val(), "cate":$("#cate").val(), "type":$("#type").val(), "search":$("#search").val()},
+			success: function(serverdata){
+				const data=$.trim(serverdata);
+				if(data.length != 0){
+					for(var i=0 ; i<serverdata.length ; i++){
+						if(serverdata[i].recipe_img.indexOf("https")!= -1){
+							
+							$("#more_list").append("<tr>"+
+							"<td><a href='/recipedetail?no=" + serverdata[i].recipe_no + "'><img src='" + serverdata[i].recipe_img + "' height='200' width='200'></a></td></tr>"+
+							"<tr><td><a href='/recipedetail?no=" + serverdata[i].recipe_no + "'>" + serverdata[i].recipe_title + "</a></td>"+
+							"</tr>");
+						}else{
+							$("#more_list").append("<tr>"+
+							"<td><a href='/recipedetail?no=" + serverdata[i].recipe_no + "'><img src='/upload/" + serverdata[i].recipe_img + "' height='200' width='200'></a></td>"+
+							"<td><a href='/recipedetail?no=" + serverdata[i].recipe_no + "'>" + serverdata[i].recipe_title + "</a></td>"+
+							"</tr>");
+						}
+					}
+					$("#number").val( parseInt($("#number").val()) + 6 );
+					
+				}
+				else if(data.length == 0){
+					alert("게시글이 더이상 없습니다.");
+				}
+				
+			},
+			error:function(request, status, error){
+
+				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+		})
+	})
+})
+</script>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include>
@@ -119,28 +159,6 @@ span:hover + p.tooltip_box {
 
 <!-- 게시물 띄우기 + 검색 -->
 <table id ="more_list" border="1">
-<c:choose>
-<c:when test="${recipelist_search eq null and empty recipelist_search }">
-	<c:forEach items="${recipelist }" var="recipe">
-		<tr>
-			<td><a href="/recipedetail?no=${recipe.recipe_no }">
-
-			<c:set var="recipe_img" value="${recipe.recipe_img }"/>
-			<c:if test="${fn:contains(recipe_img, 'https')}">
-				<img src="${recipe.recipe_img }" height="200" width="200">
-			</c:if>
-			<c:if test="${not fn:contains(recipe_img, 'https')  }">
-				<img src="/upload/${recipe.recipe_img }" height="200" width="200">
-			</c:if>
-			</a>
-			</td>
-		</tr>
-			<tr>
-			<td><a href="/recipedetail?no=${recipe.recipe_no }">${recipe.recipe_title }</a></td>
-		</tr>
-	</c:forEach>
-</c:when>
-<c:when test="${ recipelist_search ne null and empty recipelist_search}">
 	<c:forEach items="${recipelist_search }" var="recipe">
 				<tr>
 			<td><a href="/recipedetail?no=${recipe.recipe_no }">
@@ -159,47 +177,28 @@ span:hover + p.tooltip_box {
 			<td><a href="/recipedetail?no=${recipe.recipe_no }">${recipe.recipe_title }</a></td>
 		</tr>
 	</c:forEach>
-</c:when>
-<c:when test="${ recipelist_search ne null and not empty recipelist_search}">
-	<c:forEach items="${recipelist_search }" var="recipe">
-				<tr>
-			<td><a href="/recipedetail?no=${recipe.recipe_no }">
-
-			<c:set var="recipe_img" value="${recipe.recipe_img }"/>
-			<c:if test="${fn:contains(recipe_img, 'https')}">
-				<img src="${recipe.recipe_img }" height="200" width="200">
-			</c:if>
-			<c:if test="${not fn:contains(recipe_img, 'https')  }">
-				<img src="/upload/${recipe.recipe_img }" height="200" width="200">
-			</c:if>
-			</a>
-			</td>
-		</tr>
-			<tr>
-			<td><a href="/recipedetail?no=${recipe.recipe_no }">${recipe.recipe_title }</a></td>
-		</tr>
-	</c:forEach>
-</c:when>
-</c:choose>
 	<!-- 찜기능 -->
 </table>
-	<!-- 글 더보기 기능 -->
-<div>
-	<a id="more_list_btn" href="javascript:moreContent();">더보기</a>
-</div>
 
+<!-- 글 더보기 기능 -->
+<button id="more_list_btn">더보기</button>
+<input type="hidden" id="number" value="12">
+<table>
+<div id="more_list"></div>
+</table>
 
+<!-- 검색 -->
 <form action="/recipelist" onSubmit="return form_submit()">
-	<input type="hidden" name="nation" value="${nation }">
-	<input type="hidden" name="cate" value="${cate }">
-	<input type="hidden" name="emotion" value="${nation }">
-<select name="type">
+	<input type="hidden" name="nation" id="nation" value="${nation }">
+	<input type="hidden" name="cate" id="cate" value="${cate }">
+	<input type="hidden" name="emotion" id="emotion" value="${emotion }">
+<select name="type" id="type">
 	<option value="recipe_title">레시피 제목</option>
 	<option value="recipe_desc">레시피 내용</option>
 	<option value="recipe_name">음식명</option>
 	<option value="recipe_ingredient">재료명</option>
 </select>
-<input type="search" id="search" name="search">
+<input type="search" id="search" name="search" value="${search }">
 <input type="submit" value="검색">
 </form>
 
@@ -228,7 +227,7 @@ function form_submit(){
 		return false;
 	}
 }
-
+/* 
 function moreContent(){
 	$.ajax({
 		url: "/recipelist",
@@ -254,5 +253,7 @@ function moreContent(){
 		
 	})
 }
+ */
+
 </script>
 </html>
