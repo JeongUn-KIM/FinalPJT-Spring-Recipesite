@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -134,6 +135,7 @@ span:hover + p.tooltip_box {
 			<div><span><input class="ingredient" type="checkbox" name="ingred" value="갑각류조개류">갑각류/조개류</span></div>
 			<div><span><input class="ingredient" type="checkbox" name="ingred" value="생선">생선</span></div>
 			<div><span><input class="ingredient" type="checkbox" name="ingred" value="밀">밀</span></div>
+			<div><span><input class="ingredient" type="hidden" name="ingred" value=""></span></div>
 			</div>
 		</td>
 	</tr>
@@ -145,15 +147,26 @@ span:hover + p.tooltip_box {
 <table border="1">
 	<tr><th>추천레시피</th></tr>
 	<c:forEach items="${findList }" var="recipe">
-		<tr>
-			<td><a href="/recipedetail?no=${recipe.recipe_no }"><img src="/upload/${recipe.recipe_img }"></a></td>
+				<tr>
+			<td><a href="/recipedetail?no=${recipe.recipe_no }">
+
+			<c:set var="recipe_img" value="${recipe.recipe_img }"/>
+			<c:if test="${fn:contains(recipe_img, 'https')}">
+				<img src="${recipe.recipe_img }" height="200" width="200">
+			</c:if>
+			<c:if test="${not fn:contains(recipe_img, 'https')  }">
+				<img src="/upload/${recipe.recipe_img }" height="200" width="200">
+			</c:if>
+			</a>
+			</td>
+		</tr>
+			<tr>
 			<td><a href="/recipedetail?no=${recipe.recipe_no }">${recipe.recipe_title }</a></td>
 		</tr>
 	</c:forEach>
 </table>
 </body>
 <script type="text/javascript">
-//재료 선택 팝업창
 
 	$(function(){
 		$("#find").click(function(){

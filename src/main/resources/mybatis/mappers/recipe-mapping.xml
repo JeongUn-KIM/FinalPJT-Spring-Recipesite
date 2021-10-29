@@ -78,7 +78,9 @@
 	update recipe set recipe_hits = recipe_hits + 1 where recipe_no = #{no}
 </update>
 <select id="findRecipe" resultType="recipeVO">
-	select * from recipe where recipe_emotion like #{emotion} and recipe_nation like #{nation} and recipe_cate like #{cate}
+	select * from recipe
+	where recipe_emotion like #{emotion} and recipe_nation like #{nation} and recipe_cate like #{cate}
+	order by recipe_hits desc
 </select>
 
 <!-- <select id="findRecipe"  resultType="recipeVO" parameterType="String[]">

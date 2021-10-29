@@ -12,9 +12,7 @@
 	insert into rec_desc (recipe_desc, recipe_desc1, recipe_desc2, recipe_desc3, recipe_desc4, recipe_desc5, recipe_desc6, recipe_desc7, recipe_desc8, recipe_desc9, recipe_desc10)
 	 values(#{recipe_desc}, #{recipe_desc1}, #{recipe_desc2}, #{recipe_desc3}, #{recipe_desc4}, #{recipe_desc5}, #{recipe_desc6}, #{recipe_desc7}, #{recipe_desc8}, #{recipe_desc9}, #{recipe_desc10} )
 </insert>
-<select id="SearchDesc" resultType="Integer">
-	select recipe_no from rec_desc where recipe_desc like #{search}
-</select>
+
 <delete id="deleteDesc">
 	delete from rec_desc where recipe_no = #{recipe_no}
 </delete>

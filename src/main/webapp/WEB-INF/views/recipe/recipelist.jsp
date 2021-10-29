@@ -194,7 +194,6 @@ $(document).ready(function(){
 	<input type="hidden" name="emotion" id="emotion" value="${emotion }">
 <select name="type" id="type">
 	<option value="recipe_title">레시피 제목</option>
-	<option value="recipe_desc">레시피 내용</option>
 	<option value="recipe_name">음식명</option>
 	<option value="recipe_ingredient">재료명</option>
 </select>
