@@ -1,6 +1,7 @@
 package mypage;
 
 public class MyzzimVO {
+	int zzim_no;
 	int recipe_no;
 	int user_no;
 	
@@ -15,6 +16,12 @@ public class MyzzimVO {
 	}
 	public void setUser_no(int user_no) {
 		this.user_no = user_no;
+	}
+	public int getZzim_no() {
+		return zzim_no;
+	}
+	public void setZzim_no(int zzim_no) {
+		this.zzim_no = zzim_no;
 	}
 
 }

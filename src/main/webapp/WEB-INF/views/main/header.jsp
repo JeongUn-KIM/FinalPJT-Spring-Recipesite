@@ -23,7 +23,7 @@ $(document).ready(function lo() {
 		$.ajax({
 			type: 'post',
 			url:'header',
-			data:{ email:$("#email").val(), pw:$("#pw").val()},
+			data:{ user_email:$("#email").val(), user_pw:$("#pw").val()},
 			success: function(server){
 				if(server=="true"){
 					location.reload();
