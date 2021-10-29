@@ -30,22 +30,30 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	@Override
-	public List<RecipeVO> SearchDesc(String search) {
+	public List<RecipeVO> SearchName(String search) {
 		search = "%" + search + "%";
-		return dao.SearchDesc(search);
+		return dao.SearchName(search);
 	}
-
 	@Override
-	public List<RecipeVO> SearchTitleDesc(String search) {
+	public List<RecipeVO> SearchIngredient(String search) {
 		search = "%" + search + "%";
-		return dao.SearchTitleDesc(search);
+		return dao.SearchIngredient(search);
 	}
-
+	@Override
+	public List<RecipeVO> SearchNation(String search) {
+		search = "%" + search + "%";
+		return dao.SearchNation(search);
+	}
 	@Override
 	public void addRecipe(RecipeVO vo) {
 		dao.addRecipe(vo);
 		
 	}
-	
+	public RecipeVO getRecipeDetail(int no){
+		return dao.getRecipeDetail(no);
+	}
+	public void deleteRecipe(int recipe_no) {
+		dao.deleteRecipe(recipe_no);
+	}
 	
 }

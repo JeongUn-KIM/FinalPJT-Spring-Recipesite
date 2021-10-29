@@ -7,15 +7,22 @@ import org.springframework.web.multipart.MultipartFile;
 public class RecipeVO {
 	int recipe_no, user_no;
 	Date recipe_date;
-	String recipe_title, recipe_name, recipe_emotion, recipe_desc; 
-	String recipe_img1, recipe_img2, recipe_img3, recipe_img4, recipe_img5, recipe_img6, recipe_img7, recipe_img8, recipe_img9, recipe_img10;
+	String recipe_img1, recipe_title, recipe_name, recipe_ingredient, recipe_emotion;
 	String recipe_cate;
+	String recipe_nation;
+	int search;
 	
 	public int getRecipe_no() {
 		return recipe_no;
 	}
 	public void setRecipe_no(int recipe_no) {
 		this.recipe_no = recipe_no;
+	}
+	public String getRecipe_img1() {
+		return recipe_img1;
+	}
+	public void setRecipe_img1(String recipe_img1) {
+		this.recipe_img1 = recipe_img1;
 	}
 	public int getUser_no() {
 		return user_no;
@@ -47,84 +54,36 @@ public class RecipeVO {
 	public void setRecipe_emotion(String recipe_emotion) {
 		this.recipe_emotion = recipe_emotion;
 	}
-	public String getRecipe_desc() {
-		return recipe_desc;
+
+
+	public String getRecipe_ingredient() {
+		return recipe_ingredient;
 	}
-	public void setRecipe_desc(String recipe_desc) {
-		this.recipe_desc = recipe_desc;
+	public void setRecipe_ingredient(String recipe_ingredient) {
+		this.recipe_ingredient = recipe_ingredient;
+	}
+	public String getRecipe_nation() {
+		return recipe_nation;
+	}
+	public void setRecipe_nation(String recipe_nation) {
+		this.recipe_nation = recipe_nation;
 	}
 
-	public String getRecipe_img1() {
-		return recipe_img1;
-	}
-	public void setRecipe_img1(String recipe_img1) {
-		this.recipe_img1 = recipe_img1;
-	}
-	public String getRecipe_img2() {
-		return recipe_img2;
-	}
-	public void setRecipe_img2(String recipe_img2) {
-		this.recipe_img2 = recipe_img2;
-	}
-	public String getRecipe_img3() {
-		return recipe_img3;
-	}
-	public void setRecipe_img3(String recipe_img3) {
-		this.recipe_img3 = recipe_img3;
-	}
-	public String getRecipe_img4() {
-		return recipe_img4;
-	}
-	public void setRecipe_img4(String recipe_img4) {
-		this.recipe_img4 = recipe_img4;
-	}
-	public String getRecipe_img5() {
-		return recipe_img5;
-	}
-	public void setRecipe_img5(String recipe_img5) {
-		this.recipe_img5 = recipe_img5;
-	}
-	public String getRecipe_img6() {
-		return recipe_img6;
-	}
-	public void setRecipe_img6(String recipe_img6) {
-		this.recipe_img6 = recipe_img6;
-	}
-	public String getRecipe_img7() {
-		return recipe_img7;
-	}
-	public void setRecipe_img7(String recipe_img7) {
-		this.recipe_img7 = recipe_img7;
-	}
-	public String getRecipe_img8() {
-		return recipe_img8;
-	}
-	public void setRecipe_img8(String recipe_img8) {
-		this.recipe_img8 = recipe_img8;
-	}
-	public String getRecipe_img9() {
-		return recipe_img9;
-	}
-	public void setRecipe_img9(String recipe_img9) {
-		this.recipe_img9 = recipe_img9;
-	}
-	public String getRecipe_img10() {
-		return recipe_img10;
-	}
-	public void setRecipe_img10(String recipe_img10) {
-		this.recipe_img10 = recipe_img10;
-	}
 	public String getRecipe_cate() {
 		return recipe_cate;
 	}
 	public void setRecipe_cate(String recipe_cate) {
 		this.recipe_cate = recipe_cate;
 	}
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return recipe_no + " " + user_no + " " + recipe_date + " " + recipe_title + " " + recipe_name + " " + recipe_emotion + " " + recipe_desc;
-	}
 	
+	public int getSearch() {
+		return search;
+	}
+	public void setSearch(int search) {
+		this.search = search;
+	}
+	public String toString() {
+		return recipe_no + " " + user_no + " " + recipe_date; 
+	}
 	
 }

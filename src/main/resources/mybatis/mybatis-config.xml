@@ -9,8 +9,14 @@
 <typeAliases>
  <typeAlias type="main.UserVO" alias="userVO" />
  <typeAlias type="recipe.RecipeVO" alias="recipeVO" />
- <typeAlias type="recipe.IngredientVO" alias="ingredientVO"/>
+ <typeAlias type="recipe.RecipeImgVO" alias="recipeimgVO"/>
+ <typeAlias type="recipe.RecipeDescVO" alias="recipedescVO"/>
  <typeAlias type="notice.NoticeVO"   alias="noticeVO" />
+ <typeAlias alias="adminVO" type="admin.AdminVO"/>
+ <typeAlias alias="mynationVO" type="mypage.MynationVO"/>
+ <typeAlias alias="myrecipeVO" type="mypage.MyrecipeVO"/>
+ <typeAlias alias="myzzimVO" type="mypage.MyzzimVO"/>
+
 </typeAliases>
 
 </configuration>

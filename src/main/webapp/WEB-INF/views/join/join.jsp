@@ -1,19 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix = "fn" uri = "http://java.sun.com/jsp/jstl/functions"  %>
 <html>
 <head>
-<!-- 합쳐지고 최소화된 최신 CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-		<!-- 부가적인 테마 -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-	 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-	 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<title>회원가입 페이지</title>
-	<script type="text/javascript">	
-const regex = /^.*(?=^.{8,16}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
-const regex2 = /^[가-힣a-zA-Z]+$/;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오늘 뭐 해먹지?</title>
+
+	<link href="mainassets/assets/css/theme.css" rel="stylesheet" />
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="adminassets/css/bootstrap.css">
+    <link rel="stylesheet" href="adminassets/vendors/simple-datatables/style.css">
+    <link rel="stylesheet" href="adminassets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="adminassets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="adminassets/css/app.css">
+    <link rel="shortcut icon" href="imgs/logo.ico" type="image/x-icon">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="mainassets/vendors/fontawesome/all.min.js"></script>
+	
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script>	
+	const regex = /^.*(?=^.{8,16}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+	const regex2 = /^[가-힣a-zA-Z]+$/;
 				/* 우편번호 찾기 api */
 				function execPostCode() {
 				    new daum.Postcode({
@@ -48,8 +60,8 @@ const regex2 = /^[가-힣a-zA-Z]+$/;
 				           console.log(fullRoadAddr);//도로명주소
 				           
 				           
-				           $("#${userlist.user_no}user_address1").val(data.zonecode);
-				           $("#${userlist.user_no}user_address2").val(fullRoadAddr);
+				           $("#user_address1").val(data.zonecode);
+				           $("#user_address2").val(fullRoadAddr);
 				           
 				           /* document.getElementById('signUpUserPostNo').value = data.zonecode; //5자리 새우편번호 사용
 				           document.getElementById('signUpUserCompanyAddress').value = fullRoadAddr;
@@ -58,8 +70,8 @@ const regex2 = /^[가-힣a-zA-Z]+$/;
 				    }).open();
 				}
 				
-			</script>
-	<script type="text/javascript">
+	</script>
+	<script>
 	function joincheck() {
 		var test1 = $("#user_pw").val();
 		var test2 = $("#user_name").val();
@@ -70,6 +82,7 @@ const regex2 = /^[가-힣a-zA-Z]+$/;
 					$("#user_email").focus();
 					return false;
 				}
+				
 				if(test1 == ""){
 					alert("비밀번호를 입력해주세요.");
 					$("#user_pw").focus();
@@ -96,6 +109,7 @@ const regex2 = /^[가-힣a-zA-Z]+$/;
 					
 				if(test1 != test3) {
 					alert("비밀번호가 서로 다르게 입력하셨습니다. ")
+					$("#user_pw").focus();
 					return false;
 				}
 				
@@ -104,8 +118,10 @@ const regex2 = /^[가-힣a-zA-Z]+$/;
 					$("#user_name").focus();
 					return false;
 				}
+				
 				if(!regex2.test(test2)) {
 					alert("이름을 잘못 입력하셨습니다.")
+					$("#user_name").focus();
 					return false;
 				}
 				
@@ -114,14 +130,16 @@ const regex2 = /^[가-힣a-zA-Z]+$/;
 					$("#user_phone").focus();
 					return false;
 				}
+				
 				if($("#user_address").val() == ""){
 					alert("주소를 입력해주세요.");
 					$("#user_address").focus();
 					return false;
 				}
+				
 				if(confirm("회원가입을 하시겠습니까?")){
 					// alert("회원가입이 완료되었습니다. 감사합니다.");
-			         $("form").submit();    
+			         $("#form").submit();    
 			    }
 
 
@@ -130,11 +148,68 @@ const regex2 = /^[가-힣a-zA-Z]+$/;
 </script>
 </head>
 <body>
-<h1> 회원가입 </h1>
-<form action="/joinresult" method="post">
+
+	<jsp:include page="/WEB-INF/views/main/joinheader.jsp"></jsp:include><br>
+    <div id="main">
+<div class="page-heading" style="margin-top:90px;">	  	
+<div class="col-lg-7 mx-auto text-center mb-4"><h5 class="fw-bold fs-3 fs-lg-5 lh-sm mb-1" style="margin-right:220px;">회원가입</h5></div>  
+
+
+ <div class="modal-content w-75" style="margin-left:50px;">
+     <form action="/join" method = 'post' id ="form">
+         <div class="modal-body">
+             <label>이메일: </label>
+             <div class="form-group">
+                 <input class="form-control" type="text" id="user_email" name="user_email" value="${email }" readonly="readonly"/>
+             </div>
+             
+             <label>비밀번호: </label>
+             <div class="form-group">
+                 <input class="form-control" type="password" id="user_pw" name="user_pw" placeholder="비밀번호" />
+             </div>
+             <label>(8~16자내에서 영문 대 소문자, 숫자, 특수문자를 전부 사용하세요.)</label><br><br>
+             
+             <label>비밀번호 확인: </label>
+             <div class="form-group">
+                 <input class="form-control" type="password" id="user_pwCheck" name="user_pwCheck" placeholder="비밀번호확인" />
+             </div>
+             <label>(8~16자내에서 영문 대 소문자, 숫자, 특수문자를 전부 사용하세요.)</label><br><br>
+             
+             <label>이름: </label>
+             <div class="form-group">
+                 <input class="form-control" type="text" id="user_name" name="user_name" placeholder="이름" />
+             </div>
+             <label>(한글과 영문 대 소문자를 사용하세요. (특수기호, 공백 사용 불가))</label><br><br>
+             
+             <label>휴대전화: </label>
+             <div class="form-group">
+                 <input class="form-control" type="text" id="user_phone" name="user_phone" placeholder="전화번호" />
+             </div>
+             <label>(반드시 하이픈'-'을 포함해주세요)</label><br><br>
+             
+             <c:set var="imsi" value="${userlist.user_address}"/>
+			<c:set var="address" value="${fn:split(imsi,',')}"/>					
+             <label>주소: </label>
+             <div class="form-group">
+             	<input class="form-control w-25" style="display:inline;" type="text" id="user_address1" name="user_address" placeholder="우편번호" />
+                     <button type='button' class="btn btn-primary ml-1 " style="display:inline;" onclick="execPostCode();">우편번호</button>
+                 <input class="form-control" type="text" id="user_address2" name="user_address" placeholder="주소" />
+             </div>
+         </div>
+         <div class="modal-footer">
+         	<button class="btn btn-primary" type="submit" id="submit"  onclick="joincheck()">가입완료</button>
+			<input class="btn btn-primary" type="button" value = "취소" onclick="location.href='/main'"></input>
+         </div>
+     </form>
+ </div>
+
+	
+
+<!-- 준혁님 -->
+<%-- <form action="/join" method="post" id = "form">
 <div class="form-group has-feedback" id ="userinsert">
 					<label class="control-label" for="user_email">이메일</label>
-					<input class="form-control" type="text" id="user_email" name="user_email" placeholder="이메일" />
+					<input class="form-control" type="text" id="user_email" name="user_email" value="${email }" readonly="readonly"/>
 				</div>	
 				 <br>
 <div class= "form-group has-feedback">
@@ -155,19 +230,24 @@ const regex2 = /^[가-힣a-zA-Z]+$/;
 <div class= "form-group has-feedback">
 					<label class="control-label" for="user_phone">전화번호</label>
 					<input class="form-control" type="text" id="user_phone" name="user_phone" placeholder="전화번호" />
-				</div> <br>
-<div class= "form-group has-feedback">			
+				<h3>-를 포함하여 적어주세요!!!!</h3></div> <br>
+	<div class= "form-group has-feedback">			
 					<label class="control-label" for="user_address">주소</label>
 					<input class="form-control" type="text" id="user_address1" name="user_address" placeholder="우편번호" />
 					<button type='button' onclick="execPostCode();">우편번호</button>
 					<input class="form-control" type="text" id="user_address2" name="user_address" placeholder="주소" />
 			</div>		 <br>		
+<button type="submit" id="submit"  onclick="joincheck()">가입완료</button>
+<input type="button" value = "취소" onclick="location.href='/main'"></input>
+</form> --%>
+<!-- 준혁님 -->
 
-</form>
-<button type="button" id="submit"  onclick="joincheck()">가입완료</button>
-<input type="button" id="submit" value = "취소" onclick="location.href='/login'"></input>
+</div>
+</div>
 
 
 
 </body>
+
+
 </html>

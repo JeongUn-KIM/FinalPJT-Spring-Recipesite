@@ -11,5 +11,6 @@ public interface UserDAO {
 	public UserVO getUserOne(HashMap<String, String> map);
 	public void insertUser(UserVO vo);
 	public void updateUser(UserVO vo);
-	public void deleteUser(String user_email, String user_pw);
+	public void deleteUser(UserVO vo);
+	public void getPw(UserVO vo);
 }

@@ -14,6 +14,7 @@ public class UserServiceImpl implements UserService {
 	public UserVO getUserOne(HashMap<String, String> map) {
 		return dao.getUserOne(map);
 	}
+	
 
 	@Override
 	public void insertUser(UserVO vo) {
@@ -28,13 +29,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void deleteUser(String user_email, String user_pw) {
-		dao.deleteUser(user_email, user_pw);
+	public void deleteUser(UserVO vo) {
+		dao.deleteUser(vo);
 		
 	}
-
-	
-	
-	
 	
 }
