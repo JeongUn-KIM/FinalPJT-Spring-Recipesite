@@ -6,6 +6,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="jquery-3.2.1.min.js"></script>
+<script>
+
+</script>
 <style>
 #messageWindow{
 				background-color:#abcdef; 
@@ -21,14 +24,7 @@
 <body>
 
 	<!-- 채팅창 만들기 -->
-	<!-- 채팅창 입장 / 퇴장 -->
-<button id="enter">입장</button>
-<button id="exit">퇴장</button>
-
-	<!-- 채팅 전반 영역 -->
-	<!-- style="display:none"   :   영역은 존재하나 처음에는 안보임, 입장 버튼을 누르는 순간 보임 -->
-	
-<div id="chatbox">	
+	<div id="chatbox">	
 
 	<!-- 대화내용 출력 영역 -->	
 	<div id="messageWindow"></div>
