@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import mypage.MypageService;
+import mypage.MyrecipeVO;
 import recipe.RecipeDescService;
 import recipe.RecipeImgService;
 import recipe.RecipeService;
@@ -18,23 +20,58 @@ import recipe.RecipeVO;
 
 @Controller
 public class MainController {
+
+	@Autowired
+	@Qualifier("userservice")
+	UserService userservice;
 	
+	@Autowired
+	@Qualifier("mypage")
+	MypageService mypage;
+
 	@Autowired
 	@Qualifier("recipeservice")
 	RecipeService service;
 	
 	@Autowired
+	@Qualifier("descservice")
 	RecipeDescService descservice;
+	
 	@Autowired
+	@Qualifier("imgservice")
 	RecipeImgService imgservice;
 	
 	//메인 뷰
 	@RequestMapping(value = "/main", method=RequestMethod.GET)
-	public String main_view() {
-		List<RecipeVO> list = new ArrayList<RecipeVO>();
+	public ModelAndView main_view() {
 		
-		return "main/main";
+		List<MyrecipeVO> popularlist = mypage.getMainRecipePopular();
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.addObject("popularlist", popularlist);
+		mv.setViewName("main/main");
+		
+		return mv;
 	}
+	
+	/* 메인 키워드 검색 */
+	@RequestMapping(value = "/search", method=RequestMethod.GET)
+	public ModelAndView search(String keyword) {
+		
+		List<MyrecipeVO> resultlist = mypage.getMainRecipeSearch(keyword);
+		List<MyrecipeVO> popularlist = mypage.getMainRecipePopular();
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.addObject("resultlist", resultlist);
+		mv.addObject("keyword", keyword);
+		mv.addObject("popularlist", popularlist);
+		mv.setViewName("main/main");
+		
+		return mv;
+	}
+	
 	@RequestMapping(value = "/find", method=RequestMethod.GET)
 	public ModelAndView main_findRecipe(RecipeVO vo, String ingred) {
 		System.out.println(vo.getRecipe_cate());
@@ -85,4 +122,6 @@ public class MainController {
 		mv.setViewName("/main/main");
 		return mv;
 	}
+
+	
 }
