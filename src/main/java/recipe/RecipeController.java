@@ -52,12 +52,6 @@ public class RecipeController {
 		else if(type.equals("recipe_title")) {
 			recipelist_search = service.SearchTitle(6, nation, emotion, cate, search);
 		}
-		else if(type.equals("recipe_desc")) {
-			List<Integer> recipe_no = descservice.SearchDesc(search);
-			for(int i = 0 ; i < recipe_no.size() ; i++) {
-				recipelist_search.add(service.getRecipeDetail(recipe_no.get(i)));				
-			}
-		}
 		else if(type.equals("recipe_name")) {
 			recipelist_search = service.SearchName(6, nation, emotion, cate, search);
 		}
@@ -90,12 +84,6 @@ public class RecipeController {
 		}
 		else if(type.equals("recipe_title")) {
 			recipelist = service.SearchTitle(number, nation, emotion, cate, search);
-		}
-		else if(type.equals("recipe_desc")) {
-			List<Integer> recipe_no = descservice.SearchDesc(search);
-			for(int i = 0 ; i < recipe_no.size() ; i++) {
-				recipelist.add(service.getRecipeDetail(recipe_no.get(i)));				
-			}
 		}
 		else if(type.equals("recipe_name")) {
 			recipelist = service.SearchName(number, nation, emotion, cate, search);

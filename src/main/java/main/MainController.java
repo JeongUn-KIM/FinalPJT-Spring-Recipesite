@@ -80,40 +80,43 @@ public class MainController {
 		System.out.println(vo.getRecipe_emotion());
 		List<RecipeVO> findList = service.findRecipe(vo);
 		System.out.println(findList);
-		
-		if(ingred.contains("땅콩")) {
-			for(int i = findList.size() ; i >= 0 ; i--){
-				String ingredient = findList.get(i).getRecipe_ingredient();
-				if(ingredient.contains("땅콩")){
-					findList.remove(i);
+		if(!findList.isEmpty()) {
+			if(ingred.contains("땅콩")) {
+				for(int i = findList.size()-1 ; i >= 0 ; i--){
+					String ingredient = findList.get(i).getRecipe_ingredient();
+					if(ingredient.contains("땅콩")){
+						findList.remove(i);
+					}
+				}
+			}
+			if(ingred.contains("대두")) {
+				for(int i = findList.size()-1 ; i >= 0 ; i--){
+					String ingredient = findList.get(i).getRecipe_ingredient();
+					if(ingredient.contains("콩") ||ingredient.contains("된장") || ingredient.contains("미소") || ingredient.contains("간장")){
+						findList.remove(i);
+					}
+				}
+			}
+			if(ingred.contains("유제품")) {
+				for(int i = findList.size()-1 ; i >= 0 ; i--){
+					String ingredient = findList.get(i).getRecipe_ingredient();
+					if(ingredient.contains("우유") || ingredient.contains("치즈") || ingredient.contains("버터")){
+						findList.remove(i);
+					}
+				}
+			}
+			if(ingred.contains("갑각류조개류")) {
+				for(int i = findList.size()-1 ; i >= 0 ; i--){
+					String ingredient = findList.get(i).getRecipe_ingredient();
+					if(ingredient.contains("홍합") || ingredient.contains("굴") || ingredient.contains("전복") || ingredient.contains("오징어") || ingredient.contains("새우") || ingredient.contains("게") || ingredient.contains("조개")){
+						findList.remove(i);
+					}
 				}
 			}
 		}
-		if(ingred.contains("대두")) {
-			for(int i = findList.size() ; i >= 0 ; i--){
-				String ingredient = findList.get(i).getRecipe_ingredient();
-				if(ingredient.contains("된장") || ingredient.contains("미소") || ingredient.contains("간장")){
-					findList.remove(i);
-				}
-			}
+		else {
+			findList = null;
 		}
-		if(ingred.contains("유제품")) {
-			for(int i = findList.size() ; i >= 0 ; i--){
-				String ingredient = findList.get(i).getRecipe_ingredient();
-				if(ingredient.contains("우유") || ingredient.contains("치즈") || ingredient.contains("버터")){
-					findList.remove(i);
-				}
-			}
-		}
-		if(ingred.contains("갑각류조개류")) {
-			for(int i = findList.size() ; i >= 0 ; i--){
-				String ingredient = findList.get(i).getRecipe_ingredient();
-				if(ingredient.contains("홍합") || ingredient.contains("굴") || ingredient.contains("전복") || ingredient.contains("오징어") || ingredient.contains("새우") || ingredient.contains("게") || ingredient.contains("조개")){
-					findList.remove(i);
-				}
-			}
-		}
-		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("findList", findList);
 		mv.setViewName("/main/main");
