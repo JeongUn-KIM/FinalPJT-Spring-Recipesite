@@ -9,6 +9,7 @@ import admin.AdminController;
 import admin.AdminDAO;
 import chatbot.ChatbotController;
 import email.EmailController;
+import main.MainController;
 import main.UserController;
 import main.UserDAO;
 import mypage.MypageController;
@@ -31,6 +32,7 @@ import recipe.RecipeImgDAO;
 @ComponentScan(basePackageClasses = AdminController.class)
 @ComponentScan(basePackageClasses = NoticeController.class)
 @ComponentScan(basePackageClasses = EmailController.class)
+@ComponentScan(basePackageClasses = MainController.class)
 @MapperScan
 @MapperScan(basePackageClasses = UserDAO.class)
 @MapperScan(basePackageClasses = RecipeDAO.class)
