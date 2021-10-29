@@ -3,18 +3,14 @@ package recipe;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.Store;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,6 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import main.UserVO;
+import mypage.MypageService;
+import mypage.MyzzimVO;
 
 
 
@@ -36,6 +34,10 @@ public class RecipeController {
 	RecipeDescService descservice;
 	@Autowired
 	RecipeImgService imgservice;
+	
+	@Autowired
+	@Qualifier("mypage")
+	MypageService mypage;
 	
 	//레시피 게시판 뷰
 	@RequestMapping(value = "/recipelist", method=RequestMethod.GET)
@@ -201,19 +203,38 @@ public class RecipeController {
 		imgservice.addImg(imgVO);
 		return "redirect:recipelist";
 	}
+	
 	@RequestMapping("/recipedetail")
-	public ModelAndView recipedetailview(int no) {
+	public ModelAndView recipedetailview(int no, HttpSession session) {
+		UserVO vo = (UserVO)session.getAttribute("login_info");
+		
 		RecipeImgVO img = imgservice.getImgOne(no);
 		RecipeDescVO desc= descservice.getDescOne(no);
 		RecipeVO recipe= service.getRecipeDetail(no);
 		service.raiseRecipeHits(no);
+		
 		ModelAndView mv = new ModelAndView();
+		
+		// 로그인 정보 확인
+		if(vo==null) {
+			System.out.println("회원정보없음");
+		}
+		else { // 로그인o
+			MyzzimVO zo = mypage.getZzimOne(no, vo.getUser_no());
+			if(zo==null) { // zzim x
+				mv.addObject("zzim", null);
+			} else { // zzim o
+				mv.addObject("zzim", zo.getZzim_no());
+			}
+		}
+		
 		mv.addObject("img", img);
 		mv.addObject("desc", desc);
 		mv.addObject("recipe", recipe);
 		mv.setViewName("/recipe/recipedetail");
 		return mv;
 	}
+	
 	@RequestMapping("/recipedelete")
 	public String recipedelete(int recipe_no, HttpSession session) {
 		RecipeVO recipe = service.getRecipeDetail(recipe_no);
@@ -257,6 +278,7 @@ public class RecipeController {
 		mv.setViewName("/recipe/usernoerror");
 		return mv;
 	}
+	
 	@RequestMapping(value="/recipemodify", method=RequestMethod.POST )
 	public String recipemodify(int recipe_no, String recipe_title, String recipe_name, MultipartFile recipe_img, MultipartFile recipe_img1, MultipartFile recipe_img2, MultipartFile recipe_img3, MultipartFile recipe_img4, MultipartFile recipe_img5, MultipartFile recipe_img6, MultipartFile recipe_img7, MultipartFile recipe_img8, MultipartFile recipe_img9, MultipartFile recipe_img10,
 			String img, String img1, String img2, String img3, String img4, String img5, String img6, String img7, String img8, String img9, String img10,
@@ -523,9 +545,11 @@ public class RecipeController {
 		return "redirect:recipedetail?no=" + recipe_no;
 
 	}
+	
 	public static String getUuid() {
 		return UUID.randomUUID().toString().replaceAll("-", "").substring(0, 10);
 	}
+	
 	public static void store(MultipartFile img) throws IOException {
 		String savePath = "c:/kdigital2/upload/";
 		String filename = img.getOriginalFilename();
@@ -537,6 +561,27 @@ public class RecipeController {
 		File file = new File(savePath + filename);
 		//저장
 		img.transferTo(file);
+	}
+	
+	@ResponseBody
+	@RequestMapping("saveZzim.do")
+	public void zzimAdd(String no, HttpSession session) {
+		int recipe_no = Integer.parseInt(no);
+		UserVO vo = (UserVO)session.getAttribute("login_info");
+		
+		MyzzimVO zo = new MyzzimVO();
+		zo.setRecipe_no(recipe_no);
+		zo.setUser_no(vo.getUser_no());
+		mypage.addZzimRecipe(zo);
+	}
+	
+	@ResponseBody
+	@RequestMapping("removeZzim.do")
+	public void zzimDelete(String no, HttpSession session) {
+		int recipe_no = Integer.parseInt(no);
+		UserVO vo = (UserVO)session.getAttribute("login_info");
+		
+		mypage.deleteZzimRecipeOne(recipe_no, vo.getUser_no());
 	}
 
 }

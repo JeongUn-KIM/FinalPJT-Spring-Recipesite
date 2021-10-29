@@ -135,7 +135,7 @@
 									<a href="/noticedetail?no=${after}" class="btn btn-primary">다음글</a>
 								</c:if>
 								<a style="float:right;" href="/noticelist" class="btn btn-primary">목록보기</a>
-								<c:if test="${login_info.user_no == notice_one.user_no}">
+								<c:if test="${login_info.user_no < 11}">
 									<a style="float:right;" id="deletebtn"  onclick="script:deleteCheck()" class="btn btn-primary ms-1 me-3"> 삭제하기 </a>
 									<a style="float:right;" id="modifybtn" onclick="script:location.replace('/noticemodify?no=${notice_one.notice_no}')" class="btn btn-primary">수정하기</a>
 									
