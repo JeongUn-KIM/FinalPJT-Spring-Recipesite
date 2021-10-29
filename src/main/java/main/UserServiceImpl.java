@@ -15,4 +15,23 @@ public class UserServiceImpl implements UserService {
 		return dao.getUserOne(map);
 	}
 	
+
+	@Override
+	public void insertUser(UserVO vo) {
+		dao.insertUser(vo);
+		
+	}
+
+	@Override
+	public void updateUser(UserVO vo) {
+		dao.updateUser(vo);
+		
+	}
+
+	@Override
+	public void deleteUser(UserVO vo) {
+		dao.deleteUser(vo);
+		
+	}
+	
 }
