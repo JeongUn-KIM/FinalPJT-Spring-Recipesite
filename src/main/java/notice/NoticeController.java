@@ -1,11 +1,11 @@
 package notice;
 
 import java.io.File;
-import java.io.IOError;
 import java.io.IOException;
 import java.util.List;
 
-import org.json.JSONArray;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import main.UserVO;
 
 @Controller
 public class NoticeController{
@@ -60,11 +62,21 @@ public class NoticeController{
 	
 	// 공지사항 수정 완료 ---> 상세페이지 이동
 	@RequestMapping(value="/noticemodify", method=RequestMethod.POST)
-	public ModelAndView modifyNotice(NoticeVO vo) {
-		MultipartFile uploadfile = vo.getUploadfile();
-		if(uploadfile.getOriginalFilename() != noticeservice.getNoticeOne(vo.getNotice_no()).getNotice_file()){
+	public ModelAndView modifyNotice(NoticeVO vo) throws IOException {
+		if(!vo.uploadfile.isEmpty()) {
+			// 파일 1개
+			MultipartFile uploadfile = vo.getUploadfile();
+			// 파일명
+			String filename = uploadfile.getOriginalFilename();
+			// 저장소
+			String savePath = "c:/kdigital2/notice/";
+			// 저장
+			File file_result = new File(savePath + filename);
+			uploadfile.transferTo(file_result);
 			
+			vo.setNotice_file(filename);
 		}
+		
 		ModelAndView mv = new ModelAndView();
 		String mod_no = String.valueOf(noticeservice.modifyNotice(vo));
 		mv.addObject("no", mod_no);
@@ -81,8 +93,8 @@ public class NoticeController{
 	
 	// 공지사항 작성완료
 	@RequestMapping(value="/noticewrite", method=RequestMethod.POST)
-	public ModelAndView writeNotice(NoticeVO vo) throws IOException {
-		if(vo.uploadfile != null) {
+	public ModelAndView writeNotice(NoticeVO vo, HttpSession session) throws IOException {
+		if(!vo.uploadfile.isEmpty()) {
 		// 파일 1개
 		MultipartFile uploadfile = vo.getUploadfile();
 		// 파일명
@@ -95,22 +107,27 @@ public class NoticeController{
 		
 		vo.setNotice_file(filename);
 		}
-		int new_notice = noticeservice.writeNoitce(vo); 
+		UserVO vo2 = (UserVO)session.getAttribute("login_info");
+		
+		vo.setUser_no(vo2.getUser_no());
+		noticeservice.writeNoitce(vo); 
+		
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("no", new_notice);
-		mv.setViewName("redirect:/noticedetail");
-		System.out.println("공지 작성 완료");
+		mv.setViewName("redirect:/noticelist");
+		
 		return mv;
 	}
 	
+	/*
 	// 공지사항 검색
 	@RequestMapping(value="/noticelist", method=RequestMethod.POST)
 	@ResponseBody
 	public List<NoticeVO> searchNoticeList(String search) {
-		List<NoticeVO> searchlist = noticeservice.searchNoticeList(search);
-		System.out.println("검색");
-		return searchlist;
+		List<NoticeVO> search_list = noticeservice.searchNoticeList(search);
+		System.out.println(search_list.get(0).getNotice_title());
+		return search_list;
 	}
+	*/
 	
 	@RequestMapping(value="/noticedelete", method=RequestMethod.GET)
 	public ModelAndView deleteNotice(String no) {
@@ -121,8 +138,5 @@ public class NoticeController{
 		mv.setViewName("redirect:/noticelist");
 		return mv;
 	}
-	
-
-	
 	// @ResponseBody ---> 보던 view에 데이터 전달
 }

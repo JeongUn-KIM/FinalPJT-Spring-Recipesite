@@ -6,11 +6,17 @@
   <!-- mybatis db 연결정보 세팅 파일 -->
 <configuration>
 <!-- 1. sql 실행 결과 UserVO 매핑 -->
+
 <typeAliases>
- <typeAlias type="main.UserVO" alias="userVO" />
- <typeAlias type="recipe.RecipeVO" alias="recipeVO" />
- <typeAlias type="recipe.IngredientVO" alias="ingredientVO"/>
- <typeAlias type="notice.NoticeVO"   alias="noticeVO" />
+	<typeAlias alias="userVO" type="main.UserVO"/>
+	<typeAlias alias="recipeVO" type="recipe.RecipeVO"/>
+	<typeAlias alias="recipeimgVO" type="recipe.RecipeImgVO"/>
+	<typeAlias alias="recipedescVO" type="recipe.RecipeDescVO"/>
+	<typeAlias alias="noticeVO" type="notice.NoticeVO"/>
+	<typeAlias alias="adminVO" type="admin.AdminVO"/>
+	<typeAlias alias="mynationVO" type="mypage.MynationVO"/>
+	<typeAlias alias="myrecipeVO" type="mypage.MyrecipeVO"/>
+	<typeAlias alias="myzzimVO" type="mypage.MyzzimVO"/>
 </typeAliases>
 
 </configuration>

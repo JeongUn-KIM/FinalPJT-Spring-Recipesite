@@ -13,13 +13,11 @@
 </select>
 
 <select id="searchnoticelist" resultType="noticeVO" parameterType="String"> 
-	select * from notice where notice_title="'%"#{search}"%'"
+	select * from notice where notice_title like #{search}
 </select>
 
 <update id="modifynotice" parameterType="noticeVO">
-	update notice
-    set(notice_title, notice_desc, notice_file) = (#{notice_title}, #{notice_desc}, #{notice_file})
-    where notice_no = #{notice_no} 
+	update notice set notice_title = #{notice_title}, notice_desc = #{notice_desc}, notice_file = #{notice_file} where notice_no = #{notice_no}
 </update>
 
 <update id="clicknotice" parameterType="int">
@@ -28,7 +26,7 @@
 
 <insert id="writenotice" parameterType="noticeVO">
 	insert into notice (user_no, notice_date, notice_title, notice_desc, notice_file, notice_hits) 
-	values(#{user_no}, sysdate(), #{notice_title}, #{notice_desc}, #{notice_file}, 0)
+	values(#{user_no}, now(), #{notice_title}, #{notice_desc}, #{notice_file}, 0)
 </insert>
 
 <delete id="deletenotice" parameterType="int">

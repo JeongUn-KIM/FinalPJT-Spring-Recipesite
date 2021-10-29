@@ -18,8 +18,11 @@
 <%
 UserVO vo = (UserVO)session.getAttribute("login_info");
 int User_no = vo.getUser_no();
+
+String[] ingredient = {"소고기","돼지고기", "닭고기", "양고기", "무슨고기"};
 %>
-<form action="/recipewrite" method="post" enctype="multipart/form-data">
+<!-- onsubmit에서 send() 함수 return값이 false가 되면 submit이 실행이 안됨 이걸 이용해서 안쓴 내용 말해주기-->
+<form action="/recipewrite" method="post" enctype="multipart/form-data" onsubmit="return send()">
 <!-- 보낼것 1. 내용 -->
 <table>
 <input type="hidden" name="user_no" value="<%=User_no%>">
@@ -32,105 +35,32 @@ int User_no = vo.getUser_no();
 		<td><input type="text" name="recipe_name" ></td>
 	</tr>
 	<tr>
-		<th>사진1</th>
-		<td>
-		<input type="file" name="recipe_img1" id="recipe_img1" onchange="view(event, 'img1');">
-		<div id="img1"></div>
-		</td>
-		<th>레시피 내용1</th>
+		<th>음식 설명</th>
 		<td><textarea rows="5" cols="50" name="recipe_desc"></textarea></td>
 	</tr>
-		<tr>
-		<th>사진2</th>
-		<td>
-		<input type="file" name="recipe_img2" id="recipe_img2" onchange="view(event, 'img2')">
-		<div id="img2"></div>
-		</td>
-		<th>레시피 내용2</th>
-		<td><textarea rows="5" cols="50" name="recipe_desc"></textarea></td>
-	</tr>
-		<tr>
-		<th>사진3</th>
-		<td>
-		<input type="file" name="recipe_img3" id="recipe_img3" onchange="view(event, 'img3')">
-		<div id="img3"></div>
-		</td>
-		<th>레시피 내용3</th>
-		<td><textarea rows="5" cols="50" name="recipe_desc"></textarea></td>
-	</tr>
-		<tr>
-		<th>사진4</th>
-		<td>
-		<input type="file" name="recipe_img4" id="recipe_img4" onchange="view(event, 'img4')">
-		<div id="img4"></div>
-		</td>
-		<th>레시피 내용4</th>
-		<td><textarea rows="5" cols="50" name="recipe_desc"></textarea></td>
-	</tr>
-		<tr>
-		<th>사진5</th>
-		<td>
-		<input type="file" name="recipe_img5" id="recipe_img5" onchange="view(event, 'img5')">
-		<div id="img5"></div>
-		</td>
-		<th>레시피 내용5</th>
-		<td><textarea rows="5" cols="50" name="recipe_desc"></textarea></td>
-	</tr>
-		<tr>
-		<th>사진6</th>
-		<td>
-		<input type="file" name="recipe_img6" id="recipe_img6" onchange="view(event, 'img6')">
-		<div id="img6"></div>
-		</td>
-		<th>레시피 내용6</th>
-		<td><textarea rows="5" cols="50" name="recipe_desc"></textarea></td>
-	</tr>
-		<tr>
-		<th>사진7</th>
-		<td>
-		<input type="file" name="recipe_img7" id="recipe_img7" onchange="view(event, 'img7')">
-		<div id="img7"></div>
-		</td>
-		<th>레시피 내용7</th>
-		<td><textarea rows="5" cols="50" name="recipe_desc"></textarea></td>
-	</tr>
-		<tr>
-		<th>사진8</th>
-		<td>
-		<input type="file" name="recipe_img8" id="recipe_img8" onchange="view(event, 'img8')">
-		<div id="img8"></div>
-		</td>
-		<th>레시피 내용8</th>
-		<td><textarea rows="5" cols="50" name="recipe_desc"></textarea></td>
-	</tr>
-		<tr>
-		<th>사진9</th>
-		<td>
-		<input type="file" name="recipe_img9" id="recipe_img9" onchange="view(event, 'img9')">
-		<div id="img9"></div>
-		</td>
-		<th>레시피 내용9</th>
-		<td><textarea rows="5" cols="50" name="recipe_desc"></textarea></td>
-	</tr>
-		<tr>
-		<th>사진10</th>
-		<td>
-		<input type="file" name="recipe_img10" id="recipe_img10" onchange="view(event, 'img10')">
-		<div id="img10"></div>
-		</td>
-		<th>레시피 내용10</th>
-		<td><textarea rows="5" cols="50" name="recipe_desc"></textarea></td>
-	</tr>
+<!-- 분류 -->
 	<tr>
 		<th>분류</th>
 		<td>
-		<input type="radio" name="recipe_cate" value="meat">육류
-		<input type="radio" name="recipe_cate" value="seafood">해물류
-		<input type="radio" name="recipe_cate" value="vegetable">채소류
-		<input type="radio" name="recipe_cate" value="dairy">달걀/유제품류
-		<input type="radio" name="recipe_cate" value="etc">기타
+		<input type="radio" name="recipe_cate" value="육류">육류
+		<input type="radio" name="recipe_cate" value="해물류">해물류
+		<input type="radio" name="recipe_cate" value="채소류">채소류
+		<input type="radio" name="recipe_cate" value="달걀유제품류">달걀/유제품류
+		<input type="radio" name="recipe_cate" value="기타">기타
 		</td>
 	</tr>
+<!-- 종류 -->
+	<tr>
+		<th>음식 종류</th>
+		<td>
+		<input type="radio" name="recipe_nation" value="한식">한식
+		<input type="radio" name="recipe_nation" value="일식">일식
+		<input type="radio" name="recipe_nation" value="양식">양식
+		<input type="radio" name="recipe_nation" value="중식">중식
+		<input type="radio" name="recipe_nation" value="기타">기타
+		</td>
+	</tr>
+<!-- 모달창 재료 -->
 	<tr>
 		<th>재료</th>
 		<td>
@@ -139,9 +69,8 @@ int User_no = vo.getUser_no();
 			<div class="modal" >
 				<div class="modalbox">
 				<!-- 보낼것 2. 재료 -->
-				<c:forEach items="${column_namelist }" var="ingred_name">
-					<input type="checkbox" name="${ingred_name }" value="1">${ingred_name }
-					<input type="hidden" name="${ingred_name }" value="0">
+				<c:forEach items="<%=ingredient%>" var="ingred">
+					<input type="checkbox" name="ingredient" value="${ingred }">${ingred }
 				</c:forEach>
 				<!-- 모달 박스 안에서 검색 기능을 만들 수 있을까? -->
 				</div>
@@ -150,16 +79,35 @@ int User_no = vo.getUser_no();
 		</div>
 		</td>
 	</tr>
+	
+<!-- 감정 -->
 	<tr>
 		<th>이런 감정일 때 먹으면 좋아요</th>
 		<td>
-		<input type="radio" name="recipe_emotion" value="good">좋아요
-		<input type="radio" name="recipe_emotion" value="notgood">별로예요
-		<input type="radio" name="recipe_emotion" value="normal">평범해요
+		<input type="radio" name="recipe_emotion" value="좋음">좋아요
+		<input type="radio" name="recipe_emotion" value="보통">보통이예요
+		<input type="radio" name="recipe_emotion" value="안좋음">별로예요
 		</td>
 	</tr>
+	
+<!-- 사진 첨부 및 레시피 내용 적기 -->
+<!-- 더보기 기능 완성되면 여기에도 적용할 예정임 -->
+<c:forEach var="i" begin="1" end="10">
+	<tr>
+		<th>사진${i }</th>
+		<td>
+		<input type="file" name="recipe_img" accept="image/*" onchange="view(event, 'img${i }');">
+		<div id="img${i }"></div>
+		</td>
+		<th>레시피 내용${i }</th>
+		<td><textarea rows="5" cols="50" name="recipe_desc"></textarea></td>
+	</tr>
+</c:forEach>
+
 </table>
+<!-- 저장이 완료되었습니다 함수 만들기 -->
 	<input type="submit" value="저장">
+	<a href="/recipelist">취소</a>
 </form>
 
 <script type="text/javascript">
@@ -173,16 +121,26 @@ int User_no = vo.getUser_no();
 		})
 		
 	})
+	//파일 확장자 제한, 사이즈 제한
+	$(document).ready(function(){
+		
+	})
 	//레시피 사진 미리보기
 	function view(event, img){
 		var reader = new FileReader();
 		var img_name = img;
 		reader.onload = function(event){
 			var img = document.createElement("img"); 
-			img.setAttribute("src", event.target.result); 
+			img.setAttribute("src", event.target.result);
+			$("div#"+img_name).empty();
 			document.querySelector("div#"+img_name).appendChild(img);
 		}
 		reader.readAsDataURL(event.target.files[0]);
+	}
+	
+	function send(){
+		
+		alert('저장이 완료되었습니다.')
 	}
 </script>
 

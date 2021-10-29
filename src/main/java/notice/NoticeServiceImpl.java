@@ -44,6 +44,8 @@ public class NoticeServiceImpl implements NoticeService {
 
 	@Override
 	public List<NoticeVO> searchNoticeList(String search) {
+		search = "%" + search + "%";
+		System.out.println(search);
 		List<NoticeVO> searchlist = dao.searchnoticelist(search);
 		return searchlist;
 	}

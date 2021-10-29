@@ -7,29 +7,88 @@
 <select id="getRecipeList" resultType="recipeVO">
 	select * from recipe
 </select>
-<select id="moreRecipeList" resultType="recipeVO" parameterType="int">
-	SELECT recipe_no, recipe_title, recipe_img
+<select id="moreRecipeList" resultType="recipeVO">
+	SELECT *
 	FROM (
 	SELECT @ROWNUM := @ROWNUM + 1 AS r, recipe.*
 	FROM recipe, (SELECT @ROWNUM := 0) R
 	order by recipe_no desc
 	) A
-	where r between #{number} - 5 and #{number}
+	where r between #{number} - 5 and #{number} and recipe_nation=#{nation} and recipe_emotion=#{emotion} and recipe_cate=#{cate} and recipe_title=#{search}
+</select>
+<select id="getCateRecipeList" resultType="recipeVO">
+	SELECT *
+	FROM (
+	SELECT @ROWNUM := @ROWNUM + 1 AS r, recipe.*
+	FROM recipe, (SELECT @ROWNUM := 0) R
+	order by recipe_no desc
+	) A
+	where r between #{number} - 5 and #{number} and 
+	recipe_emotion like #{emotion} and recipe_cate like #{cate} and recipe_nation like #{nation}
 </select>
 <select id="SearchTitle" resultType="recipeVO">
-	select * from recipe where recipe_title like #{search}
+	SELECT *
+	FROM (
+	SELECT @ROWNUM := @ROWNUM + 1 AS r, recipe.*
+	FROM recipe, (SELECT @ROWNUM := 0) R
+	order by recipe_no desc
+	) A
+	where r between #{number} - 5 and #{number} and recipe_title like #{search} and 
+	recipe_emotion like #{emotion} and recipe_cate like #{cate} and recipe_nation like #{nation}
 </select>
-<select id="SearchDesc" resultType="recipeVO">
-	select * from recipe where recipe_desc like #{search}
+<select id="SearchName" resultType="recipeVO">
+	SELECT *
+	FROM (
+	SELECT @ROWNUM := @ROWNUM + 1 AS r, recipe.*
+	FROM recipe, (SELECT @ROWNUM := 0) R
+	order by recipe_no desc
+	) A
+	where r between #{number} - 5 and #{number} and recipe_desc like #{search} and 
+	recipe_emotion like #{emotion} and recipe_cate like #{cate} and recipe_nation like #{nation}
 </select>
-<select id="SearchTitleDesc" resultType="recipeVO">
-	select * from recipe where recipe_title like #{search} or recipe_desc like #{search} 
+<select id="SearchIngredient" resultType="recipeVO">
+	SELECT *
+	FROM (
+	SELECT @ROWNUM := @ROWNUM + 1 AS r, recipe.*
+	FROM recipe, (SELECT @ROWNUM := 0) R
+	order by recipe_no desc
+	) A
+	where r between #{number} - 5 and #{number} and recipe_Ingredient like #{search} and 
+	recipe_emotion like #{emotion} and recipe_cate like #{cate} and recipe_nation like #{nation}
 </select>
 <insert id="addRecipe" parameterType="recipeVO">
-	insert into recipe values(#{recipe_no}, #{user_no}, now(), #{recipe_title}, #{recipe_name}, #{recipe_emotion},
-	#{recipe_desc}, #{recipe_img1}, #{recipe_img2},#{recipe_img3},#{recipe_img4},#{recipe_img5},#{recipe_img6},
-	#{recipe_img7},#{recipe_img8},#{recipe_img9},#{recipe_img10}, #{recipe_cate})
+	insert into recipe (user_no, recipe_hits, recipe_date, recipe_img, recipe_title, recipe_name, recipe_ingredient,
+	recipe_emotion, recipe_cate, recipe_nation) values(#{user_no}, 0, Date_FORMAT(now(), '%y-%m-%d %H:%i:%s'), #{recipe_img}, #{recipe_title}, #{recipe_name}, #{recipe_ingredient},
+	#{recipe_emotion}, #{recipe_cate}, #{recipe_nation})
 </insert>
+<select id="getRecipeDetail" resultType="recipeVO">
+	select * from recipe where recipe_no = #{no}
+</select>
+<delete id="deleteRecipe">
+	delete from recipe where recipe_no = #{recipe_no}
+</delete>
+<update id="modifyRecipe">
+	update recipe set recipe_img = #{recipe_img}, recipe_title=#{recipe_title}, recipe_name=#{recipe_name}, 
+	recipe_ingredient=#{recipe_ingredient},	recipe_emotion=#{recipe_emotion}, recipe_cate=#{recipe_cate}, 
+	recipe_nation=#{recipe_nation} 
+	where recipe_no = #{recipe_no}
+</update>
+
+<update id="raiseRecipeHits">
+	update recipe set recipe_hits = recipe_hits + 1 where recipe_no = #{no}
+</update>
+<select id="findRecipe" resultType="recipeVO">
+	select * from recipe where recipe_emotion like #{emotion} and recipe_nation like #{nation} and recipe_cate like #{cate}
+</select>
+
+<!-- <select id="findRecipe"  resultType="recipeVO" parameterType="String[]">
+ 	select * from recipe
+ 	where recipe_emotion like #{emotion} and recipe_cate like #{cate} and recipe_nation like #{nation} and 
+ 	<foreach collection="array" item="not_eat" separator="and"  >
+ 		recipe_ingredient not like #{not_eat}
+ 	</foreach>
+</select>
+ -->
 <!-- 
 <select id="emplist" resultType="empVO">
  select * from employees

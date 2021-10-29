@@ -51,7 +51,7 @@ public class NoticeVO {
 		this.notice_date = notice_date;
 	}
 	public String getNotice_date() {
-		return  new SimpleDateFormat("yyyy/MM/dd", Locale.KOREA).format(this.notice_date);
+		return  new SimpleDateFormat("yy/MM/dd HH:mm:ss", Locale.KOREA).format(this.notice_date);
 	}
 
 	public MultipartFile getUploadfile() {
