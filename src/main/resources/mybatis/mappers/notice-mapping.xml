@@ -5,7 +5,7 @@
 <mapper namespace="notice.NoticeDAO" >
 
 <select id="noticelist" resultType="noticeVO">
- 	select * from notice order by notice_no desc
+ 	select * from notice order by notice_no asc
 </select>
  
 <select id="noticeone" resultType="noticeVO" parameterType="int"> 
@@ -17,9 +17,9 @@
 </select>
 
 <update id="modifynotice" parameterType="noticeVO">
-	update notice
-    set(notice_title, notice_desc, notice_file) = (#{notice_title}, #{notice_desc}, #{notice_file})
-    where notice_no = #{notice_no} 
+	update notice 
+    set notice_title = #{notice_title}, notice_desc = #{notice_desc}, notice_file = #{notice_file} 
+    where notice_no = #{notice_no}
 </update>
 
 <update id="clicknotice" parameterType="int">
