@@ -14,7 +14,7 @@
 <!--    Document Title-->
 <title>오늘 뭐 해먹지?</title>
 <!--    Favicons-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 <link rel="apple-touch-icon" sizes="180x180" href="mainassets/assets/img/favicons/apple-touch-icon.png">
 <link rel="shortcut icon" type="image/x-icon" href="imgs/logo.ico">
 <link rel="manifest" href="mainassets/assets/img/favicons/manifest.json">
@@ -435,7 +435,15 @@ span:hover + p.tooltip_box {
                       <div class="col-sm-6 col-md-4 col-xl mb-5 h-100">
                         <div class="card card-span h-100 rounded-3">
                         <a href="javascript:void(0);" onclick="detail(${popularlist.recipe_no});" >
-                        	<img class="img-fluid rounded-3" src="mainassets/assets/img/gallery/${popularlist.recipe_img }" alt="..." style="width:333px;height:283px;object-fit: cover;"/>
+                        
+                        	<c:set var="recipe_img" value="${popularlist.recipe_img }"/>
+							<c:if test="${fn:contains(recipe_img, 'https')}">
+								<img class="img-fluid rounded-3" src="${popularlist.recipe_img }" height="200" width="200">
+							</c:if>
+							<c:if test="${not fn:contains(recipe_img, 'https')  }">
+								<img class="img-fluid rounded-3" src="/upload/${popularlist.recipe_img }" alt="..." style="width:333px;height:283px;object-fit: cover;">
+							</c:if>
+                        	
                         </a>  
                           <div class="card-body ps-0">
                           	<h5 class="fw-bold text-1000 text-truncate mb-1">${popularlist.recipe_title }</h5>
@@ -457,7 +465,15 @@ span:hover + p.tooltip_box {
                       <div class="col-sm-6 col-md-4 col-xl mb-5 h-100">
                         <div class="card card-span h-100 rounded-3">
                         <a href="javascript:void(0);" onclick="detail(${popularlist.recipe_no});" >
-                        	<img class="img-fluid rounded-3" src="mainassets/assets/img/gallery/${popularlist.recipe_img }" alt="..." style="width:333px;height:283px;object-fit: cover;"/>
+                        	
+                        	<c:set var="recipe_img" value="${popularlist.recipe_img }"/>
+							<c:if test="${fn:contains(recipe_img, 'https')}">
+								<img class="img-fluid rounded-3" src="${popularlist.recipe_img }" height="200" width="200">
+							</c:if>
+							<c:if test="${not fn:contains(recipe_img, 'https')  }">
+								<img class="img-fluid rounded-3" src="/upload/${popularlist.recipe_img }" alt="..." style="width:333px;height:283px;object-fit: cover;">
+							</c:if>
+                        	
                         </a>  
                           <div class="card-body ps-0">
                             <h5 class="fw-bold text-1000 text-truncate mb-1">${popularlist.recipe_title }</h5>
@@ -534,12 +550,12 @@ span:hover + p.tooltip_box {
 		function detail(recipe_no){
 			var result = confirm("해당 레시피로 이동하시겠습니까?");
 			if(result){
-				location.href = "http://localhost:9009/recipedetail?recipe_no=" + recipe_no;
+				location.href = "/recipedetail?recipe_no=" + recipe_no;
 			}
 		}
     </script>
     
-  </body>
+</body>
 <script type="text/javascript">
 
 	$(function(){

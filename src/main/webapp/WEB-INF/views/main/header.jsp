@@ -72,10 +72,10 @@ $(document).ready(function(){
 </head>
 
 
-  <body>
+<body>
      
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" data-navbar-on-scroll="data-navbar-on-scroll" style="z-index:2;">
-        <div class="container"><a class="navbar-brand d-inline-flex" href="/main"><img width="80" height="60" class="d-inline-block" src="imgs/logo.png" alt="logo" /><span class="text-1000 fs-3 fw-bold ms-2 text-gradient mt-3">오늘 뭐 해먹지?</span></a>
+        <div class="container"><a class="navbar-brand d-inline-flex" href="/main"><img width="150" height="100" class="d-inline-block" src="imgs/logotext.png" alt="logo" /></a><!-- <span class="text-1000 fs-3 fw-bold ms-2 text-gradient mt-3">하위</span></a> -->
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"> </span></button>
           <div class="collapse navbar-collapse border-lg-0 my-2 mt-lg-0" id="navbarSupportedContent">
             <div class="ms-auto">

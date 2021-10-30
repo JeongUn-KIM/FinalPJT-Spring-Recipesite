@@ -205,13 +205,13 @@ public class RecipeController {
 	}
 	
 	@RequestMapping("/recipedetail")
-	public ModelAndView recipedetailview(int no, HttpSession session) {
+	public ModelAndView recipedetailview(int recipe_no, HttpSession session) {
 		UserVO vo = (UserVO)session.getAttribute("login_info");
 		
-		RecipeImgVO img = imgservice.getImgOne(no);
-		RecipeDescVO desc= descservice.getDescOne(no);
-		RecipeVO recipe= service.getRecipeDetail(no);
-		service.raiseRecipeHits(no);
+		RecipeImgVO img = imgservice.getImgOne(recipe_no);
+		RecipeDescVO desc= descservice.getDescOne(recipe_no);
+		RecipeVO recipe= service.getRecipeDetail(recipe_no);
+		service.raiseRecipeHits(recipe_no);
 		
 		ModelAndView mv = new ModelAndView();
 		
@@ -220,7 +220,7 @@ public class RecipeController {
 			System.out.println("회원정보없음");
 		}
 		else { // 로그인o
-			MyzzimVO zo = mypage.getZzimOne(no, vo.getUser_no());
+			MyzzimVO zo = mypage.getZzimOne(recipe_no, vo.getUser_no());
 			if(zo==null) { // zzim x
 				mv.addObject("zzim", null);
 			} else { // zzim o
