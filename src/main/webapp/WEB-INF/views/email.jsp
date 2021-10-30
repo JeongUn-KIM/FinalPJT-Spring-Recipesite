@@ -51,8 +51,8 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include><br>
-    <div id="main" style="margin-left:50px;">
-<div class="page-heading" style="margin-top:90px;">	 
+    <div id="main" style="margin-left:40px;">
+<div class="page-heading" style="margin-top:200px;">	 
     <div class="col-lg-5 mx-auto text-center mb-4" style="background-color:#fff;border-radius:2rem;padding:1.5rem;">
             <h2>이메일 인증하기</h2>
                 아래 이메일주소를 입력하시면,<br> 입력하신 이메일로 인증코드를 보내드립니다<br>
@@ -63,7 +63,7 @@
 				<div class="col-md-3 fw-bold fs-5 mt-1" style="text-align: left;">이메일 입력 : </div>
 				<div class="col-md-9 form-group">
 					<input class="form-control" type="text" id="mail" name="email" value="이메일을 입력하세요" onclick="this.value=''">
-					 <button class="btn btn-primary mt-2" type="button" id="check">중복체크</button> 
+					 <button class="btn btn-primary mt-3" type="button" id="check">중복체크</button> 
 				</div>
 			</div>
 			<div class="d-grid gap-2 col-6 mx-auto" id="send">
