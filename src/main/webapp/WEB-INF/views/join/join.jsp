@@ -26,6 +26,8 @@
 	<script>	
 	const regex = /^.*(?=^.{8,16}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
 	const regex2 = /^[가-힣a-zA-Z]+$/;
+	const regex3 = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/;
+	
 				/* 우편번호 찾기 api */
 				function execPostCode() {
 				    new daum.Postcode({
@@ -76,6 +78,7 @@
 		var test1 = $("#user_pw").val();
 		var test2 = $("#user_name").val();
 		var test3 = $("#user_pwCheck").val();
+		var test4 = $("#user_phone").val();
 		
 				if($("#user_email").val() == ""){
 					alert("이메일을 입력해주세요.");
@@ -131,15 +134,21 @@
 					return false;
 				}
 				
+				if(!regex3.test(test4)){
+					alert("-을 입력해주세요.");
+					$("#user_phone").focus();
+					return false;
+				}
+				
 				if($("#user_address").val() == ""){
 					alert("주소를 입력해주세요.");
 					$("#user_address").focus();
 					return false;
 				}
 				
-				if(confirm("회원가입을 하시겠습니까?")){
+				if(confirm("회원가입을 하시겠습니까?") == true){
 					// alert("회원가입이 완료되었습니다. 감사합니다.");
-			         $("#form").submit();    
+			         return true;    
 			    }
 
 
@@ -156,7 +165,7 @@
 
 
  <div class="modal-content w-75" style="margin-left:50px;">
-     <form action="/join" method = 'post' id ="form">
+     <form action="/join" method = 'post' id ="form" onsubmit="return joincheck()">
          <div class="modal-body">
              <label>이메일: </label>
              <div class="form-group">
@@ -197,50 +206,12 @@
              </div>
          </div>
          <div class="modal-footer">
-         	<button class="btn btn-primary" type="submit" id="submit"  onclick="joincheck()">가입완료</button>
+         	<button class="btn btn-primary" id="submit">가입완료</button>
 			<input class="btn btn-primary" type="button" value = "취소" onclick="location.href='/main'"></input>
          </div>
      </form>
  </div>
 
-	
-
-<!-- 준혁님 -->
-<%-- <form action="/join" method="post" id = "form">
-<div class="form-group has-feedback" id ="userinsert">
-					<label class="control-label" for="user_email">이메일</label>
-					<input class="form-control" type="text" id="user_email" name="user_email" value="${email }" readonly="readonly"/>
-				</div>	
-				 <br>
-<div class= "form-group has-feedback">
-					<label class="control-label" for="user_pw">비밀번호</label>
-					<input class="form-control" type="password" id="user_pw" name="user_pw" placeholder="비밀번호" />
-					<h6>(8~16자내에서 영문 대 소문자, 숫자, 특수문자를 전부 사용하세요.)</h6>
-		</div>		<br>
-		<div class= "form-group has-feedback">
-					<label class="control-label" for="user_pw">비밀번호확인</label>
-					<input class="form-control" type="password" id="user_pwCheck" name="user_pwCheck" placeholder="비밀번호확인" />
-					<h6>(8~16자내에서 영문 대 소문자, 숫자, 특수문자를 전부 사용하세요.)</h6>
-		</div>		<br>
-<div class= "form-group has-feedback">
-					<label class="control-label" for="user_name">이름</label>
-					<input class="form-control" type="text" id="user_name" name="user_name" placeholder="이름" />
-					<h6>(한글과 영문 대 소문자를 사용하세요. (특수기호, 공백 사용 불가))</h6>
-	</div>				 <br>
-<div class= "form-group has-feedback">
-					<label class="control-label" for="user_phone">전화번호</label>
-					<input class="form-control" type="text" id="user_phone" name="user_phone" placeholder="전화번호" />
-				<h3>-를 포함하여 적어주세요!!!!</h3></div> <br>
-	<div class= "form-group has-feedback">			
-					<label class="control-label" for="user_address">주소</label>
-					<input class="form-control" type="text" id="user_address1" name="user_address" placeholder="우편번호" />
-					<button type='button' onclick="execPostCode();">우편번호</button>
-					<input class="form-control" type="text" id="user_address2" name="user_address" placeholder="주소" />
-			</div>		 <br>		
-<button type="submit" id="submit"  onclick="joincheck()">가입완료</button>
-<input type="button" value = "취소" onclick="location.href='/main'"></input>
-</form> --%>
-<!-- 준혁님 -->
 
 </div>
 </div>
