@@ -172,7 +172,7 @@
                         </li>
 
                         <li class="sidebar-item">
-                            <a href="form-layout.html" class='sidebar-link'>
+                            <a href="/check" class='sidebar-link'>
                                 <i class="fas fa-user-cog"></i>
                                 <span>회원정보 수정</span>
                             </a>

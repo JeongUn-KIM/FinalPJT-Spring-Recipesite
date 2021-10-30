@@ -12,5 +12,5 @@ public interface UserDAO {
 	public void insertUser(UserVO vo);
 	public void updateUser(UserVO vo);
 	public void deleteUser(UserVO vo);
-	
+	public UserVO checkUser(String email);
 }

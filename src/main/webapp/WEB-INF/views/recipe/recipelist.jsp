@@ -226,33 +226,6 @@ function form_submit(){
 		return false;
 	}
 }
-/* 
-function moreContent(){
-	$.ajax({
-		url: "/recipelist",
-		type:"post",
-		dataType:'json',
-		data:{"number": 6},
-		success:function(data){
-			var content ="";
-			for(var i=0 ; i<data.length ; i++){
-				content +=
-				"<tr>" +
-					"<td><a href='/recipedetail?no=" + data[i].recipe_no + "'><img src='/upload/" + data[i].recipe_img1 + "'></a></td>" +
-					"<td><a href='/recipedetail?no=" + data[i].recipe_no + "'>" + data[i].recipe_title + "</a></td>" +
-				"</tr>";
-			}
-			content += 
-				"<div>" +
-					"<a id='more_btn' href='javascript:moreContent();'>더보기</a>" +
-				"</div>";
-			
-				$(content).appendTo("#more_list");
-		}
-		
-	})
-}
- */
 
 </script>
 </html>

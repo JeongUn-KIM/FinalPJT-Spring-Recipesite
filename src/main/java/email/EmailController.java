@@ -8,24 +8,37 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import main.UserService;
 
 @Controller
 public class EmailController {
 
 	@Autowired
 	private JavaMailSender mailSender;
+	@Autowired
+	UserService userservice;
 	
-	@RequestMapping(value = "/email")
+	@RequestMapping(value = "/email", method = RequestMethod.GET)
 	public String emailPage() {
 		
 		return "email";
+	}
+	
+	@RequestMapping(value = "/email", method = RequestMethod.POST)
+	@ResponseBody
+	public String emailCheck(String email) {
+		System.out.println(userservice.checkUser(email));
+		return userservice.checkUser(email);
 	}
 	
 	@RequestMapping(value="/sendCode", method=RequestMethod.POST)
