@@ -21,7 +21,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>	
 	<script src="mainassets/vendors/fontawesome/all.min.js"></script>
 </head>
-<jsp:include page="/WEB-INF/views/main/joinheader.jsp"></jsp:include><br>
+<jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include><br>
 <body>
 
 

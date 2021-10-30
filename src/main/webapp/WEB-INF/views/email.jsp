@@ -25,7 +25,7 @@
 </head>
 <body>
 <%-- <jsp:include page="/WEB-INF/views/main/joinheader.jsp"></jsp:include><br> --%>
-<jsp:include page="/WEB-INF/views/main/joinheader.jsp"></jsp:include><br>
+<jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include><br>
     <div id="main" style="margin-left:50px;">
 <div class="page-heading" style="margin-top:90px;">	 
     <div class="col-lg-5 mx-auto text-center mb-4" style="background-color:#fff;border-radius:2rem;padding:1.5rem;">

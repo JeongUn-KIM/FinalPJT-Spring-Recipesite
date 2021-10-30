@@ -33,6 +33,7 @@
 #tooltip div {
     position: relative;
     display: inline-block;
+    z-index: 6;
 }
 
 span {
@@ -217,13 +218,7 @@ $(document).ready(function(){
 
 <!-- 검색 -->
 <form action="/recipelist" onSubmit="return form_submit()">
-<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                      <div class="row gx-1 gy-1 align-items-center">
-                        <div class="col">
-                          <div class="input-group-icon"><i class="fas fa-utensils text-danger input-box-icon"></i>
-                            <input class="form-control input-box form-foodwagon-control" id="keyword" type="text" placeholder="재료, 음식명 등..." />
-                          </div>
-                        </div>
+
 	<input type="hidden" name="nation" id="nation" value="${nation }">
 	<input type="hidden" name="cate" id="cate" value="${cate }">
 	<input type="hidden" name="emotion" id="emotion" value="${emotion }">
@@ -232,7 +227,13 @@ $(document).ready(function(){
 	<option value="recipe_name">음식명</option>
 	<option value="recipe_ingredient">재료명</option>
 </select>
-<input type="search" id="search" name="search" value="${search }">
+<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                      <div class="row gx-1 gy-1 align-items-center">
+                        <div class="col">
+                          <div class="input-group-icon"><i class="fas fa-utensils text-danger input-box-icon"></i>
+                            <input type="search" class="form-control input-box form-foodwagon-contro" id="search" name="search" value="${search }" />
+                          </div>
+                        </div>
 <input type="submit" class="btn btn-lg btn-outline-primary mt-2" value="검색">
 </div>
 </div>
@@ -250,7 +251,7 @@ $(document).ready(function(){
     <script src="adminassets/js/bootstrap.bundle.min.js"></script>
 	<script src="adminassets/js/main.js"></script>
 	 </div>
-                </div>
+ </div>
 </body>
 <script>
 function goSearchRecipe(kinds, val){
