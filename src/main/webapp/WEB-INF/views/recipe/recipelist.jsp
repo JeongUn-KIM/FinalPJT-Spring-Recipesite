@@ -189,7 +189,7 @@ $(document).ready(function(){
 
 <!-- 게시물 띄우기 + 검색 -->
  <div id = "list">
- <div class="page-heading" style="margin-top:0px; background-color: #FFF;">	
+ <div class="page-heading" style="margin-top:0px; ">	
 <table id ="more_list" border="1">
 	<c:forEach items="${recipelist_search }" var="recipe">
 		<tr>
