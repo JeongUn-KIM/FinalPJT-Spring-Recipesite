@@ -88,7 +88,7 @@ $(document).ready(function(){
               	<input class="input-box form-foodwagon-control" id="email" type="text" placeholder="아이디" />&emsp;
               	<input class="input-box form-foodwagon-control" id="pw" type="password" placeholder="패스워드" />
              	 <button id="btn_login" class="btn btn-white shadow-warning text-warning" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-user me-2"></i>로그인</button>
-             	 <button class="btn btn-white shadow-warning text-warning" type="button">회원가입</button>
+             	 <button class="btn btn-white shadow-warning text-warning" type="button" onclick = "location.href='/email'">회원가입</button>
              	 </div>
               </c:if>
               <c:if test="${!empty login_info }">

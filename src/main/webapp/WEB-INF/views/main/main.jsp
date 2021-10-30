@@ -1,32 +1,42 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fn" uri = "http://java.sun.com/jsp/jstl/functions"  %>
 <!DOCTYPE html>
 <html>
 
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--    Document Title-->
-<title>오늘 뭐 해먹지?</title>
-<!--    Favicons-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link rel="apple-touch-icon" sizes="180x180" href="mainassets/assets/img/favicons/apple-touch-icon.png">
-<link rel="shortcut icon" type="image/x-icon" href="imgs/logo.ico">
-<link rel="manifest" href="mainassets/assets/img/favicons/manifest.json">
-<meta name="msapplication-TileImage" content="mainassets/assets/img/favicons/mstile-150x150.png">
-<meta name="theme-color" content="#ffffff">
-<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&amp;display=swap" rel="stylesheet">
-<link href="mainassets/assets/css/theme.css" rel="stylesheet" />
+
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--    Document Title-->
+    <title>오늘 뭐 해먹지?</title>
+    <!--    Favicons-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="apple-touch-icon" sizes="180x180" href="mainassets/assets/img/favicons/apple-touch-icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="imgs/logo.ico">
+    <link rel="manifest" href="mainassets/assets/img/favicons/manifest.json">
+    <meta name="msapplication-TileImage" content="mainassets/assets/img/favicons/mstile-150x150.png">
+    <meta name="theme-color" content="#ffffff">
+	<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&amp;display=swap" rel="stylesheet">
+    <link href="mainassets/assets/css/theme.css" rel="stylesheet" />
 	
-<script src="/static/jquery-3.2.1.min.js"></script>
-  
+<script type="text/javascript">
+	/* 키워드 관련 */
+	$(document).ready(function(){
+		$("#btn_search").on("click", function(){
+			$(location).attr("href", "http://localhost:9009/search?keyword=" + $("#keyword").val());
+		});
+	});
+</script>
+	
 <style>
-#emotion_q, #emotion_a, #nation_q, #nation_a ,#cate_q ,#cate_a, #ingredient_q, #ingredient_a, .btn {display:none;}
+.dropdown-menu{
+	min-width: 8rem;
+}
+
+#emotion_q, #emotion_a, #nation_q, #nation_a ,#cate_q ,#cate_a, #ingredient_q, #ingredient_a, #findbtn {display:none;}
 
 #tooltip {
     width: 800px;
@@ -39,7 +49,7 @@
     display: inline-block;
 }
 
-span {
+#tooltip span {
     display: block;
     width: 87px;
     padding: 2px 16px;
@@ -74,27 +84,12 @@ span {
   content: " ";
 }
 
-span:hover + p.tooltip_box {
+#tooltip span:hover + p.tooltip_box {
   display: block;
   
 
 }
-.dropdown-menu{
-  min-width: 8rem;
-}
-
-</style>
-  
-
-<script type="text/javascript">
-  /* 키워드 관련 */
-  $(document).ready(function(){
-    $("#btn_search").on("click", function(){
-      $(location).attr("href", "http://localhost:9009/search?keyword=" + $("#keyword").val());
-    });
-  });
-</script>
-
+	</style>
 	
 </head>
 
@@ -182,8 +177,14 @@ span:hover + p.tooltip_box {
                       <div class="col-sm-6 col-md-4 col-xl mb-5 h-100">
                         <div class="card card-span h-100 rounded-3">
                         
-                        	<img class="img-fluid rounded-3" src="mainassets/assets/img/gallery/${resultlist.recipe_img }" alt="" style="width:333px;height:203px;object-fit: cover;"/>
-                       
+                        	
+                      		<c:set var="recipe_img" value="${resultlist.recipe_img }"/>
+							<c:if test="${fn:contains(recipe_img, 'https')}">
+								<img class="img-fluid rounded-3" src="${resultlist.recipe_img }" height="200" width="200">
+							</c:if>
+							<c:if test="${not fn:contains(recipe_img, 'https')  }">
+								<img class="img-fluid rounded-3" src="/upload/${resultlist.recipe_img }" alt="..." style="width:333px;height:203px;object-fit: cover;">
+							</c:if>
                         
                         <div class="card-img-overlay ps-0" style="padding:0rem;">
                        	    <a href="javascript:void(0);" onclick="detail(${resultlist.recipe_no});" class="stretched-link text-danger">
@@ -235,6 +236,7 @@ span:hover + p.tooltip_box {
                         <div class="card card-span h-100 rounded-3">
                       
                         	<img class="img-fluid rounded-3" src="mainassets/assets/img/gallery/resultx.png" alt="" style="width:333px;height:203px;object-fit: cover;"/>
+                        	
                         
                           <div class="card-body ps-0">
                         	<h5 class="fw-bold text-1000 text-truncate mb-1"> </h5>
@@ -247,6 +249,7 @@ span:hover + p.tooltip_box {
                       
                      </c:forEach>
                       </c:if>
+                      
                     </div>
                   </div>
                 </div>
@@ -257,108 +260,30 @@ span:hover + p.tooltip_box {
         </div>
         </c:if>
             <!-- 레시피 검색 결과 전체 끝 -->
- 
-
-<!-- 레시피 추천 -->
-<form action="/find" method="get" onsubmit="return find()">
-<table border="1">
-<tr><td><input type="button" id="find" value="레시피를 추천받고 싶나요?"></td></tr>
-
-	<tr>
-		<th id="emotion_q">오늘 기분이 어때요?</th>
-	</tr>
-	<tr>
-		<td id="emotion_a">
-			<div id="tooltip">
-				
-				<div><span><input class="emotion" type="radio" id="recipe_emotion" name="recipe_emotion" value="좋음">😀</span>
-				<p class="tooltip_box">기분 좋은 날엔 손이 조금 가더라도 근사한 음식을 해먹어봐요!</p></div>
-				
-				<div><span><input class="emotion" type="radio" name="recipe_emotion" value="입맛없음">😐</span>
-				<p class="tooltip_box">입맛이 없을 땐 입맛을 돋궈주는 상큼한 음식을 먹어봐요</p></div>
-				
-				<div><span><input class="emotion" type="radio" name="recipe_emotion" value="우울">😥</span> 
-				<p class="tooltip_box">우울함엔 마그네슘, 비타민 B, 엽산 등이 풍부한 음식을 추천드려요!</p></div>
-				
-				<div><span><input class="emotion" type="radio" name="recipe_emotion" value="화남">🤬</span>
-				<p class="tooltip_box">화가 나는 날엔  비타민 D, 오메가 3 등이 들어간 음식을 먹어봐요! 또한, 매운음식은 아드레날린과 엔도르핀을 분비합니다.</p></div>
-				
-				<div><span><input class="emotion" type="radio" name="recipe_emotion" value="아픔">😷</span>
-				<p class="tooltip_box">아플 땐 든든한 고기류나 염분이 많지 않은 속편한 음식을 먹어보세요</p></div>
-			</div>
-		</td>
-	</tr>
-	<tr>
-		<th id="nation_q">어떤 종류의 음식이 드시고 싶은가요?</th>
-	</tr>
-	<tr>
-		<td id="nation_a">
-			<div id="tooltip">
-			<div><span><input class="nation" type="radio" id="recipe_nation" name="recipe_nation" value="한식">한식</span></div>
-			<div><span><input class="nation" type="radio" name="recipe_nation" value="일식">일식</span></div>
-			<div><span><input class="nation" type="radio" name="recipe_nation" value="양식">양식</span></div>
-			<div><span><input class="nation" type="radio" name="recipe_nation" value="중식">중식</span></div>
-			<div><span><input class="nation" type="radio" name="recipe_nation" value="">상관없음</span></div>
-			</div>
-		</td>
-	</tr>
-	<tr>
-		<th id="cate_q">가지고 계신 재료가 있나요?</th>
-	</tr>
-	<tr>
-		<td id="cate_a">
-			<div id="tooltip">
-			<div><span><input class="cate" type="radio" id="recipe_cate" name="recipe_cate" value="육류">육류</span></div>
-			<div><span><input class="cate" type="radio" name="recipe_cate" value="해물류">해물류</span></div>
-			<div><span><input class="cate" type="radio" name="recipe_cate" value="채소류">채소류</span></div>
-			<div><span><input class="cate" type="radio" name="recipe_cate" value="달걀유제품류">달걀/유제품류</span></div>
-			<div><span><input class="cate" type="radio" name="recipe_cate" value="">상관없음</span></div>
-			</div>
-		</td>
-	</tr>
-	<tr>
-		<th id="ingredient_q">못먹는 재료가 있나요?</th>
-	</tr>
-	<tr>
-		<td id="ingredient_a">
-			<div id="tooltip">
-			<div><span><input class="ingredient" type="checkbox" name="ingred" value="땅콩">땅콩</span></div>
-			<div><span><input class="ingredient" type="checkbox" name="ingred" value="대두">대두</span></div>
-			<div><span><input class="ingredient" type="checkbox" name="ingred" value="유제품">유제품</span></div>
-			<div><span><input class="ingredient" type="checkbox" name="ingred" value="갑각류조개류">갑각류/조개류</span></div>
-			<div><span><input class="ingredient" type="checkbox" name="ingred" value="생선">생선</span></div>
-			<div><span><input class="ingredient" type="checkbox" name="ingred" value="밀">밀</span></div>
-			<div><span><input class="ingredient" type="hidden" name="ingred" value=""></span></div>
-			</div>
-		</td>
-	</tr>
-</table>
-	<input class="btn" type="submit" value="Find Recipe">
-</form>
-
-
-<table border="1">
-	<tr><th>추천레시피</th></tr>
-	<c:forEach items="${findList }" var="recipe">
+ 		<!-- 분류 레시피 -->
+ 		<table border="1">
+		<tr><th>추천레시피</th></tr>
+		<c:forEach items="${findList }" var="recipe">
+					<tr>
+				<td><a href="/recipedetail?no=${recipe.recipe_no }">
+	
+				<c:set var="recipe_img" value="${recipe.recipe_img }"/>
+				<c:if test="${fn:contains(recipe_img, 'https')}">
+					<img src="${recipe.recipe_img }" height="200" width="200">
+				</c:if>
+				<c:if test="${not fn:contains(recipe_img, 'https')  }">
+					<img src="/upload/${recipe.recipe_img }" height="200" width="200">
+				</c:if>
+				</a>
+				</td>
+			</tr>
 				<tr>
-			<td><a href="/recipedetail?no=${recipe.recipe_no }">
-
-			<c:set var="recipe_img" value="${recipe.recipe_img }"/>
-			<c:if test="${fn:contains(recipe_img, 'https')}">
-				<img src="${recipe.recipe_img }" height="200" width="200">
-			</c:if>
-			<c:if test="${not fn:contains(recipe_img, 'https')  }">
-				<img src="/upload/${recipe.recipe_img }" height="200" width="200">
-			</c:if>
-			</a>
-			</td>
-		</tr>
-			<tr>
-			<td><a href="/recipedetail?no=${recipe.recipe_no }">${recipe.recipe_title }</a></td>
-		</tr>
-	</c:forEach>
-</table>
-
+				<td><a href="/recipedetail?no=${recipe.recipe_no }">${recipe.recipe_title }</a></td>
+			</tr>
+		</c:forEach>
+		</table>
+       	<!-- 분류 레시피 끝 -->
+       
         
         
         <div class="col-md-7 col-lg-6 py-8 text-md-start text-center">
@@ -393,13 +318,85 @@ span:hover + p.tooltip_box {
                     <!-- 챗봇 -->
                       <div class="row gx-2 gy-2 align-items-center">
                         <div class="col">
-                          <div class="input-group-icon"><i class="fas fa-utensils text-danger input-box-icon"></i>
-                            <input class="form-control input-box form-foodwagon-control" id="keyword" type="text" placeholder="재료, 음식명12 등..." />
-                          </div>
+                        <form action="/find" method="get" onsubmit="return find()">
+						<table border="1">
+						<tr><td><input class="btn btn-danger" type="button" id="find" value="레시피를 추천받고 싶나요?"></td></tr>
+						
+							<tr>
+								<th id="emotion_q">오늘 기분이 어때요?</th>
+							</tr>
+							<tr>
+								<td id="emotion_a">
+									<div id="tooltip">
+										
+										<div><span><input class="emotion" type="radio" id="recipe_emotion" name="recipe_emotion" value="좋음">😀</span>
+										<p class="tooltip_box">기분 좋은 날엔 손이 조금 가더라도 근사한 음식을 해먹어봐요!</p></div>
+										
+										<div><span><input class="emotion" type="radio" name="recipe_emotion" value="입맛없음">😐</span>
+										<p class="tooltip_box">입맛이 없을 땐 입맛을 돋궈주는 상큼한 음식을 먹어봐요</p></div>
+										
+										<div><span><input class="emotion" type="radio" name="recipe_emotion" value="우울">😥</span> 
+										<p class="tooltip_box">우울함엔 마그네슘, 비타민 B, 엽산 등이 풍부한 음식을 추천드려요!</p></div>
+										
+										<div><span><input class="emotion" type="radio" name="recipe_emotion" value="화남">🤬</span>
+										<p class="tooltip_box">화가 나는 날엔  비타민 D, 오메가 3 등이 들어간 음식을 먹어봐요! 또한, 매운음식은 아드레날린과 엔도르핀을 분비합니다.</p></div>
+										
+										<div><span><input class="emotion" type="radio" name="recipe_emotion" value="아픔">😷</span>
+										<p class="tooltip_box">아플 땐 든든한 고기류나 염분이 많지 않은 속편한 음식을 먹어보세요</p></div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th id="nation_q">어떤 종류의 음식이 드시고 싶은가요?</th>
+							</tr>
+							<tr>
+								<td id="nation_a">
+									<div id="tooltip">
+									<div><span><input class="nation" type="radio" id="recipe_nation" name="recipe_nation" value="한식">한식</span></div>
+									<div><span><input class="nation" type="radio" name="recipe_nation" value="일식">일식</span></div>
+									<div><span><input class="nation" type="radio" name="recipe_nation" value="양식">양식</span></div>
+									<div><span><input class="nation" type="radio" name="recipe_nation" value="중식">중식</span></div>
+									<div><span><input class="nation" type="radio" name="recipe_nation" value="">상관없음</span></div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th id="cate_q">가지고 계신 재료가 있나요?</th>
+							</tr>
+							<tr>
+								<td id="cate_a">
+									<div id="tooltip">
+									<div><span><input class="cate" type="radio" id="recipe_cate" name="recipe_cate" value="육류">육류</span></div>
+									<div><span><input class="cate" type="radio" name="recipe_cate" value="해물류">해물류</span></div>
+									<div><span><input class="cate" type="radio" name="recipe_cate" value="채소류">채소류</span></div>
+									<div><span><input class="cate" type="radio" name="recipe_cate" value="달걀유제품류">달걀/유제품류</span></div>
+									<div><span><input class="cate" type="radio" name="recipe_cate" value="">상관없음</span></div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th id="ingredient_q">못먹는 재료가 있나요?</th>
+							</tr>
+							<tr>
+								<td id="ingredient_a">
+									<div id="tooltip">
+									<div><span><input class="ingredient" type="checkbox" name="ingred" value="땅콩">땅콩</span></div>
+									<div><span><input class="ingredient" type="checkbox" name="ingred" value="대두">대두</span></div>
+									<div><span><input class="ingredient" type="checkbox" name="ingred" value="유제품">유제품</span></div>
+									<div><span><input class="ingredient" type="checkbox" name="ingred" value="갑각류조개류">갑각류/조개류</span></div>
+									<div><span><input class="ingredient" type="checkbox" name="ingred" value="생선">생선</span></div>
+									<div><span><input class="ingredient" type="checkbox" name="ingred" value="밀">밀</span></div>
+									<div><span><input class="ingredient" type="hidden" name="ingred" value=""></span></div>
+									</div>
+								</td>
+							</tr>
+						</table>
+							<input class="btn btn-danger" id="findbtn" type="submit" value="레시피 찾기">
+						</form>
                         </div>
-                        <div class="d-grid gap-3 col-sm-auto">
+                        <!-- <div class="d-grid gap-3 col-sm-auto">
                           <button class="btn btn-danger" type="button" id="btn_search">레시피 찾기</button>
-                        </div>
+                        </div> -->
                       </div>
                       <!-- 챗봇 -->
                       
@@ -435,7 +432,13 @@ span:hover + p.tooltip_box {
                       <div class="col-sm-6 col-md-4 col-xl mb-5 h-100">
                         <div class="card card-span h-100 rounded-3">
                         <a href="javascript:void(0);" onclick="detail(${popularlist.recipe_no});" >
-                        	<img class="img-fluid rounded-3" src="mainassets/assets/img/gallery/${popularlist.recipe_img }" alt="..." style="width:333px;height:283px;object-fit: cover;"/>
+                        	<c:set var="recipe_img" value="${popularlist.recipe_img }"/>
+							<c:if test="${fn:contains(recipe_img, 'https')}">
+								<img class="img-fluid rounded-3" src="${popularlist.recipe_img }" height="200" width="200">
+							</c:if>
+							<c:if test="${not fn:contains(recipe_img, 'https')  }">
+								<img class="img-fluid rounded-3" src="/upload/${popularlist.recipe_img }" alt="..." style="width:333px;height:283px;object-fit: cover;">
+							</c:if>
                         </a>  
                           <div class="card-body ps-0">
                           	<h5 class="fw-bold text-1000 text-truncate mb-1">${popularlist.recipe_title }</h5>
@@ -457,7 +460,15 @@ span:hover + p.tooltip_box {
                       <div class="col-sm-6 col-md-4 col-xl mb-5 h-100">
                         <div class="card card-span h-100 rounded-3">
                         <a href="javascript:void(0);" onclick="detail(${popularlist.recipe_no});" >
-                        	<img class="img-fluid rounded-3" src="mainassets/assets/img/gallery/${popularlist.recipe_img }" alt="..." style="width:333px;height:283px;object-fit: cover;"/>
+                        	
+							<c:set var="recipe_img" value="${popularlist.recipe_img }"/>
+							<c:if test="${fn:contains(recipe_img, 'https')}">
+								<img class="img-fluid rounded-3" src="${popularlist.recipe_img }" height="200" width="200">
+							</c:if>
+							<c:if test="${not fn:contains(recipe_img, 'https')  }">
+								<img class="img-fluid rounded-3" src="/upload/${popularlist.recipe_img }" alt="..." style="width:333px;height:283px;object-fit: cover;">
+							</c:if>
+							
                         </a>  
                           <div class="card-body ps-0">
                             <h5 class="fw-bold text-1000 text-truncate mb-1">${popularlist.recipe_title }</h5>
@@ -550,6 +561,16 @@ span:hover + p.tooltip_box {
 		$(".emotion").click(function(){
 			$("#nation_q").fadeIn();
 			setTimeout(function(){$("#nation_a").fadeIn();}, 1000);
+		});
+		$(".nation").click(function(){
+			$("#cate_q").fadeIn();
+			setTimeout(function(){$("#cate_a").fadeIn();}, 1000);
+		})
+		$(".cate").click(function(){
+			$("#ingredient_q").fadeIn();
+			setTimeout(function(){$("#ingredient_a").fadeIn();}, 1000);
+			setTimeout(function(){$("#findbtn").fadeIn();}, 2000);
+		})
+	})
 </script>
-          
 </html>
