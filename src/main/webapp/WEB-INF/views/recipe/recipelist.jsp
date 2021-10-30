@@ -188,9 +188,11 @@ $(document).ready(function(){
 </table>
 
 <!-- 게시물 띄우기 + 검색 -->
+ <div id = "list">
+ <div class="page-heading" style="margin-top:0px; background-color: #FFF;">	
 <table id ="more_list" border="1">
 	<c:forEach items="${recipelist_search }" var="recipe">
-				<tr>
+		<tr>
 			<td><a href="/recipedetail?no=${recipe.recipe_no }">
 
 			<c:set var="recipe_img" value="${recipe.recipe_img }"/>
@@ -207,8 +209,11 @@ $(document).ready(function(){
 			<td><a href="/recipedetail?no=${recipe.recipe_no }">${recipe.recipe_title }</a></td>
 		</tr>
 	</c:forEach>
-	<!-- 찜기능 -->
+	
+
 </table>
+</div>
+</div>
 
 <!-- 글 더보기 기능 -->
 <button id="more_list_btn" class="btn btn-lg btn-outline-primary mt-3">더보기</button>
