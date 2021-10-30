@@ -1366,7 +1366,7 @@ progress {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 auto;
     flex: 0 0 auto;
-    width: 75%;
+    width: 90%;
   }
   .col-md-10 {
     -webkit-box-flex: 0;
@@ -7491,6 +7491,8 @@ fieldset:disabled .btn {
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
   white-space: nowrap;
+  width: 260px;
+  height: 30px;
 }
 
 .align-baseline {

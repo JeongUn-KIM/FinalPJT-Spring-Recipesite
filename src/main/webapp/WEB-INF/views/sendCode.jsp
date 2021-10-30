@@ -21,7 +21,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>	
 	<script src="mainassets/vendors/fontawesome/all.min.js"></script>
 </head>
-<jsp:include page="/WEB-INF/views/main/joinheader.jsp"></jsp:include><br>
+<jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include><br>
 <body>
 
 
@@ -35,9 +35,9 @@
                 <br>
                 
             <div class="row">
-				<div class="col-md-3 fw-bold fs-5 mt-1" style="text-align: left;">이메일 입력 : </div>
+				<div class="col-md-3 fw-bold fs-5 mt-1" style="text-align: left;" >이메일 입력 : </div>
 				<div class="col-md-9 form-group">
-					<input class="form-control" type="text" value="${email}">
+					<input class="form-control" type="text" value="${email}" readonly="readonly">
 				</div>
 			</div>
 			<div class="row">

@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>오늘 뭐 해먹지?</title>
+    <title>오늘 뭐 해먹지? : MY ZZIM_RECIPE</title>
 	
 	<!-- 공통 -->
 	<link href="mainassets/assets/css/theme.css" rel="stylesheet" />
@@ -53,16 +53,18 @@
 										$("#dis").empty();
 									}
 									if(i < 8){
+										if(answer[i].recipe_img.indexOf('http')!=-1){
 										$("#dis").append("<div class='col-sm-6 col-md-4 col-lg-3 h-100 mb-5'>" + 
 									              "<div class='card card-span h-100 text-white rounded-3' style='margin-bottom:0rem;'>" + 
-							              "<a href='javascript:void(0);' onclick='detail(" + answer[i].recipe_no + ");'>" + 
-							              "<img title='상세 페이지로 이동' class='img-fluid rounded-3' src='mainassets/assets/img/gallery/" + answer[i].recipe_img + "' alt='...' style='width:333px;height:283px;object-fit: cover;' /></a>" + 
+							              "<a href='javascript:void(0);' onclick='detail(" + answer[i].recipe_no + ");'>" +
+							             "<img class='img-fluid rounded-3' src='" + answer[i].recipe_img + "' alt='...' style='width:333px;height:283px;object-fit: cover;' /></a>" + 
+							                "<div class='card-img-overlay ps-0' style='background-color: transparent; text-align: right;'>" + 
+							                	"<span class='badge p-2' style='background-color: transparent;'><a href='javascript:void(0);' onclick='delete1(" + answer[i].recipe_no + ");' style='color:#dc3545;'>" + 
+							                	"<i class='fas fa-heart'></i></a></span></div>" + 
 							                "<div class='card-body p-2'>" + 
 							                  "<div class='d-flex align-items-center mb-1'>" + 
 							                    "<div class='flex-1'>" + 
-							                      "<div class='mb-0 fw-bold text-1000'>" + answer[i].recipe_title + 
-								                	"<a href='javascript:void(0);' onclick='delete1(" + answer[i].recipe_no +");' style='color:#dc3545; float: right;'><i class='fas fa-heart' title='목록에서 삭제'></i></a>" + 
-									                 "</div>" + 
+							                      "<h5 class='mb-0 fw-bold text-1000'>" + answer[i].recipe_title + "</h5>" + 
 							                      "<div><span style='color:black;'>" + answer[i].recipe_name + "</span></div>" + 
 							                      "<span class='text-primary fs--1' style='justify-content: flex-end;'>조회수</span>" + 
 							                      "<span class='mb-0 text-primary'>" + answer[i].recipe_hits + "</span>" + 
@@ -71,17 +73,41 @@
 							                "</div>" + 
 							              "</div>" + 
 							            "</div>");
+										}else{
+										$("#dis").append("<div class='col-sm-6 col-md-4 col-lg-3 h-100 mb-5'>" + 
+									              "<div class='card card-span h-100 text-white rounded-3' style='margin-bottom:0rem;'>" + 
+							              "<a href='javascript:void(0);' onclick='detail(" + answer[i].recipe_no + ");'>" +
+							             "<img class='img-fluid rounded-3' src='/upload/" + answer[i].recipe_img + "' alt='...' style='width:333px;height:283px;object-fit: cover;' /></a>" + 
+							                "<div class='card-img-overlay ps-0' style='background-color: transparent; text-align: right;'>" + 
+							                	"<span class='badge p-2' style='background-color: transparent;'><a href='javascript:void(0);' onclick='delete1(" + answer[i].recipe_no + ");' style='color:#dc3545;'>" + 
+							                	"<i class='fas fa-heart'></i></a></span></div>" + 
+							                "<div class='card-body p-2'>" + 
+							                  "<div class='d-flex align-items-center mb-1'>" + 
+							                    "<div class='flex-1'>" + 
+							                      "<h5 class='mb-0 fw-bold text-1000'>" + answer[i].recipe_title + "</h5>" + 
+							                      "<div><span style='color:black;'>" + answer[i].recipe_name + "</span></div>" + 
+							                      "<span class='text-primary fs--1' style='justify-content: flex-end;'>조회수</span>" + 
+							                      "<span class='mb-0 text-primary'>" + answer[i].recipe_hits + "</span>" + 
+							                    "</div>" + 
+							                  "</div>" + 
+							                "</div>" + 
+							              "</div>" + 
+							            "</div>");
+									}
+									
 									}else{
+										if(answer[i].recipe_img.indexOf('http')!=-1){
 										$("#dis").append("<div class='col-sm-6 col-md-4 col-lg-3 h-100 mb-5 hide' style='display:none;'>" + 
 									              "<div class='card card-span h-100 text-white rounded-3' style='margin-bottom:0rem;'>" + 
 									              "<a href='javascript:void(0);' onclick='detail(" + answer[i].recipe_no + ");'>" + 
-									              "<img title='상세 페이지로 이동' class='img-fluid rounded-3' src='mainassets/assets/img/gallery/" + answer[i].recipe_img + "' alt='...' style='width:333px;height:283px;object-fit: cover;' /></a>" + 
+									              "<img class='img-fluid rounded-3' src='" + answer[i].recipe_img + "' alt='...' style='width:333px;height:283px;object-fit: cover;' /></a>" + 
+									                "<div class='card-img-overlay ps-0' style='background-color: transparent; text-align: right;'>" + 
+									                	"<span class='badge p-2' style='background-color: transparent;'><a href='javascript:void(0);' onclick='delete1(" + answer[i].recipe_no + ");' style='color:#dc3545;'>" + 
+									                	"<i class='fas fa-heart'></i></a></span></div>" + 
 									                "<div class='card-body p-2'>" + 
 									                  "<div class='d-flex align-items-center mb-1'>" + 
 									                    "<div class='flex-1'>" + 
-									                    "<div class='mb-0 fw-bold text-1000'>" + answer[i].recipe_title + 
-									                	"<a href='javascript:void(0);' onclick='delete1(" + answer[i].recipe_no +");' style='color:#dc3545; float: right;'><i class='fas fa-heart' title='목록에서 삭제'></i></a>" + 
-										                 "</div>" + 
+									                      "<h5 class='mb-0 fw-bold text-1000'>" + answer[i].recipe_title + "</h5>" + 
 									                      "<div><span style='color:black;'>" + answer[i].recipe_name + "</span></div>" + 
 									                      "<span class='text-primary fs--1' style='justify-content: flex-end;'>조회수</span>" + 
 									                      "<span class='mb-0 text-primary'>" + answer[i].recipe_hits + "</span>" + 
@@ -90,6 +116,27 @@
 									                "</div>" + 
 									              "</div>" + 
 									            "</div>");
+										}else{
+											$("#dis").append("<div class='col-sm-6 col-md-4 col-lg-3 h-100 mb-5 hide' style='display:none;'>" + 
+										              "<div class='card card-span h-100 text-white rounded-3' style='margin-bottom:0rem;'>" + 
+										              "<a href='javascript:void(0);' onclick='detail(" + answer[i].recipe_no + ");'>" + 
+										              "<img class='img-fluid rounded-3' src='/upload/" + answer[i].recipe_img + "' alt='...' style='width:333px;height:283px;object-fit: cover;' /></a>" + 
+										                "<div class='card-img-overlay ps-0' style='background-color: transparent; text-align: right;'>" + 
+										                	"<span class='badge p-2' style='background-color: transparent;'><a href='javascript:void(0);' onclick='delete1(" + answer[i].recipe_no + ");' style='color:#dc3545;'>" + 
+										                	"<i class='fas fa-heart'></i></a></span></div>" + 
+										                "<div class='card-body p-2'>" + 
+										                  "<div class='d-flex align-items-center mb-1'>" + 
+										                    "<div class='flex-1'>" + 
+										                      "<h5 class='mb-0 fw-bold text-1000'>" + answer[i].recipe_title + "</h5>" + 
+										                      "<div><span style='color:black;'>" + answer[i].recipe_name + "</span></div>" + 
+										                      "<span class='text-primary fs--1' style='justify-content: flex-end;'>조회수</span>" + 
+										                      "<span class='mb-0 text-primary'>" + answer[i].recipe_hits + "</span>" + 
+										                    "</div>" + 
+										                  "</div>" + 
+										                "</div>" + 
+										              "</div>" + 
+										            "</div>");
+										}
 									}
 		
 							}			
@@ -175,7 +222,7 @@
                         </li>
 
                         <li class="sidebar-item  ">
-                            <a href="form-layout.html" class='sidebar-link'>
+                            <a href="/check" class='sidebar-link'>
                                 <i class="fas fa-user-cog"></i>
                                 <span>회원정보 수정</span>
                             </a>
@@ -212,7 +259,13 @@
             <div class="col-sm-6 col-md-4 col-lg-3 h-100 mb-5">
               <div class="card card-span h-100 text-white rounded-3" style="margin-bottom:0rem;">
               <a href="javascript:void(0);" onclick="detail(${myzzimrecipelist.recipe_no});" >
-          		<img title="상세 페이지로 이동" alt="오류" class="img-fluid rounded-3" src="mainassets/assets/img/gallery/${myzzimrecipelist.recipe_img }" style="width:333px;height:283px;object-fit: cover;" />
+          		<c:set var="recipe_img" value="${myzzimrecipelist.recipe_img }"/>
+					<c:if test="${fn:contains(recipe_img, 'https')}">
+						<img title="상세 페이지로 이동" alt="오류"  class="img-fluid rounded-3" src="${myzzimrecipelist.recipe_img }" style="width:333px;height:283px;object-fit: cover;">
+					</c:if>
+				<c:if test="${not fn:contains(recipe_img, 'https')  }">
+					<img title="상세 페이지로 이동" alt="오류"  class="img-fluid rounded-3"  src="/upload/${myzzimrecipelist.recipe_img }" style="width:333px;height:283px;object-fit: cover;">
+				</c:if>
               </a>
                 <div class="card-body p-2 " >
                   <div class="d-flex align-items-center mb-1">

@@ -93,9 +93,10 @@ public class NoticeController{
 		}
 		
 		ModelAndView mv = new ModelAndView();
-		noticeservice.modifyNotice(vo);
-		
-		mv.setViewName("redirect:/noticelist");
+		String mod_no = String.valueOf(noticeservice.modifyNotice(vo));
+		mv.addObject("no", mod_no);
+		mv.setViewName("redirect:/noticedetail");
+		System.out.println("공지 수정 완료");
 		return mv;
 	}
 	

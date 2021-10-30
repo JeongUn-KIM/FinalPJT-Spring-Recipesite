@@ -56,9 +56,8 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/myzzimdelete")
-	public String userdelete(int recipe_no, HttpSession session) {
+	public String zzimdelete(int recipe_no, HttpSession session) {
 		
-
 		UserVO vo = (UserVO)session.getAttribute("login_info");
 		
 		mypage.deleteZzimRecipeOne(recipe_no, vo.getUser_no());
