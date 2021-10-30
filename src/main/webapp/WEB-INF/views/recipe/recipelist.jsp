@@ -216,12 +216,17 @@ $(document).ready(function(){
 </div>
 
 <!-- 글 더보기 기능 -->
+
 <button id="more_list_btn" class="btn btn-lg btn-outline-primary mt-3">더보기</button>
 <input type="hidden" id="number" value="12">
+ <div id = "list">
+ <div class="page-heading" style="margin-top:0px; background-color: #FFF;">	
 <table>
 <div id="more_list"></div>
-</table>
 
+</table>
+</div>
+</div>
 <!-- 검색 -->
 <form action="/recipelist" onSubmit="return form_submit()">
 
