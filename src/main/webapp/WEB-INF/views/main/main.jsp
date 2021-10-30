@@ -257,110 +257,7 @@ span:hover + p.tooltip_box {
         </div>
         </c:if>
             <!-- 레시피 검색 결과 전체 끝 -->
- 
-
-<!-- 레시피 추천 -->
-<form action="/find" method="get" onsubmit="return find()">
-<table border="1">
-<tr><td><input type="button" id="find" value="레시피를 추천받고 싶나요?"></td></tr>
-
-	<tr>
-		<th id="emotion_q">오늘 기분이 어때요?</th>
-	</tr>
-	<tr>
-		<td id="emotion_a">
-			<div id="tooltip">
-				
-				<div><span><input class="emotion" type="radio" id="recipe_emotion" name="recipe_emotion" value="좋음">😀</span>
-				<p class="tooltip_box">기분 좋은 날엔 손이 조금 가더라도 근사한 음식을 해먹어봐요!</p></div>
-				
-				<div><span><input class="emotion" type="radio" name="recipe_emotion" value="입맛없음">😐</span>
-				<p class="tooltip_box">입맛이 없을 땐 입맛을 돋궈주는 상큼한 음식을 먹어봐요</p></div>
-				
-				<div><span><input class="emotion" type="radio" name="recipe_emotion" value="우울">😥</span> 
-				<p class="tooltip_box">우울함엔 마그네슘, 비타민 B, 엽산 등이 풍부한 음식을 추천드려요!</p></div>
-				
-				<div><span><input class="emotion" type="radio" name="recipe_emotion" value="화남">🤬</span>
-				<p class="tooltip_box">화가 나는 날엔  비타민 D, 오메가 3 등이 들어간 음식을 먹어봐요! 또한, 매운음식은 아드레날린과 엔도르핀을 분비합니다.</p></div>
-				
-				<div><span><input class="emotion" type="radio" name="recipe_emotion" value="아픔">😷</span>
-				<p class="tooltip_box">아플 땐 든든한 고기류나 염분이 많지 않은 속편한 음식을 먹어보세요</p></div>
-			</div>
-		</td>
-	</tr>
-	<tr>
-		<th id="nation_q">어떤 종류의 음식이 드시고 싶은가요?</th>
-	</tr>
-	<tr>
-		<td id="nation_a">
-			<div id="tooltip">
-			<div><span><input class="nation" type="radio" id="recipe_nation" name="recipe_nation" value="한식">한식</span></div>
-			<div><span><input class="nation" type="radio" name="recipe_nation" value="일식">일식</span></div>
-			<div><span><input class="nation" type="radio" name="recipe_nation" value="양식">양식</span></div>
-			<div><span><input class="nation" type="radio" name="recipe_nation" value="중식">중식</span></div>
-			<div><span><input class="nation" type="radio" name="recipe_nation" value="">상관없음</span></div>
-			</div>
-		</td>
-	</tr>
-	<tr>
-		<th id="cate_q">가지고 계신 재료가 있나요?</th>
-	</tr>
-	<tr>
-		<td id="cate_a">
-			<div id="tooltip">
-			<div><span><input class="cate" type="radio" id="recipe_cate" name="recipe_cate" value="육류">육류</span></div>
-			<div><span><input class="cate" type="radio" name="recipe_cate" value="해물류">해물류</span></div>
-			<div><span><input class="cate" type="radio" name="recipe_cate" value="채소류">채소류</span></div>
-			<div><span><input class="cate" type="radio" name="recipe_cate" value="달걀유제품류">달걀/유제품류</span></div>
-			<div><span><input class="cate" type="radio" name="recipe_cate" value="">상관없음</span></div>
-			</div>
-		</td>
-	</tr>
-	<tr>
-		<th id="ingredient_q">못먹는 재료가 있나요?</th>
-	</tr>
-	<tr>
-		<td id="ingredient_a">
-			<div id="tooltip">
-			<div><span><input class="ingredient" type="checkbox" name="ingred" value="땅콩">땅콩</span></div>
-			<div><span><input class="ingredient" type="checkbox" name="ingred" value="대두">대두</span></div>
-			<div><span><input class="ingredient" type="checkbox" name="ingred" value="유제품">유제품</span></div>
-			<div><span><input class="ingredient" type="checkbox" name="ingred" value="갑각류조개류">갑각류/조개류</span></div>
-			<div><span><input class="ingredient" type="checkbox" name="ingred" value="생선">생선</span></div>
-			<div><span><input class="ingredient" type="checkbox" name="ingred" value="밀">밀</span></div>
-			<div><span><input class="ingredient" type="hidden" name="ingred" value=""></span></div>
-			</div>
-		</td>
-	</tr>
-</table>
-	<input class="btn" type="submit" value="Find Recipe">
-</form>
-
-
-<table border="1">
-	<tr><th>추천레시피</th></tr>
-	<c:forEach items="${findList }" var="recipe">
-				<tr>
-			<td><a href="/recipedetail?no=${recipe.recipe_no }">
-
-			<c:set var="recipe_img" value="${recipe.recipe_img }"/>
-			<c:if test="${fn:contains(recipe_img, 'https')}">
-				<img src="${recipe.recipe_img }" height="200" width="200">
-			</c:if>
-			<c:if test="${not fn:contains(recipe_img, 'https')  }">
-				<img src="/upload/${recipe.recipe_img }" height="200" width="200">
-			</c:if>
-			</a>
-			</td>
-		</tr>
-			<tr>
-			<td><a href="/recipedetail?no=${recipe.recipe_no }">${recipe.recipe_title }</a></td>
-		</tr>
-	</c:forEach>
-</table>
-
-        
-        
+   
         <div class="col-md-7 col-lg-6 py-8 text-md-start text-center">
               <h2 class="display-1 fs-md-4 fs-lg-4 fs-xl-4 text-light">드시고 싶은 음식을 추천 받으세요.</h2>
               <br>
@@ -369,7 +266,7 @@ span:hover + p.tooltip_box {
                 	<nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                       <button class="nav-link active mb-3" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fas fa-keyboard me-2"></i>키워드로 찾기</button>
-                      <button class="nav-link mb-3" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-robot me-2"></i>챗봇 추천받기</button>
+                      <button class="nav-link mb-3" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-robot me-2"></i>??로 찾기</button>
                     </div>
                   </nav>
                   
@@ -390,11 +287,85 @@ span:hover + p.tooltip_box {
                     
                     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                     
-                    <!-- 챗봇 -->
+                    <!-- 분류 추천 -->
                       <div class="row gx-2 gy-2 align-items-center">
                         <div class="col">
-                          <div class="input-group-icon"><i class="fas fa-utensils text-danger input-box-icon"></i>
-                            <input class="form-control input-box form-foodwagon-control" id="keyword" type="text" placeholder="재료, 음식명12 등..." />
+                          <!-- <div class="input-group-icon"><i class="fas fa-utensils text-danger input-box-icon"></i> -->
+                            <form action="/find" method="get" onsubmit="return find()">
+							<table border="1">
+							<tr><td><input type="button" id="find" value="레시피를 추천받고 싶나요?"></td></tr>
+							
+								<tr>
+									<th id="emotion_q">오늘 기분이 어때요?</th>
+								</tr>
+								<tr>
+									<td id="emotion_a">
+										<div id="tooltip">
+											
+											<div><span><input class="emotion" type="radio" id="recipe_emotion" name="recipe_emotion" value="좋음">😀</span>
+											<p class="tooltip_box">기분 좋은 날엔 손이 조금 가더라도 근사한 음식을 해먹어봐요!</p></div>
+											
+											<div><span><input class="emotion" type="radio" name="recipe_emotion" value="입맛없음">😐</span>
+											<p class="tooltip_box">입맛이 없을 땐 입맛을 돋궈주는 상큼한 음식을 먹어봐요</p></div>
+											
+											<div><span><input class="emotion" type="radio" name="recipe_emotion" value="우울">😥</span> 
+											<p class="tooltip_box">우울함엔 마그네슘, 비타민 B, 엽산 등이 풍부한 음식을 추천드려요!</p></div>
+											
+											<div><span><input class="emotion" type="radio" name="recipe_emotion" value="화남">🤬</span>
+											<p class="tooltip_box">화가 나는 날엔  비타민 D, 오메가 3 등이 들어간 음식을 먹어봐요! 또한, 매운음식은 아드레날린과 엔도르핀을 분비합니다.</p></div>
+											
+											<div><span><input class="emotion" type="radio" name="recipe_emotion" value="아픔">😷</span>
+											<p class="tooltip_box">아플 땐 든든한 고기류나 염분이 많지 않은 속편한 음식을 먹어보세요</p></div>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th id="nation_q">어떤 종류의 음식이 드시고 싶은가요?</th>
+								</tr>
+								<tr>
+									<td id="nation_a">
+										<div id="tooltip">
+										<div><span><input class="nation" type="radio" id="recipe_nation" name="recipe_nation" value="한식">한식</span></div>
+										<div><span><input class="nation" type="radio" name="recipe_nation" value="일식">일식</span></div>
+										<div><span><input class="nation" type="radio" name="recipe_nation" value="양식">양식</span></div>
+										<div><span><input class="nation" type="radio" name="recipe_nation" value="중식">중식</span></div>
+										<div><span><input class="nation" type="radio" name="recipe_nation" value="">상관없음</span></div>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th id="cate_q">가지고 계신 재료가 있나요?</th>
+								</tr>
+								<tr>
+									<td id="cate_a">
+										<div id="tooltip">
+										<div><span><input class="cate" type="radio" id="recipe_cate" name="recipe_cate" value="육류">육류</span></div>
+										<div><span><input class="cate" type="radio" name="recipe_cate" value="해물류">해물류</span></div>
+										<div><span><input class="cate" type="radio" name="recipe_cate" value="채소류">채소류</span></div>
+										<div><span><input class="cate" type="radio" name="recipe_cate" value="달걀유제품류">달걀/유제품류</span></div>
+										<div><span><input class="cate" type="radio" name="recipe_cate" value="">상관없음</span></div>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th id="ingredient_q">못먹는 재료가 있나요?</th>
+								</tr>
+								<tr>
+									<td id="ingredient_a">
+										<div id="tooltip">
+										<div><span><input class="ingredient" type="checkbox" name="ingred" value="땅콩">땅콩</span></div>
+										<div><span><input class="ingredient" type="checkbox" name="ingred" value="대두">대두</span></div>
+										<div><span><input class="ingredient" type="checkbox" name="ingred" value="유제품">유제품</span></div>
+										<div><span><input class="ingredient" type="checkbox" name="ingred" value="갑각류조개류">갑각류/조개류</span></div>
+										<div><span><input class="ingredient" type="checkbox" name="ingred" value="생선">생선</span></div>
+										<div><span><input class="ingredient" type="checkbox" name="ingred" value="밀">밀</span></div>
+										<div><span><input class="ingredient" type="hidden" name="ingred" value=""></span></div>
+										</div>
+									</td>
+								</tr>
+							</table>
+								<input class="btn" type="submit" value="Find Recipe">
+							</form>
                           </div>
                         </div>
                         <div class="d-grid gap-3 col-sm-auto">
@@ -556,16 +527,5 @@ span:hover + p.tooltip_box {
     </script>
     
 </body>
-<script type="text/javascript">
-
-	$(function(){
-		$("#find").click(function(){
-			$("#emotion_q").fadeIn();
-			setTimeout(function(){$("#emotion_a").fadeIn();}, 1000);
-		});
-		$(".emotion").click(function(){
-			$("#nation_q").fadeIn();
-			setTimeout(function(){$("#nation_a").fadeIn();}, 1000);
-</script>
           
 </html>
