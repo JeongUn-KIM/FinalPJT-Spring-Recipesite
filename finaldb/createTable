@@ -1,8 +1,8 @@
 -- 유저 테이블 생성
 create table user(
 	user_no int primary key auto_increment,
-	user_name varchar(10),
-	user_email varchar(20),
+	user_name varchar(20),
+	user_email varchar(40),
 	user_pw varchar(20) not null,
 	user_phone varchar(20),
 	user_address varchar(50)
