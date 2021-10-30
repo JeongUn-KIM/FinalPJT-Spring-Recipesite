@@ -29,6 +29,7 @@
     background: #f3f3f3;
     border: 1px solid #d8d8d8;
     text-align: center;
+    
 }
 #tooltip div {
     position: relative;
@@ -141,8 +142,8 @@ $(document).ready(function(){
 <table border="1">
 	<tr>
 		<th>
-			종류별<br>
-			재료별<br>
+			종류별<br><br>
+			재료별<br><br>
 			기분별
 		</th>
 		<td>

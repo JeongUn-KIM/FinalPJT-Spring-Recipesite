@@ -29,12 +29,12 @@ public class UserController {
 	//헤더에서 로그인
 	@RequestMapping(value = "/header", method=RequestMethod.POST)
 	@ResponseBody
-	public String header_login(String user_email, String user_pw, HttpSession session) {
+	public String header_login(String email, String pw, HttpSession session) {
 		//아이디 비밀번호 일치하는지 DB 요청
 		HashMap<String, String> map = new HashMap<String, String>();
 		
-		map.put("user_email", user_email);
-		map.put("user_pw", user_pw);
+		map.put("email", email);
+		map.put("pw", pw);
 		UserVO vo = service.getUserOne(map);
 		
 		//일치하는 회원 정보가 있다면 세션에 담기
@@ -55,6 +55,7 @@ public class UserController {
 	@ResponseBody
 	public void header_logout(HttpSession session) {
 		session.removeAttribute("login_info");
+		
 		
 	}
 	
