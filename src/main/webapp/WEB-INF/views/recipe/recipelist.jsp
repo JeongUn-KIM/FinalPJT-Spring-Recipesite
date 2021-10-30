@@ -161,7 +161,7 @@ $(document).ready(function(){
 <table id ="more_list" border="1">
 	<c:forEach items="${recipelist_search }" var="recipe">
 				<tr>
-			<td><a href="/recipedetail?no=${recipe.recipe_no }">
+			<td><a href="/recipedetail?recipe_no=${recipe.recipe_no }">
 
 			<c:set var="recipe_img" value="${recipe.recipe_img }"/>
 			<c:if test="${fn:contains(recipe_img, 'https')}">
@@ -174,7 +174,7 @@ $(document).ready(function(){
 			</td>
 		</tr>
 			<tr>
-			<td><a href="/recipedetail?no=${recipe.recipe_no }">${recipe.recipe_title }</a></td>
+			<td><a href="/recipedetail?recipe_no=${recipe.recipe_no }">${recipe.recipe_title }</a></td>
 		</tr>
 	</c:forEach>
 	<!-- 찜기능 -->
