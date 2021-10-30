@@ -110,7 +110,7 @@
         
          <c:if test="${empty keyword}">   
 	         <div class="col-md-5 col-lg-6 order-0 order-md-1 mt-8">
-	        	 <a class="img-landing-banner" href=""><img class="img-fluid" src="mainassets/assets/img/gallery/hero-header.png" alt="hero-header" /></a>
+	        	 <a class="img-landing-banner" href=""><img class="img-fluid" src="mainassets/assets/img/gallery/MainImage.png" alt="hero-header" /></a>
 	         </div>
          </c:if>
            
@@ -294,7 +294,7 @@
                 	<nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                       <button class="nav-link active mb-3" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fas fa-keyboard me-2"></i>키워드로 찾기</button>
-                      <button class="nav-link mb-3" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-robot me-2"></i>챗봇 추천받기</button>
+                      <button class="nav-link mb-3" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-robot me-2"></i>먹깨비로 추천받기</button>
                     </div>
                   </nav>
                   

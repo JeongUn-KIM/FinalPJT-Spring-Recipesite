@@ -30,6 +30,7 @@
 		/* 비번, 이름 정규식 체크 */
 		const regex = /^.*(?=^.{8,16}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
 		const regex2 = /^[가-힣a-zA-Z]+$/;
+		const regex3 = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/;
 	</script>
 	
 	<style>
@@ -260,6 +261,7 @@
 										function test3${userlist.user_no}(){
 											var test1 = $('#${userlist.user_no}user_pw').val();
 											var test2 = $('#${userlist.user_no}user_name').val();
+											
 											if(!regex.test(test1)){
 												alert('암호 형식이 알맞지 않습니다.');
 											}else if(!regex2.test(test2)){
