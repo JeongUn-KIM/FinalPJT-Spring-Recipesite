@@ -120,9 +120,8 @@ $(document).ready(function(){
 </head>
 <jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include>
 <body>
-
-    <div id="main">
-<div class="page-heading" style="margin-top:90px;">	
+  <div id="main">
+<div class="page-heading" style="margin-top:90px;">  
                 <div class="page-title">
                     <div class="row" >
                         <div class="col-12 col-md-6 order-md-1 order-last">
@@ -131,6 +130,7 @@ $(document).ready(function(){
                     </div>
                 </div>
 <!-- 필터 -->
+
 <div class="col-lg-7 mx-9 text-center mb-8" style="background-color:#fff;border-radius:2rem;padding:1.2rem;">
 <form id="condition" name="recipelist_page" action="/recipelist">
 	<input type="hidden" name="nation" value="">
@@ -214,6 +214,8 @@ $(document).ready(function(){
 </table>
 
 <!-- 검색 -->
+ <div id="search">
+<div class="page-heading" style="margin-top:90px;">  
 <form action="/recipelist" onSubmit="return form_submit()">
 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                       <div class="row gx-1 gy-1 align-items-center">
@@ -241,6 +243,7 @@ $(document).ready(function(){
 <c:if test="${not empty login_info.user_email }">
 	<li style="list-style: none"><a class="btn" href="/recipewrite">작성</a></li>
 </c:if>
+</div>
 </div>
 </div>
 </div>
