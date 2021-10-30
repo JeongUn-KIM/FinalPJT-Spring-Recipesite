@@ -14,7 +14,15 @@ public class UserServiceImpl implements UserService {
 	public UserVO getUserOne(HashMap<String, String> map) {
 		return dao.getUserOne(map);
 	}
-	
+	public String checkUser(String email) {
+		UserVO vo =dao.checkUser(email);
+		
+		if(vo!=null) {
+			return "true";			
+		}else {
+			return "false";
+		}
+	}
 
 	@Override
 	public void insertUser(UserVO vo) {

@@ -45,6 +45,18 @@ public class MypageServiceImpl implements MypageService{
 	public List<MyrecipeVO> getMainRecipePopular() {
 		return dao.getMainRecipePopular();
 	}
+	
+	@Override
+	public void addZzimRecipe(MyzzimVO vo) {
+		dao.addZzimRecipe(vo);
+		
+	}
+
+	@Override
+	public MyzzimVO getZzimOne(int recipe_no, int user_no) {
+		MyzzimVO vo = dao.getZzimOne(recipe_no, user_no);
+		return vo;
+	}
 
 	
 }

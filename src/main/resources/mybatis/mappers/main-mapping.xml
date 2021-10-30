@@ -8,6 +8,10 @@
 	select * from user where user_email=#{email} and user_pw = #{pw}
 </select>
 
+<select id="checkUser" resultType="userVO">
+	select * from user where user_email=#{email}
+</select>
+
 <insert id="insertUser" parameterType="userVO">
 insert into user(user_email, user_pw, user_name, user_phone, user_address)
 values(#{user_email}, #{user_pw}, #{user_name}, #{user_phone}, #{user_address})

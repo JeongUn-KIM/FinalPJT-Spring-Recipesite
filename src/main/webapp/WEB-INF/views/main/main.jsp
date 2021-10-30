@@ -430,14 +430,14 @@
                     
                     <c:forEach items="${popularlist }" begin="0" end="4" var="popularlist">
                       <div class="col-sm-6 col-md-4 col-xl mb-5 h-100">
-                        <div class="card card-span h-100 rounded-3">
+                        <div class="card card-span h-100 rounded-3" >
                         <a href="javascript:void(0);" onclick="detail(${popularlist.recipe_no});" >
                         	<c:set var="recipe_img" value="${popularlist.recipe_img }"/>
 							<c:if test="${fn:contains(recipe_img, 'https')}">
-								<img class="img-fluid rounded-3" src="${popularlist.recipe_img }" height="200" width="200">
+								<img class="rounded-3" src="${popularlist.recipe_img }" height="200" width="260">
 							</c:if>
 							<c:if test="${not fn:contains(recipe_img, 'https')  }">
-								<img class="img-fluid rounded-3" src="/upload/${popularlist.recipe_img }" alt="..." style="width:333px;height:283px;object-fit: cover;">
+								<img class="rounded-3" src="/upload/${popularlist.recipe_img }" alt="..." style="width:333px;height:283px;object-fit: cover;">
 							</c:if>
                         </a>  
                           <div class="card-body ps-0">
@@ -463,7 +463,9 @@
                         	
 							<c:set var="recipe_img" value="${popularlist.recipe_img }"/>
 							<c:if test="${fn:contains(recipe_img, 'https')}">
-								<img class="img-fluid rounded-3" src="${popularlist.recipe_img }" height="200" width="200">
+
+								<img class="rounded-3" src="${popularlist.recipe_img }" height="200" width="260">
+
 							</c:if>
 							<c:if test="${not fn:contains(recipe_img, 'https')  }">
 								<img class="img-fluid rounded-3" src="/upload/${popularlist.recipe_img }" alt="..." style="width:333px;height:283px;object-fit: cover;">

@@ -50,6 +50,7 @@ public class UserController {
 			return "true";
 		}
 	}
+	
 	//로그아웃(세션 제거하기)
 	@RequestMapping("/logout")
 	@ResponseBody
