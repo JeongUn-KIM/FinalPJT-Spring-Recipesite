@@ -463,7 +463,9 @@
                         	
 							<c:set var="recipe_img" value="${popularlist.recipe_img }"/>
 							<c:if test="${fn:contains(recipe_img, 'https')}">
+
 								<img class="rounded-3" src="${popularlist.recipe_img }" height="200" width="260">
+
 							</c:if>
 							<c:if test="${not fn:contains(recipe_img, 'https')  }">
 								<img class="img-fluid rounded-3" src="/upload/${popularlist.recipe_img }" alt="..." style="width:333px;height:283px;object-fit: cover;">
