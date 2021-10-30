@@ -16,4 +16,6 @@ public interface MypageDAO {
 	public void deleteZzimRecipeOne(int recipe_no, int user_no);
 	public List<MyrecipeVO> getMainRecipeSearch(String keyword);
 	public List<MyrecipeVO> getMainRecipePopular();
+	public void addZzimRecipe(MyzzimVO vo);
+	public MyzzimVO getZzimOne(int recipe_no, int user_no);
 }
