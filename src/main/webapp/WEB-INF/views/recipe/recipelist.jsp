@@ -44,7 +44,7 @@ span {
 .tooltip_box {
   display: none;
   position: absolute;
-  width: 100px;
+  width: 88px;
   padding: 8px;
   left: 0px;
   -webkit-border-radius: 8px;
@@ -120,8 +120,8 @@ $(document).ready(function(){
 </head>
 <jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include>
 <body>
-  <div id="main">
-<div class="page-heading" style="margin-top:90px;">  
+<div id="main">
+<div class="page-heading" style="margin-top:90px;">	
                 <div class="page-title">
                     <div class="row" >
                         <div class="col-12 col-md-6 order-md-1 order-last">
@@ -129,8 +129,8 @@ $(document).ready(function(){
                         </div>
                     </div>
                 </div>
-<!-- 필터 -->
-
+               
+<!-- 필터 -->	
 <div class="col-lg-7 mx-9 text-center mb-8" style="background-color:#fff;border-radius:2rem;padding:1.2rem;">
 <form id="condition" name="recipelist_page" action="/recipelist">
 	<input type="hidden" name="nation" value="">
@@ -179,8 +179,10 @@ $(document).ready(function(){
 				<div><span><a href="javascript:goSearchRecipe('emotion','아픔')">😷</a></span>
 				<p class="tooltip_box">아플 땐 든든한 고기류나 염분이 많지 않은 속편한 음식을 먹어보세요</p></div>
 			</div>
+			
 		</td>
 	</tr>
+
 </table>
 
 <!-- 게시물 띄우기 + 검색 -->
@@ -207,15 +209,13 @@ $(document).ready(function(){
 </table>
 
 <!-- 글 더보기 기능 -->
-<button id="more_list_btn" class="btn btn-lg btn-outline-primary mt-2">더보기</button>
+<button id="more_list_btn" class="btn btn-lg btn-outline-primary mt-3">더보기</button>
 <input type="hidden" id="number" value="12">
 <table>
 <div id="more_list"></div>
 </table>
 
 <!-- 검색 -->
- <div id="search">
-<div class="page-heading" style="margin-top:90px;">  
 <form action="/recipelist" onSubmit="return form_submit()">
 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                       <div class="row gx-1 gy-1 align-items-center">
@@ -233,9 +233,10 @@ $(document).ready(function(){
 	<option value="recipe_ingredient">재료명</option>
 </select>
 <input type="search" id="search" name="search" value="${search }">
-<input type="submit" class="btn btn-lg btn-outline-primary mt-3" value="검색">
+<input type="submit" class="btn btn-lg btn-outline-primary mt-2" value="검색">
 </div>
 </div>
+
 </form>
 
 
@@ -244,9 +245,12 @@ $(document).ready(function(){
 	<li style="list-style: none"><a class="btn" href="/recipewrite">작성</a></li>
 </c:if>
 </div>
-</div>
-</div>
-</div>
+
+<script src="adminassets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="adminassets/js/bootstrap.bundle.min.js"></script>
+	<script src="adminassets/js/main.js"></script>
+	 </div>
+                </div>
 </body>
 <script>
 function goSearchRecipe(kinds, val){
