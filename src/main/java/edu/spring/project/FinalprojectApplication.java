@@ -9,6 +9,8 @@ import admin.AdminController;
 import admin.AdminDAO;
 import chatbot.ChatbotController;
 import email.EmailController;
+import ingredient.IngredientController;
+import ingredient.IngredientDAO;
 import main.MainController;
 import main.UserController;
 import main.UserDAO;
@@ -33,6 +35,7 @@ import recipe.RecipeImgDAO;
 @ComponentScan(basePackageClasses = NoticeController.class)
 @ComponentScan(basePackageClasses = EmailController.class)
 @ComponentScan(basePackageClasses = MainController.class)
+@ComponentScan(basePackageClasses = IngredientController.class)
 @MapperScan
 @MapperScan(basePackageClasses = UserDAO.class)
 @MapperScan(basePackageClasses = RecipeDAO.class)
@@ -42,6 +45,7 @@ import recipe.RecipeImgDAO;
 @MapperScan(basePackageClasses = MypageDAO.class)
 @MapperScan(basePackageClasses = AdminDAO.class)
 @MapperScan(basePackageClasses = NoticeDAO.class)
+@MapperScan(basePackageClasses = IngredientDAO.class)
 public class FinalprojectApplication {
 
 	public static void main(String[] args) {

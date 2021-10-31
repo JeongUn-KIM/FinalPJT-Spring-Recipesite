@@ -16,6 +16,7 @@
  	<typeAlias type="mypage.MynationVO" alias="mynationVO"/>
  	<typeAlias type="mypage.MyrecipeVO" alias="myrecipeVO"/>
  	<typeAlias type="mypage.MyzzimVO" alias="myzzimVO"/>
+ 	<typeAlias type="ingredient.IngredientVO" alias="ingredientVO"/>
 </typeAliases>
 
 </configuration>
