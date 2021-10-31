@@ -128,6 +128,12 @@ String[] ingredient = {"소고기","돼지고기", "닭고기", "양고기", "�
 			<div class="modal" >
 				<div class="modalbox">
 				<!-- 보낼것 2. 재료 -->
+				<nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                      <button class="nav-link active mb-3" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fas fa-keyboard me-2"></i>키워드로 찾기</button>
+                      <button class="nav-link mb-3" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-robot me-2"></i>챗봇 추천받기</button>
+                    </div>
+                  </nav>
 				<c:forEach items="<%=ingredient%>" var="ingred">
 					<input type="checkbox" name="ingredient" value="${ingred }">${ingred }
 				</c:forEach>
