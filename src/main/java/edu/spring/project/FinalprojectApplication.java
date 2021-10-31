@@ -7,7 +7,6 @@ import org.springframework.context.annotation.ComponentScan;
 
 import admin.AdminController;
 import admin.AdminDAO;
-import chatbot.ChatbotController;
 import email.EmailController;
 import main.MainController;
 import main.UserController;
@@ -25,7 +24,6 @@ import recipe.RecipeImgDAO;
 @SpringBootApplication
 
 @ComponentScan
-@ComponentScan(basePackageClasses = ChatbotController.class)
 @ComponentScan(basePackageClasses = UserController.class)
 @ComponentScan(basePackageClasses = RecipeController.class)
 @ComponentScan(basePackageClasses = MypageController.class)
