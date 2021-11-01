@@ -117,8 +117,11 @@ public class MainController {
 		else {
 			findList = null;
 		}
+		List<MyrecipeVO> popularlist = mypage.getMainRecipePopular();
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("findList", findList);
+		mv.addObject("resultlist", findList);
+		mv.addObject("keyword", "e");
+		mv.addObject("popularlist", popularlist);
 		mv.setViewName("/main/main");
 		return mv;
 	}

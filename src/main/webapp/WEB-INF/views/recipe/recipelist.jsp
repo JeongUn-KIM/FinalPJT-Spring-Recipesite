@@ -29,10 +29,12 @@
     background: #f3f3f3;
     border: 1px solid #d8d8d8;
     text-align: center;
+    
 }
 #tooltip div {
     position: relative;
     display: inline-block;
+    z-index: 6;
 }
 
 span {
@@ -44,7 +46,7 @@ span {
 .tooltip_box {
   display: none;
   position: absolute;
-  width: 100px;
+  width: 88px;
   padding: 8px;
   left: 0px;
   -webkit-border-radius: 8px;
@@ -120,8 +122,7 @@ $(document).ready(function(){
 </head>
 <jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include>
 <body>
-
-    <div id="main">
+<div id="main">
 <div class="page-heading" style="margin-top:90px;">	
                 <div class="page-title">
                     <div class="row" >
@@ -130,7 +131,8 @@ $(document).ready(function(){
                         </div>
                     </div>
                 </div>
-<!-- 필터 -->
+               
+<!-- 필터 -->	
 <div class="col-lg-7 mx-9 text-center mb-8" style="background-color:#fff;border-radius:2rem;padding:1.2rem;">
 <form id="condition" name="recipelist_page" action="/recipelist">
 	<input type="hidden" name="nation" value="">
@@ -140,8 +142,8 @@ $(document).ready(function(){
 <table border="1">
 	<tr>
 		<th>
-			종류별<br>
-			재료별<br>
+			종류별<br><br>
+			재료별<br><br>
 			기분별
 		</th>
 		<td>
@@ -179,12 +181,16 @@ $(document).ready(function(){
 				<div><span><a href="javascript:goSearchRecipe('emotion','아픔')">😷</a></span>
 				<p class="tooltip_box">아플 땐 든든한 고기류나 염분이 많지 않은 속편한 음식을 먹어보세요</p></div>
 			</div>
+			
 		</td>
 	</tr>
+
 </table>
 
 <!-- 게시물 띄우기 + 검색 -->
-<table id ="more_list" border="1">
+<ul class = "recipelist">
+<li>
+<table id ="more_list" border="1" >
 	<c:forEach items="${recipelist_search }" var="recipe">
 				<tr>
 			<td><a href="/recipedetail?recipe_no=${recipe.recipe_no }">
@@ -203,25 +209,26 @@ $(document).ready(function(){
 			<td><a href="/recipedetail?recipe_no=${recipe.recipe_no }">${recipe.recipe_title }</a></td>
 		</tr>
 	</c:forEach>
-	<!-- 찜기능 -->
-</table>
+	
 
+</table>
+</li>
+</ul>
 <!-- 글 더보기 기능 -->
-<button id="more_list_btn" class="btn btn-lg btn-outline-primary mt-2">더보기</button>
+
+<button id="more_list_btn" class="btn btn-lg btn-outline-primary mt-3">더보기</button>
 <input type="hidden" id="number" value="12">
+ <div id = "list">
+ <div class="page-heading" style="margin-top:0px; background-color: #FFF;">	
 <table>
 <div id="more_list"></div>
-</table>
 
+</table>
+</div>
+</div>
 <!-- 검색 -->
 <form action="/recipelist" onSubmit="return form_submit()">
-<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                      <div class="row gx-1 gy-1 align-items-center">
-                        <div class="col">
-                          <div class="input-group-icon"><i class="fas fa-utensils text-danger input-box-icon"></i>
-                            <input class="form-control input-box form-foodwagon-control" id="keyword" type="text" placeholder="재료, 음식명 등..." />
-                          </div>
-                        </div>
+
 	<input type="hidden" name="nation" id="nation" value="${nation }">
 	<input type="hidden" name="cate" id="cate" value="${cate }">
 	<input type="hidden" name="emotion" id="emotion" value="${emotion }">
@@ -230,10 +237,17 @@ $(document).ready(function(){
 	<option value="recipe_name">음식명</option>
 	<option value="recipe_ingredient">재료명</option>
 </select>
-<input type="search" id="search" name="search" value="${search }">
-<input type="submit" class="btn btn-lg btn-outline-primary mt-3" value="검색">
+<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                      <div class="row gx-1 gy-1 align-items-center">
+                        <div class="col">
+                          <div class="input-group-icon"><i class="fas fa-utensils text-danger input-box-icon"></i>
+                            <input type="search" class="form-control input-box form-foodwagon-contro" id="search" name="search" value="${search }" />
+                          </div>
+                        </div>
+<input type="submit" class="btn btn-lg btn-outline-primary mt-2" value="검색">
 </div>
 </div>
+
 </form>
 
 
@@ -242,8 +256,12 @@ $(document).ready(function(){
 	<li style="list-style: none"><a class="btn" href="/recipewrite">작성</a></li>
 </c:if>
 </div>
-</div>
-</div>
+
+<script src="adminassets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="adminassets/js/bootstrap.bundle.min.js"></script>
+	<script src="adminassets/js/main.js"></script>
+	 </div>
+ </div>
 </body>
 <script>
 function goSearchRecipe(kinds, val){

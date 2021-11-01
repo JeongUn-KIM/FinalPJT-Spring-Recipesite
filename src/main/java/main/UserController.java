@@ -57,6 +57,7 @@ public class UserController {
 	public void header_logout(HttpSession session) {
 		session.removeAttribute("login_info");
 		
+		
 	}
 	
 	//회원가입 사이트
