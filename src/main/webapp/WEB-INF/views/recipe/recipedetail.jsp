@@ -27,6 +27,8 @@
 <body>
 <jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include>
 <!-- 1. recipe_title, recipe_name, 사진, recipe_date, recipe_emotion  -->
+<div id="main">
+<div class="page-heading" style="margin-top:90px;">
 <table border="1">
 	<!-- 분류 -->
 	<tr>
@@ -343,5 +345,10 @@ $(".zzim-notlogin").click(function() {
 	return false;
 });
 </script>
+<script src="adminassets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="adminassets/js/bootstrap.bundle.min.js"></script>
+	<script src="adminassets/js/main.js"></script>
+	</div>
+	</div>
 </body>
 </html>

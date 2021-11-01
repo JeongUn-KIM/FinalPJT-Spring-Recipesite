@@ -36,10 +36,10 @@
 	min-width: 8rem;
 }
 
-#emotion_q, #emotion_a, #nation_q, #nation_a ,#cate_q ,#cate_a, #ingredient_q, #ingredient_a, #findbtn {display:none;}
+#emotion_q, #emotion_a, #nation_q, #nation_a ,#cate_q ,#cate_a, #ingredient_q, #ingredient_a, #findbtn {display:none; text-align: center;}
 
 #tooltip {
-    width: 800px;
+    width: 500px;
     background: #f3f3f3;
     border: 1px solid #d8d8d8;
     text-align: center;
@@ -51,16 +51,15 @@
 
 #tooltip span {
     display: block;
-    width: 87px;
-    padding: 2px 16px;
+    padding-right: 10px ;
     cursor: pointer;
 }
 .tooltip_box {
   display: none;
   position: absolute;
-  width: 100px;
+  width: 300px;
   padding: 8px;
-  left: 0px;
+  left: -125px;
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;  
   border-radius: 8px;
@@ -110,13 +109,13 @@
         
          <c:if test="${empty keyword}">   
 	         <div class="col-md-5 col-lg-6 order-0 order-md-1 mt-8">
-	        	 <a class="img-landing-banner" href=""><img class="img-fluid" src="mainassets/assets/img/gallery/hero-header.png" alt="hero-header" /></a>
+	        	 <a class="img-landing-banner" href=""><img class="img-fluid" src="mainassets/assets/img/gallery/MainImage.png" alt="hero-header" /></a>
 	         </div>
-         </c:if>
+         </c:if> 
            
            
             <!-- 레시피 검색 결과 전체 시작 -->
-        <c:if test="${!empty keyword}">
+        <c:if test="${!empty keyword}"> 
         <div class="card col-md-5 col-lg-6 order-0 order-md-1 mt-8" style="background-color: white; flex: 5rem;">
         <div class="container">
           <div class="row h-100">
@@ -165,7 +164,7 @@
                     <!-- 레시피검색 결과 0이 아닐때 -->
                     <c:if test="${fn:length(resultlist) != 0}">
                     <div class="col-lg-40 mx-auto text-center mt-7 mb-5">
-			           <h5 class="fw-bold fs-3 fs-lg-5 lh-sm">${keyword }관련 레시피 TOP3 </h5>
+			           <h5 class="fw-bold fs-3 fs-lg-5 lh-sm"> </h5>
 			        </div>
 			        <div class="col-12">
 			        <div class="carousel slide" id="carouselPopularItems2" data-bs-touch="false" data-bs-interval="false">
@@ -258,10 +257,12 @@
           </div>
         </div><!-- end of .container -->
         </div>
-        </c:if>
+        </c:if> 
             <!-- 레시피 검색 결과 전체 끝 -->
  		<!-- 분류 레시피 -->
+ 		
  		<table border="1">
+ 		
 		<tr><th>추천레시피</th></tr>
 		<c:forEach items="${findList }" var="recipe">
 					<tr>
@@ -281,6 +282,7 @@
 				<td><a href="/recipedetail?no=${recipe.recipe_no }">${recipe.recipe_title }</a></td>
 			</tr>
 		</c:forEach>
+		
 		</table>
        	<!-- 분류 레시피 끝 -->
        
@@ -294,7 +296,7 @@
                 	<nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                       <button class="nav-link active mb-3" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fas fa-keyboard me-2"></i>키워드로 찾기</button>
-                      <button class="nav-link mb-3" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-robot me-2"></i>챗봇 추천받기</button>
+                      <button class="nav-link mb-3" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-robot me-2"></i>먹깨비로 추천받기</button>
                     </div>
                   </nav>
                   
@@ -318,10 +320,9 @@
                     <!-- 챗봇 -->
                       <div class="row gx-2 gy-2 align-items-center">
                         <div class="col">
-                        <form action="/find" method="get" onsubmit="return find()">
-						<table border="1">
-						<tr><td><input class="btn btn-danger" type="button" id="find" value="레시피를 추천받고 싶나요?"></td></tr>
-						
+                        <form action="/find" method="get" onsubmit="return find()">					
+						<tr><td><input class="btn btn-danger" type="button" id="find"  value="레시피를 추천받고 싶나요?"></td></tr>
+						<table border="1" style="margin-top:5px;">
 							<tr>
 								<th id="emotion_q">오늘 기분이 어때요?</th>
 							</tr>
@@ -391,12 +392,9 @@
 								</td>
 							</tr>
 						</table>
-							<input class="btn btn-danger" id="findbtn" type="submit" value="레시피 찾기">
+							<input class="btn btn-danger" id="findbtn" type="submit"  style="margin-top:5px;" value="레시피 찾기">
 						</form>
                         </div>
-                        <!-- <div class="d-grid gap-3 col-sm-auto">
-                          <button class="btn btn-danger" type="button" id="btn_search">레시피 찾기</button>
-                        </div> -->
                       </div>
                       <!-- 챗봇 -->
                       
