@@ -36,7 +36,9 @@
 	min-width: 8rem;
 }
 
-#emotion_q, #emotion_a, #nation_q, #nation_a ,#cate_q ,#cate_a, #ingredient_q, #ingredient_a, #findbtn {display:none; text-align: center;}
+
+
+#emotion_q, #emotion_a, #nation_q, #nation_a ,#cate_q ,#cate_a, #ingredient_q, #ingredient_a, #findbtn {display:none; text-align: center; font-size: 18px;}
 
 #tooltip {
     width: 500px;
@@ -59,13 +61,13 @@
   position: absolute;
   width: 300px;
   padding: 8px;
-  left: -125px;
+  left: -126px;
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;  
   border-radius: 8px;
   background: #333;
   color: #fff;
-  font-size: 14px;
+  font-size: 18px;
 }
 
 .tooltip_box:after {
@@ -289,7 +291,7 @@
         
         
         <div class="col-md-7 col-lg-6 py-8 text-md-start text-center">
-              <h2 class="display-1 fs-md-4 fs-lg-4 fs-xl-4 text-light">드시고 싶은 음식을 추천 받으세요.</h2>
+              <h2 class="display-1 fs-md-4 fs-lg-4 fs-xl-4" >드시고 싶은 음식을 추천 받으세요!</h2>
               <br>
               <div class="card w-xxl-75">
                 <div class="card-body">
