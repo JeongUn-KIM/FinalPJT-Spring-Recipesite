@@ -65,9 +65,9 @@
 				<div class="col-md-3 fw-bold fs-5 mt-1" style="text-align: left;">이메일 입력 : </div>
 				<div class="col-md-9 form-group">
 					<input class="form-control" type="text" id="mail" name="email" value="이메일을 입력하세요" onclick="this.value=''">
-					<button class="btn btn-primary mt-3" type="button" id="check">중복체크</button> 
 				</div>
 			</div>
+			<button class="btn btn-primary mt-3" type="button" id="check">중복체크</button> 
 			<div class="d-grid gap-2 col-6 mx-auto" id="send">
                
             </div>
