@@ -11,17 +11,7 @@ public class RecipeVO {
 	String recipe_img, recipe_title, recipe_name, recipe_ingredient, recipe_emotion;
 	String recipe_cate;
 	String recipe_nation;
-	int recipe_hits;
-
-	public int getRecipe_hits() {
-		return recipe_hits;
-	}
-
-	public void setRecipe_hits(int recipe_hits) {
-		this.recipe_hits = recipe_hits;
-	}
-
-
+	
 	public RecipeVO() {	}
 	
 	public RecipeVO(int recipe_no, String recipe_img, String recipe_title) {
