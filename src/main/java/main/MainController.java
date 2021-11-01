@@ -47,6 +47,7 @@ public class MainController {
 		
 		List<MyrecipeVO> popularlist = mypage.getMainRecipePopular();
 		
+		System.out.println(popularlist.get(0).getRecipe_hits());
 		ModelAndView mv = new ModelAndView();
 		
 		mv.addObject("popularlist", popularlist);
