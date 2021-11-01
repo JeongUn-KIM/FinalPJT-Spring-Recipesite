@@ -91,6 +91,7 @@
 <div class="card-body px-2 py-2">
 	<div class="row">
 		<div class="col"  style="min-height:400px; max-width:470px;">
+
 		<c:set var="recipe_img" value="${recipe.recipe_img }"/>
 		<c:if test="${fn:contains(recipe_img, 'https')}">
 			<img src="${recipe.recipe_img }"  class="img-fluid my-6" style="width:450px ;align:center" >
@@ -455,5 +456,10 @@ $(".zzim-notlogin").click(function() {
 	return false;
 });
 </script>
+<script src="adminassets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="adminassets/js/bootstrap.bundle.min.js"></script>
+	<script src="adminassets/js/main.js"></script>
+	</div>
+	</div>
 </body>
 </html>

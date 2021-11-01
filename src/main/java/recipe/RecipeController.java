@@ -217,6 +217,8 @@ public class RecipeController {
 	public ModelAndView recipedetailview(int recipe_no, HttpSession session) {
 		UserVO vo = (UserVO)session.getAttribute("login_info");
 		
+		System.out.println(recipe_no);
+		
 		RecipeImgVO img = imgservice.getImgOne(recipe_no);
 		RecipeDescVO desc= descservice.getDescOne(recipe_no);
 		RecipeVO recipe= service.getRecipeDetail(recipe_no);
@@ -281,6 +283,8 @@ public class RecipeController {
 		mv.addObject("img", img);
 		mv.addObject("desc", desc);
 		mv.addObject("recipe", recipe);
+		IngredientVO ingredvo = ingred.getIngredient();
+		mv.addObject("ingredvo", ingredvo);
 		mv.setViewName("/recipe/recipemodify");
 		return mv;
 		}
