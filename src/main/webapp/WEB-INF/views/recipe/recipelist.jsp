@@ -188,9 +188,9 @@ $(document).ready(function(){
 </table>
 
 <!-- 게시물 띄우기 + 검색 -->
- <div id = "list">
- <div class="page-heading" style="margin-top:0px; ">	
-<table id ="more_list" border="1">
+<ul class = "recipelist">
+<li>
+<table id ="more_list" border="1" >
 	<c:forEach items="${recipelist_search }" var="recipe">
 				<tr>
 			<td><a href="/recipedetail?recipe_no=${recipe.recipe_no }">
@@ -212,9 +212,8 @@ $(document).ready(function(){
 	
 
 </table>
-</div>
-</div>
-
+</li>
+</ul>
 <!-- 글 더보기 기능 -->
 
 <button id="more_list_btn" class="btn btn-lg btn-outline-primary mt-3">더보기</button>
