@@ -266,7 +266,7 @@
 		<tr><th>추천레시피</th></tr>
 		<c:forEach items="${findList }" var="recipe">
 					<tr>
-				<td><a href="/recipedetail?no=${recipe.recipe_no }">
+				<td><a href="/recipedetail?recipe_no=${recipe.recipe_no }">
 	
 				<c:set var="recipe_img" value="${recipe.recipe_img }"/>
 				<c:if test="${fn:contains(recipe_img, 'https')}">
@@ -279,7 +279,7 @@
 				</td>
 			</tr>
 				<tr>
-				<td><a href="/recipedetail?no=${recipe.recipe_no }">${recipe.recipe_title }</a></td>
+				<td><a href="/recipedetail?recipe_no=${recipe.recipe_no }">${recipe.recipe_title }</a></td>
 			</tr>
 		</c:forEach>
 		
@@ -471,8 +471,8 @@
                           <div class="card-body ps-0">
                             <h5 class="fw-bold text-1000 text-truncate mb-1">${popularlist.recipe_title }</h5>
                             <div><span style="color:black;">${popularlist.recipe_name }</span></div>
-                            <span class="text-primary fs--1" style="justify-content: flex-end;">조회수</span>
-                      		<span class="mb-0 text-primary"> ${popularlist.recipe_hits}</span>
+                            <span class="text-primary fs-1" style="justify-content: flex-end;">조회수</span>
+                      		<span class="mb-1 text-primary"> ${popularlist.recipe_hits}</span>
                           </div>
                         </div>
                       </div>

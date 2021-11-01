@@ -53,7 +53,7 @@
 	
       <section class="py-4 overflow-hidden">
         <div class="container">
-          <div class="row h-100">  
+          <div class="row flex-center">  
             <div class="col-12">
 
             <div class="page-heading" style="margin-top:90px;">
