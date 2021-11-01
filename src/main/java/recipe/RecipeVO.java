@@ -20,7 +20,6 @@ public class RecipeVO {
 		this.recipe_hits = recipe_hits;
 	}
 
-
 	public RecipeVO() {	}
 	
 	public RecipeVO(int recipe_no, String recipe_img, String recipe_title) {

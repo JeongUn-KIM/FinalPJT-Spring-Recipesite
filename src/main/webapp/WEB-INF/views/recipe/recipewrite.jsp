@@ -5,18 +5,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오늘 뭐 해먹지?</title>
+    
+    <link href="mainassets/assets/css/theme.css" rel="stylesheet" />
+    
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="adminassets/css/bootstrap.css">
+    <link rel="stylesheet" href="adminassets/vendors/simple-datatables/style.css">
+    <link rel="stylesheet" href="adminassets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="adminassets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="adminassets/css/app.css">
+    <link rel="shortcut icon" href="imgs/logo.ico" type="image/x-icon">
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>	
+	<script src="mainassets/vendors/fontawesome/all.min.js"></script>
 
 <style type="text/css">
-.modal{ position:absolute; width:50%; height:50%; background: rgba(255,255,255,1); top:10; left:10;display:none;  }
-.modalbox{ border: 5px solid; top: -100; bottom: 10;}
+/* .modal{ position:absolute; width:50%; height:50%; background: rgba(0,0,0,0.8); top:0; left:10;display:none;  }
+.modalbox{ border: 1px solid; top: 10; bottom: 10;} */
 
 #tooltip {
     width: 600px;
@@ -31,7 +40,7 @@
 
 span {
     display: block;
-    width: 37px;
+    
     padding: 2px 16px;
     cursor: pointer;
 }
@@ -66,9 +75,31 @@ span {
 
 span:hover + p.tooltip_box {
   display: block;
-  
+
 
 }
+
+.dropdown-menu{
+	min-width: 8rem;
+}
+.input-group-text{
+	background-color: #F5F5F5;
+}
+.form-control:disabled{
+	background-color: white;
+	color:black;
+}
+div.editable {
+	padding : 10px;
+    height: 400px;
+    border: 1px solid #dcdcdc;
+    overflow-y: auto;
+}
+.btn{
+	font-weight: 700;
+
+}
+
 </style>
 </head>
 <body>
@@ -80,187 +111,459 @@ int User_no = vo.getUser_no();
 String[] ingredient = {"소고기","돼지고기", "닭고기", "양고기", "무슨고기"};
 %>
 <!-- onsubmit에서 send() 함수 return값이 false가 되면 submit이 실행이 안됨 이걸 이용해서 안쓴 내용 말해주기-->
-<form action="/recipewrite" method="post" enctype="multipart/form-data" name="frm" onsubmit="return send()">
-<!-- 보낼것 1. 내용 -->
-<input type="hidden" name="user_no" value="<%=User_no%>">
-<table border="1">
-	<tr>
-		<th>제목</th>
-		<td colspan="3"><input type="text" name="recipe_title" id="recipe_title"></td>
-	</tr>
-	<tr>
-		<th>썸네일 사진</th>
-		<td colspan="3">
-		<input type="file" name="recipe_img" id="recipe_img" accept="image/*" onchange="view(event, 'img');">
-		<div id="img"></div>
-		</td>
-	</tr>
-	<tr>
-		<th>음식 이름</th>
-		<td colspan="3"><input type="text" name="recipe_name" id="recipe_name"></td>
-	</tr>
-	<tr>
-		<th>음식 설명</th>
-		<td colspan="3"><textarea rows="5" cols="50" name="recipe_desc" id="recipe_desc"></textarea></td>
-	</tr>
-<!-- 분류 -->
-	<tr>
-		<th>분류</th>
-		<td colspan="3">
-		<input type="radio" id="recipe_cate" name="recipe_cate" value="육류">육류
-		<input type="radio" name="recipe_cate" value="해물류">해물류
-		<input type="radio" name="recipe_cate" value="채소류">채소류
-		<input type="radio" name="recipe_cate" value="달걀유제품류">달걀/유제품류
-		<input type="radio" name="recipe_cate" value="기타">기타
-		</td>
-	</tr>
-<!-- 종류 -->
-	<tr>
-		<th>음식 종류</th>
-		<td colspan="3">
-		<input type="radio" id="recipe_nation" name="recipe_nation" value="한식">한식
-		<input type="radio" name="recipe_nation" value="일식">일식
-		<input type="radio" name="recipe_nation" value="양식">양식
-		<input type="radio" name="recipe_nation" value="중식">중식
-		<input type="radio" name="recipe_nation" value="기타">기타
-		</td>
-	</tr>
-<!-- 팝업창 재료 -->
-	<tr>
-		<th>재료</th>
-		<td colspan="3">
-		<div class="a">
-			<button class="openingred" type="button" id="ingredient">재료 선택</button>
-			<div class="modal" >
-				<div class="modalbox">
-				<!-- 보낼것 2. 재료 -->
-					
-<!-- Tab을 구성할 영역 설정-->
-<div style="margin:10px;">
-<!-- Tab 영역 태그는 ul이고 클래스는 nav와 nav-tabs를 설정한다. -->
-<ul class="nav nav-tabs">
-<!-- a 태그의 href는 아래의 tab-content 영역의 id를 설정하고 data-toggle 속성을 tab으로 설정한다. -->
-<li><a href="#grains" data-toggle="tab">곡물류</a></li>
-<li><a href="#noodles" data-toggle="tab">면/만두류</a></li>
-<li><a href="#vegetables" data-toggle="tab">채소류</a></li>
-<li><a href="#fruits" data-toggle="tab">과일류</a></li>
-<li><a href="#meats" data-toggle="tab">육류</a></li>
-<li><a href="#eggs" data-toggle="tab">달걀/유제품류</a></li>
-<li><a href="#seafoods" data-toggle="tab">해물류</a></li>
-<li><a href="#spices" data-toggle="tab">양념류</a></li>
-<li><a href="#drinks" data-toggle="tab">음료/주류</a></li>
-</ul>
-<!-- Tab이 선택되면 내용이 보여지는 영역이다. -->
-<!-- 태그는 div이고 class는 tab-content로 설정한다. -->
-<div class="tab-content">
-<!-- 각 탭이 선택되면 보여지는 내용이다. 태그는 div이고 클래스는 tab-pane이다. -->
-<!-- active 클래스는 현재 선택되어 있는 탭 영역이다. -->
-<div class="tab-pane fade in active" id="grains">
-	<c:forEach items="${vo.grains }" var="ingred">
-		<input type="checkbox" name="ingredient" value="${ingred }">${ingred }
-	</c:forEach>
-</div>
-<!-- id는 고유한 이름으로 설정하고 tab의 href와 연결되어야 한다. -->
-<!-- fade 클래스는 선택적인 사항으로 트랜지션(transition)효과가 있다.
-<!-- in 클래스는 fade 클래스를 선언하여 트랜지션효과를 사용할 때 in은 active와 선택되어 있는 탭 영역의 설정이다. -->
-<div class="tab-pane fade" id="noodles">
-	<c:forEach items="${vo.noodles }" var="ingred">
-		<input type="checkbox" name="ingredient" value="${ingred }">${ingred }
-	</c:forEach>
-</div>
-<div class="tab-pane fade" id="vegetables">
-	<c:forEach items="${vo.vegetables }" var="ingred">
-		<input type="checkbox" name="ingredient" value="${ingred }">${ingred }
-	</c:forEach>
-</div>
-<div class="tab-pane fade" id="fruits">
-	<c:forEach items="${vo.fruits }" var="ingred">
-		<input type="checkbox" name="ingredient" value="${ingred }">${ingred }
-	</c:forEach>
-</div>
-<div class="tab-pane fade" id="meats">
-	<c:forEach items="${vo.meats }" var="ingred">
-		<input type="checkbox" name="ingredient" value="${ingred }">${ingred }
-	</c:forEach>
-</div>
-<div class="tab-pane fade" id="eggs">
-	<c:forEach items="${vo.eggs }" var="ingred">
-		<input type="checkbox" name="ingredient" value="${ingred }">${ingred }
-	</c:forEach>
-</div>
-<div class="tab-pane fade" id="seafoods">
-	<c:forEach items="${vo.seafoods }" var="ingred">
-		<input type="checkbox" name="ingredient" value="${ingred }">${ingred }
-	</c:forEach>
-</div>
-<div class="tab-pane fade" id="spices">
-	<c:forEach items="${vo.spices }" var="ingred">
-		<input type="checkbox" name="ingredient" value="${ingred }">${ingred }
-	</c:forEach>
-</div>
-<div class="tab-pane fade" id="drinks">
-	<c:forEach items="${vo.drinks }" var="ingred">
-		<input type="checkbox" name="ingredient" value="${ingred }">${ingred }
-	</c:forEach>
-</div>
-</div>
-</div>
 
-				<!-- 모달 박스 안에서 검색 기능을 만들 수 있을까? -->
+<section class="py-4 overflow-hidden">
+   <div class="container">
+     <div class="row h-100">  
+       <div class="col-12">
+		<div class="page-title">
+                    
+		 <section class="section" style="padding-bottom:1rem;">
+		    <div class="row" id="table-contexual">
+			        <div class="col-12">
+			        <div class="row" >
+	                        <div class="col-12 col-md-6 order-md-1 order-last mb-2">
+	                            <h3>레시피 작성</h3>
+	                        </div>
+	                    </div>
+	                </div>
+		            <div class="card">
+		                <div class="card-content">
+		                	
+		                    <!-- table contextual / colored -->
+		                    <div class="table-responsive">
+							<form action="/recipewrite" method="post" enctype="multipart/form-data" name="frm" onsubmit="return send()">
+							<!-- 보낼것 1. 내용 -->
+							<input type="hidden" name="user_no" value="<%=User_no%>">
+							
+							<table class="table mb-0" style="vertical-align: middle;">
+								<tr>
+									<th>제목</th>
+									<td colspan="3"><input type="text" name="recipe_title" id="recipe_title" class="form-control w-75"></td>
+								</tr>
+								<tr>
+									<th>썸네일 사진</th>
+									<td colspan="3">
+									<input type="file" name="recipe_img" id="recipe_img" class="form-control w-75" accept="image/*" onchange="view(event, 'img');">
+									<br>
+									<div id="img"></div>
+									</td>
+								</tr>
+								<tr>
+									<th>음식 이름</th>
+									<td colspan="3"><input type="text" name="recipe_name" id="recipe_name" class="form-control w-75"></td>
+								</tr>
+								<tr>
+									<th>음식 설명</th>
+									<td colspan="3"><textarea rows="5" cols="50" name="recipe_desc" id="recipe_desc" class="form-control"></textarea></td>
+								</tr>
+							<!-- 분류 -->
+								<tr>
+									
+									
+									<th>분류</th>
+									<td colspan="3">
+									<div class="form-check me-3" style="display:inline-block;">
+                                        <input class="form-check-input" type="radio" 
+                                            id="recipe_cate" name="recipe_cate" value="육류" checked>
+                                        <label class="form-check-label" for="recipe_cate">
+                                            육류
+                                        </label>
+                                    </div>
+                                    <div class="form-check me-3" style="display:inline-block;">
+                                        <input class="form-check-input" type="radio" name="recipe_cate" value="해물류"
+                                            id="flexRadioDefault2">
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            해물류
+                                        </label>
+                                    </div>
+                                    <div class="form-check me-3" style="display:inline-block;">
+                                        <input class="form-check-input" type="radio" name="recipe_cate" value="채소류"
+                                            id="flexRadioDefault3">
+                                        <label class="form-check-label" for="flexRadioDefault3">
+                                            채소류
+                                        </label>
+                                    </div>
+                                    <div class="form-check me-3" style="display:inline-block;">
+                                        <input class="form-check-input" type="radio" name="recipe_cate" value="달걀유제품류"
+                                            id="flexRadioDefault4">
+                                        <label class="form-check-label" for="flexRadioDefault4">
+                                            달걀/유제품류
+                                        </label>
+                                    </div>
+                                    <div class="form-check me-3" style="display:inline-block;">
+                                        <input class="form-check-input" type="radio" name="recipe_cate" value="기타"
+                                            id="flexRadioDefault5">
+                                        <label class="form-check-label" for="flexRadioDefault5">
+                                            기타
+                                        </label>
+                                    </div>
+									</td>
+								</tr>
+							<!-- 종류 -->
+								<tr>
+									<th>음식 종류</th>
+									<td colspan="3">
+									<div class="form-check me-3" style="display:inline-block;">
+                                        <input class="form-check-input" type="radio" id="recipe_nation" 
+                                        name="recipe_nation" value="한식" checked>
+                                        <label class="form-check-label" for="recipe_nation">
+                                            한식
+                                        </label>
+                                    </div>
+                                    <div class="form-check me-3" style="display:inline-block;">
+                                        <input class="form-check-input" type="radio" name="recipe_nation" value="일식"
+                                            id="flexRadioDefault7">
+                                        <label class="form-check-label" for="flexRadioDefault7">
+                                            일식
+                                        </label>
+                                    </div>
+                                    <div class="form-check me-3" style="display:inline-block;">
+                                        <input class="form-check-input" type="radio" name="recipe_nation" value="양식"
+                                            id="flexRadioDefault8">
+                                        <label class="form-check-label" for="flexRadioDefault8">
+                                            양식
+                                        </label>
+                                    </div>
+                                    <div class="form-check me-3" style="display:inline-block;">
+                                        <input class="form-check-input" type="radio" name="recipe_nation" value="중식"
+                                            id="flexRadioDefault9">
+                                        <label class="form-check-label" for="flexRadioDefault9">
+                                            중식
+                                        </label>
+                                    </div>
+                                    <div class="form-check me-3" style="display:inline-block;">
+                                        <input class="form-check-input" type="radio" name="recipe_nation" value="기타"
+                                            id="flexRadioDefault10">
+                                        <label class="form-check-label" for="flexRadioDefault10">
+                                            기타
+                                        </label>
+                                    </div>
+									</td>
+								</tr>
+							<!-- 팝업창 재료 -->
+								<tr>
+									<th>재료</th>
+									<td colspan="3">
+									<div class="a">
+										<button type="button" class="btn btn-outline-primary block" data-bs-toggle="modal"
+                                        data-bs-target="#default">
+                                        재료 선택
+                                    </button>
+									<div class="modal fade text-left" id="default" tabindex="-1" role="dialog"
+									aria-labelledby="myModalLabel1" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-scrollable" role="document" style="max-width: 880px;">
+                                            <div class="modal-content">
+                                                 <div class="modal-header">
+                                                    <h5 class="modal-title" id="myModalLabel1">최대 6개까지 선택 가능</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <!-- 모달 바디 -->
+                                                    <div class="card-body" style="padding:0px;">
+                	<nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                      <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">곡물류</button>
+                      <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">면/만두류</button>
+                      <button class="nav-link" id="nav-profile-tab1" data-bs-toggle="tab" data-bs-target="#nav-profile1" type="button" role="tab" aria-controls="nav-profile1" aria-selected="false">채소류</button>
+                      <button class="nav-link" id="nav-profile-tab2" data-bs-toggle="tab" data-bs-target="#nav-profile2" type="button" role="tab" aria-controls="nav-profile2" aria-selected="false">과일류</button>
+                      <button class="nav-link" id="nav-profile-tab3" data-bs-toggle="tab" data-bs-target="#nav-profile3" type="button" role="tab" aria-controls="nav-profile3" aria-selected="false">육류</button>
+                      <button class="nav-link" id="nav-profile-tab4" data-bs-toggle="tab" data-bs-target="#nav-profile4" type="button" role="tab" aria-controls="nav-profile4" aria-selected="false">달걀/유제품류</button>
+                      <button class="nav-link" id="nav-profile-tab5" data-bs-toggle="tab" data-bs-target="#nav-profile5" type="button" role="tab" aria-controls="nav-profile5" aria-selected="false">해물류</button>
+                      <button class="nav-link" id="nav-profile-tab6" data-bs-toggle="tab" data-bs-target="#nav-profile6" type="button" role="tab" aria-controls="nav-profile6" aria-selected="false">양념류</button>
+                      <button class="nav-link" id="nav-profile-tab7" data-bs-toggle="tab" data-bs-target="#nav-profile7" type="button" role="tab" aria-controls="nav-profile7" aria-selected="false">음료/주류</button>
+                    </div>
+                  </nav>
+                  <hr>
+                  
+                  <div class="tab-content mt-3" id="nav-tabContent">
+                  <!-- 곡물류 -->
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                      <div class="row gx-2 gy-2 align-items-center">
+                        <ul class="list-unstyled mb-0">
+                      	  <c:forEach items="${vo.grains }" var="ingred">
+                                            <li class="d-inline-block me-2 mb-1">
+                                                <div class="form-check">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" name="ingredient" value="${ingred }" class="form-check-input">
+                                                        <label for="checkbox1">${ingred }</label>
+                                                    </div>
+                                                </div>
+                                            </li>
+                          </c:forEach>
+                                        </ul>
+			                      </div>
+			                    </div> 
+                   
+                    
+                    <!-- 면/만두류 -->
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                      <div class="row gx-2 gy-2 align-items-center">
+                      	 <ul class="list-unstyled mb-0">
+                          <c:forEach items="${vo.noodles }" var="ingred">
+                                            <li class="d-inline-block me-2 mb-1">
+                                                <div class="form-check">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" name="ingredient" value="${ingred }" class="form-check-input">
+                                                        <label for="checkbox1">${ingred }</label>
+                                                    </div>
+                                                </div>
+                                            </li>
+                          </c:forEach>
+                                        </ul>
+			                      </div>
+			                    </div>
+                    
+                    <!-- 채소류 -->
+                    <div class="tab-pane fade" id="nav-profile1" role="tabpanel" aria-labelledby="nav-profile-tab1">
+                      <div class="row gx-2 gy-2 align-items-center">
+                      	 <ul class="list-unstyled mb-0">
+                              <c:forEach items="${vo.vegetables }" var="ingred">
+                                            <li class="d-inline-block me-2 mb-1">
+                                                <div class="form-check">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" name="ingredient" value="${ingred }" class="form-check-input">
+                                                        <label for="checkbox1">${ingred }</label>
+                                                    </div>
+                                                </div>
+                                            </li>
+                          </c:forEach>
+                                        </ul>
+			                      </div>
+			                    </div>
+                    
+                    <!-- 과일류 -->
+                    <div class="tab-pane fade" id="nav-profile2" role="tabpanel" aria-labelledby="nav-profile-tab2">
+                      <div class="row gx-2 gy-2 align-items-center">
+                      	 <ul class="list-unstyled mb-0">
+                                <c:forEach items="${vo.fruits }" var="ingred">
+                                            <li class="d-inline-block me-2 mb-1">
+                                                <div class="form-check">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" name="ingredient" value="${ingred }" class="form-check-input">
+                                                        <label for="checkbox1">${ingred }</label>
+                                                    </div>
+                                                </div>
+                                            </li>
+                        	  </c:forEach>
+                                        </ul>
+			                      </div>
+			                    </div>
+                    
+                    <!-- 육류 -->
+                    <div class="tab-pane fade" id="nav-profile3" role="tabpanel" aria-labelledby="nav-profile-tab3">
+                      <div class="row gx-2 gy-2 align-items-center">
+                      	 <ul class="list-unstyled mb-0">
+                                <c:forEach items="${vo.meats }" var="ingred">
+                                            <li class="d-inline-block me-2 mb-1">
+                                                <div class="form-check">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" name="ingredient" value="${ingred }" class="form-check-input">
+                                                        <label for="checkbox1">${ingred }</label>
+                                                    </div>
+                                                </div>
+                                            </li>
+                        	  </c:forEach>
+                                        </ul>
+			                      </div>
+			                    </div>
+                    
+                    <!-- 달걀 유제품류 -->
+                    <div class="tab-pane fade" id="nav-profile4" role="tabpanel" aria-labelledby="nav-profile-tab4">
+                      <div class="row gx-2 gy-2 align-items-center">
+                      	 <ul class="list-unstyled mb-0">
+                              <c:forEach items="${vo.eggs }" var="ingred">
+                                            <li class="d-inline-block me-2 mb-1">
+                                                <div class="form-check">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" name="ingredient" value="${ingred }" class="form-check-input">
+                                                        <label for="checkbox1">${ingred }</label>
+                                                    </div>
+                                                </div>
+                                            </li>
+                        	  </c:forEach>
+                                        </ul>
+			                      </div>
+			                    </div>
+                    
+                    <!-- 해물류 -->
+                    <div class="tab-pane fade" id="nav-profile5" role="tabpanel" aria-labelledby="nav-profile-tab5">
+                      <div class="row gx-2 gy-2 align-items-center">
+                      	 <ul class="list-unstyled mb-0">
+                               <c:forEach items="${vo.seafoods }" var="ingred">
+                                            <li class="d-inline-block me-2 mb-1">
+                                                <div class="form-check">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" name="ingredient" value="${ingred }" class="form-check-input">
+                                                        <label for="checkbox1">${ingred }</label>
+                                                    </div>
+                                                </div>
+                                            </li>
+                        	  </c:forEach>
+                                        </ul>
+			                      </div>
+			                    </div>
+                    
+                    <!-- 양념류 -->
+                    <div class="tab-pane fade" id="nav-profile6" role="tabpanel" aria-labelledby="nav-profile-tab6">
+                      <div class="row gx-2 gy-2 align-items-center">
+                      	 <ul class="list-unstyled mb-0">
+                               <c:forEach items="${vo.spices }" var="ingred">
+                                            <li class="d-inline-block me-2 mb-1">
+                                                <div class="form-check">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" name="ingredient" value="${ingred }" class="form-check-input">
+                                                        <label for="checkbox1">${ingred }</label>
+                                                    </div>
+                                                </div>
+                                            </li>
+                        	  </c:forEach>
+                                        </ul>
+			                      </div>
+			                    </div>
+                    
+                    <!-- 음료/주류 -->
+                    <div class="tab-pane fade" id="nav-profile7" role="tabpanel" aria-labelledby="nav-profile-tab7">
+                      <div class="row gx-2 gy-2 align-items-center">
+                      	 <ul class="list-unstyled mb-0">
+                                <c:forEach items="${vo.drinks }" var="ingred">
+                                            <li class="d-inline-block me-2 mb-1">
+                                                <div class="form-check">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" name="ingredient" value="${ingred }" class="form-check-input">
+                                                        <label for="checkbox1">${ingred }</label>
+                                                    </div>
+                                                </div>
+                                            </li>
+                        	  </c:forEach>
+                                        </ul>
+			                      </div>
+			                    </div>
+
+		                  </div>
+		                </div>
+	                </div>
+                <!-- 모달 바디끝 -->
+                                                    
+				                <div class="modal-footer">
+				                    <button type="button" class="btn btn-primary ml-1" data-bs-dismiss="modal">
+				                        <i class="bx bx-x d-block d-sm-none"></i>
+				                        <span class="d-none d-sm-block">재료 저장</span>
+				                    </button>
+				                    <button type="button" class="btn"
+				                        data-bs-dismiss="modal">
+				                        <i class="bx bx-check d-block d-sm-none"></i>
+				                        <span class="d-none d-sm-block">취 소</span>
+				                    </button>
+				                </div>
+                                  
+                              </div>
+                          </div>
+                      </div>
+											
 				</div>
-				<button class="closeingred" type="button">재료 저장</button>
-			</div>
-		</div>
-		</td>
-	</tr>
-	
-<!-- 감정 -->
-	<tr>
-		<th>어떤 기분일 때 먹으면<br> 도움이 될까요?</th>
-		<td colspan="3">
-		<div id="tooltip">
-		<input type="radio" name="recipe_emotion" value="좋음"><div><span>😀</span><p class="tooltip_box">기분이 좋을 땐 손이 조금 가더라도 근사한 음식이 알맞아요</p></div>
-		<input type="radio" name="recipe_emotion" value="입맛없음"><div><span>😐</span><p class="tooltip_box">입맛이 없을 땐 입맛을 돋궈주는 상큼한 음식이 알맞아요</p></div>
-		<input type="radio" name="recipe_emotion" value="우울"><div><span>😥</span><p class="tooltip_box">우울할 땐 마그네슘, 비타민 B, 엽산 등이 풍부한 음식이 알맞아요</p></div>
-		<input type="radio" name="recipe_emotion" value="화남"><div><span>🤬</span><p class="tooltip_box">화가 날 땐 비타민 D, 오메가 3 등이 들어간 음식이나, 매운음식이 알맞아요</p></div>
-		<input type="radio" name="recipe_emotion" value="아픔"><div><span>😷</span><p class="tooltip_box">아플 땐 든든한 고기류나 염분이 많지 않은 속편한 음식이 알맞아요</p></div>
-		</div>
-		</td>
-	</tr>
-	
-<!-- 사진 첨부 및 레시피 내용 적기 -->
-<!-- 더보기 기능 완성되면 여기에도 적용할 예정임 -->
+				</td>
+			</tr>
+								
+							<!-- 감정 -->
+								<tr>
+									<th>어떤 기분일 때 먹으면 도움이 될까요?</th>
+									<td colspan="3">
+										<div class="form-check me-3" style="display:inline-block;">
+                                        <input class="form-check-input" type="radio" id="flexRadioDefault11" 
+                                        name="recipe_emotion" value="좋음" checked>
+                                        <label class="form-check-label" for="flexRadioDefault11" data-bs-toggle="tooltip" data-bs-placement="top" title="기분 좋은 날엔 손이 조금 가더라도 근사한 음식을 해먹어봐요!">
+                                            <i class="fas fa-smile text-warning" style="font-size: 1.7rem;"></i>
+                                        </label>
+                                    </div>
+                                    <div class="form-check me-3" style="display:inline-block;">
+                                        <input class="form-check-input" type="radio" name="recipe_emotion" value="입맛없음"
+                                            id="flexRadioDefault12">
+                                        <label class="form-check-label" for="flexRadioDefault12" data-bs-toggle="tooltip" data-bs-placement="top" title="입맛이 없을 땐 입맛을 돋궈주는 상큼한 음식을 먹어봐요">
+                                            <i class="fas fa-meh text-warning" style="font-size: 1.7rem;"></i>
+                                        </label>
+                                    </div>
+                                    <div class="form-check me-3" style="display:inline-block;">
+                                        <input class="form-check-input" type="radio" name="recipe_emotion" value="우울"
+                                            id="flexRadioDefault13">
+                                        <label class="form-check-label" for="flexRadioDefault13" data-bs-toggle="tooltip" data-bs-placement="top" title="우울함엔 마그네슘, 비타민 B, 엽산 등이 풍부한 음식을 추천드려요!">
+                                            <i class="fas fa-meh-rolling-eyes text-warning" style="font-size: 1.7rem;"></i>
+                                        </label>
+                                    </div>
+                                    <div class="form-check me-3" style="display:inline-block;">
+                                        <input class="form-check-input" type="radio" name="recipe_emotion" value="화남"
+                                            id="flexRadioDefault14">
+                                        <label class="form-check-label" for="flexRadioDefault14" data-bs-toggle="tooltip" data-bs-placement="top" title="화가 나는 날엔  비타민 D, 오메가 3 등이 들어간 음식을 먹어봐요! 또한, 매운음식은 아드레날린과 엔도르핀을 분비합니다.">
+                                            <i class="fas fa-angry text-warning" style="font-size: 1.7rem;"></i>
+                                        </label>
+                                    </div>
+                                    <div class="form-check me-3" style="display:inline-block;">
+                                        <input class="form-check-input" type="radio" name="recipe_emotion" value="아픔"
+                                            id="flexRadioDefault15">
+                                        <label class="form-check-label" for="flexRadioDefault15" data-bs-toggle="tooltip" data-bs-placement="top" title="아플 땐 든든한 고기류나 염분이 많지 않은 속편한 음식을 먹어보세요">
+                                            <i class="fas fa-tired text-warning" style="font-size: 1.7rem;"></i>
+                                        </label>
+                                    </div>
+									
+									
+									<!-- <div id="tooltip">
+										<input type="radio" name="recipe_emotion" value="좋음"><div><span>😀</span><p class="tooltip_box">기분이 좋을 땐 손이 조금 가더라도 근사한 음식이 알맞아요</p></div>
+										<input type="radio" name="recipe_emotion" value="입맛없음"><div><span>😐</span><p class="tooltip_box">입맛이 없을 땐 입맛을 돋궈주는 상큼한 음식이 알맞아요</p></div>
+										<input type="radio" name="recipe_emotion" value="우울"><div><span>😥</span><p class="tooltip_box">우울할 땐 마그네슘, 비타민 B, 엽산 등이 풍부한 음식이 알맞아요</p></div>
+										<input type="radio" name="recipe_emotion" value="화남"><div><span>🤬</span><p class="tooltip_box">화가 날 땐 비타민 D, 오메가 3 등이 들어간 음식이나, 매운음식이 알맞아요</p></div>
+										<input type="radio" name="recipe_emotion" value="아픔"><div><span>😷</span><p class="tooltip_box">아플 땐 든든한 고기류나 염분이 많지 않은 속편한 음식이 알맞아요</p></div>
+									</div> -->
+									</td>
+								</tr>
+								
+							<!-- 사진 첨부 및 레시피 내용 적기 -->
+							<!-- 더보기 기능 완성되면 여기에도 적용할 예정임 -->
+							
+								<tr>
+									<th>사진1</th>
+									<td>
+									<input type="file" name="recipe_img" class="form-control" accept="image/*" id="recipe_img1" onchange="view(event, 'img1');">
+									<br>
+									<div id="img1"></div>
+									</td>
+									<th>레시피 내용1</th>
+									<td><textarea rows="5" cols="50" id="recipe_desc1" name="recipe_desc" class="form-control"></textarea></td>
+								</tr>
+							<c:forEach var="i" begin="2" end="10">
+								<tr>
+									<th>사진${i }</th>
+									<td>
+									<input type="file" name="recipe_img" class="form-control" accept="image/*" onchange="view(event, 'img${i }');">
+									<br>
+									<div id="img${i }"></div>
+									</td>
+									<th>레시피 내용${i }</th>
+									<td><textarea rows="5" cols="50" name="recipe_desc" class="form-control"></textarea></td>
+								</tr>
+							</c:forEach>
+							
+							</table>
+							<!-- 저장이 완료되었습니다 함수 만들기 -->
+							<div class="col-12 mt-2" id="div_add" style="padding-right:10px;"> 
+								<a style="float:right;" href="/recipelist" class="btn btn-lg btn-primary mb-2" >취 소</a>
+								<input style="float:right;" type="submit" value="저 장" class="btn btn-lg btn-primary me-2 mb-2" >
+			            	</div>
+								
+							</form>
+</div>
+</div>
+</div>
+</div>
+</section>
 
-	<tr>
-		<th>사진1</th>
-		<td>
-		<input type="file" name="recipe_img" accept="image/*" id="recipe_img1" onchange="view(event, 'img1');">
-		<div id="img1"></div>
-		</td>
-		<th>레시피 내용1</th>
-		<td><textarea rows="5" cols="50" id="recipe_desc1" name="recipe_desc"></textarea></td>
-	</tr>
-<c:forEach var="i" begin="2" end="10">
-	<tr>
-		<th>사진${i }</th>
-		<td>
-		<input type="file" name="recipe_img" accept="image/*" onchange="view(event, 'img${i }');">
-		<div id="img${i }"></div>
-		</td>
-		<th>레시피 내용${i }</th>
-		<td><textarea rows="5" cols="50" name="recipe_desc"></textarea></td>
-	</tr>
-</c:forEach>
-
-</table>
-<!-- 저장이 완료되었습니다 함수 만들기 -->
-	<input type="submit" value="저장">
-	<a href="/recipelist">취소</a>
-</form>
+</div>
+</div>
+</div>
+</div>
+</section>
 
 <script type="text/javascript">
 //재료 선택 팝업창
-	$(function(){
+	/* $(function(){
 		$(".openingred").click(function(){
 			$(".modal").fadeIn();
 		});
@@ -269,7 +572,7 @@ String[] ingredient = {"소고기","돼지고기", "닭고기", "양고기", "�
 			$(".modal").fadeOut();
 		})
 		
-	})
+	}) */
 	//파일 확장자 제한, 사이즈 제한
 	$(document).ready(function(){
 		
@@ -398,29 +701,11 @@ String[] ingredient = {"소고기","돼지고기", "닭고기", "양고기", "�
 		alert('저장이 완료되었습니다.')
 		return true;
 	}
-/*	
-	// 메뉴가 선택되어 active가 되기 전 이벤트
-	$('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
-	e.target // 현재 설정된 tab
-	e.relatedTarget // 이전에 설정된 탭
-	});
-	// 메뉴가 선택되어 active가 된 후 이벤트
-	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-	e.target // 현재 설정된 tab
-	e.relatedTarget // 이전에 설정된 탭
-	});
-	// 다른 메뉴가 선택되어 active가 remove 되기 전 이벤트
-	$('a[data-toggle="tab"]').on('hide.bs.tab', function (e) {
-	e.target // 현재 설정된 tab
-	e.relatedTarget // 이전에 설정된 탭
-	});
-	// 다른 메뉴가 선택되어 active가 remove 된 후 이벤트
-	$('a[data-toggle="tab"]').on('hidden.bs.tab', function (e) {
-	e.target // 현재 설정된 tab
-	e.relatedTarget // 이전에 설정된 탭
-	});
-*/
 </script>
+
+<script src="adminassets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="adminassets/js/bootstrap.bundle.min.js"></script>
+	<script src="adminassets/js/main.js"></script>
 
 </body>
 </html>

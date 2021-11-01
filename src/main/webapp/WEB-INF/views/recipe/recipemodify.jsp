@@ -5,19 +5,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오늘 뭐 해먹지?</title>
+    
+    <link href="mainassets/assets/css/theme.css" rel="stylesheet" />
+    
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="adminassets/css/bootstrap.css">
+    <link rel="stylesheet" href="adminassets/vendors/simple-datatables/style.css">
+    <link rel="stylesheet" href="adminassets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="adminassets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="adminassets/css/app.css">
+    <link rel="shortcut icon" href="imgs/logo.ico" type="image/x-icon">
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>	
+	<script src="mainassets/vendors/fontawesome/all.min.js"></script>
 
 <style type="text/css">
-.modal{ position:absolute; width:50%; height:50%; background: rgba(255,255,255,1); top:5; left:10;display:none;  }
-.modalbox{ border: 1px solid; top: 10; bottom: 10;}
+/* .modal{ position:absolute; width:50%; height:50%; background: rgba(255,255,255,1); top:5; left:10;display:none;  }
+.modalbox{ border: 1px solid; top: 10; bottom: 10;} */
 
-#tooltip {
+/* #tooltip {
     width: 600px;
     background: #f3f3f3;
     border: 1px solid #d8d8d8;
@@ -67,6 +77,33 @@ span:hover + p.tooltip_box {
   display: block;
   
 
+} */
+.dropdown-menu{
+	min-width: 8rem;
+}
+.input-group-text{
+	background-color: #F5F5F5;
+}
+.form-control:disabled{
+	background-color: white;
+	color:black;
+}
+div.editable {
+	padding : 10px;
+    height: 400px;
+    border: 1px solid #dcdcdc;
+    overflow-y: auto;
+}
+.btn{
+	font-weight: 700;
+
+}
+.formimage {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 0.3rem!important;
+ 
 }
 </style>
 </head>
@@ -75,39 +112,167 @@ span:hover + p.tooltip_box {
 <%
 String[] ingredient = {"소고기","돼지고기","닭고기","양고기","무슨고기"};
 %>
+
+<section class="py-4 overflow-hidden">
+   <div class="container">
+     <div class="row h-100">  
+       <div class="col-12">
+		<div class="page-title">
+
+
+
+		 <section class="section" style="padding-bottom:1rem;">
+		    <div class="row" id="table-contexual">
+			        <div class="col-12">
+			        <div class="row" >
+	                        <div class="col-12 col-md-6 order-md-1 order-last mb-2">
+	                            <h3>레시피 수정</h3>
+	                        </div>
+	                    </div>
+	                </div>
+		            <div class="card">
+		                <div class="card-content">
+		                	
+		                    <!-- table contextual / colored -->
+		                    <div class="table-responsive">
 <!-- 1. recipe_title, recipe_name, 사진, recipe_date, recipe_emotion  -->
 <form action="recipemodify" method="post" enctype="multipart/form-data" name="frm" onsubmit="return send()">
 <input type="hidden" name="recipe_no" value="${recipe.recipe_no }">
-<table border="1">
+<table class="table mb-0" style="vertical-align: middle;">
 	<!-- 종류 -->
 	<tr>
 		<th rowspan="2">분류</th>
+									<td colspan="3">
+									<div class="form-check me-3" style="display:inline-block;">
+                                        <input class="form-check-input" type="radio" 
+                                            id="recipe_cate" name="recipe_cate" value="육류" checked>
+                                        <label class="form-check-label" for="recipe_cate">
+                                            육류
+                                        </label>
+                                    </div>
+                                    <div class="form-check me-3" style="display:inline-block;">
+                                        <input class="form-check-input" type="radio" name="recipe_cate" value="해물류"
+                                            id="flexRadioDefault2">
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            해물류
+                                        </label>
+                                    </div>
+                                    <div class="form-check me-3" style="display:inline-block;">
+                                        <input class="form-check-input" type="radio" name="recipe_cate" value="채소류"
+                                            id="flexRadioDefault3">
+                                        <label class="form-check-label" for="flexRadioDefault3">
+                                            채소류
+                                        </label>
+                                    </div>
+                                    <div class="form-check me-3" style="display:inline-block;">
+                                        <input class="form-check-input" type="radio" name="recipe_cate" value="달걀유제품류"
+                                            id="flexRadioDefault4">
+                                        <label class="form-check-label" for="flexRadioDefault4">
+                                            달걀/유제품류
+                                        </label>
+                                    </div>
+                                    <div class="form-check me-3" style="display:inline-block;">
+                                        <input class="form-check-input" type="radio" name="recipe_cate" value="기타"
+                                            id="flexRadioDefault5">
+                                        <label class="form-check-label" for="flexRadioDefault5">
+                                            기타
+                                        </label>
+                                    </div>
+									</td>
+		
+		<!-- <th rowspan="2">분류</th>
 		<td colspan="3">
 		<input type="radio" name="recipe_cate" id="육류" value="육류">육류
 		<input type="radio" name="recipe_cate" id="해물류" value="해물류">해물류
 		<input type="radio" name="recipe_cate" id="채소류" value="채소류">채소류
 		<input type="radio" name="recipe_cate" id="달걀유제품류" value="달걀유제품류">달걀/유제품류
 		<input type="radio" name="recipe_cate" value="기타">기타
-		</td>
+		</td> -->
 	</tr>
 	<tr>
-		<td colspan="3">
+									<td colspan="3">
+									<div class="form-check me-3" style="display:inline-block;">
+                                        <input class="form-check-input" type="radio" id="recipe_nation" 
+                                        name="recipe_nation" value="한식" checked>
+                                        <label class="form-check-label" for="recipe_nation">
+                                            한식
+                                        </label>
+                                    </div>
+                                    <div class="form-check me-3" style="display:inline-block;">
+                                        <input class="form-check-input" type="radio" name="recipe_nation" value="일식"
+                                            id="flexRadioDefault7">
+                                        <label class="form-check-label" for="flexRadioDefault7">
+                                            일식
+                                        </label>
+                                    </div>
+                                    <div class="form-check me-3" style="display:inline-block;">
+                                        <input class="form-check-input" type="radio" name="recipe_nation" value="양식"
+                                            id="flexRadioDefault8">
+                                        <label class="form-check-label" for="flexRadioDefault8">
+                                            양식
+                                        </label>
+                                    </div>
+                                    <div class="form-check me-3" style="display:inline-block;">
+                                        <input class="form-check-input" type="radio" name="recipe_nation" value="중식"
+                                            id="flexRadioDefault9">
+                                        <label class="form-check-label" for="flexRadioDefault9">
+                                            중식
+                                        </label>
+                                    </div>
+                                    <div class="form-check me-3" style="display:inline-block;">
+                                        <input class="form-check-input" type="radio" name="recipe_nation" value="기타"
+                                            id="flexRadioDefault10">
+                                        <label class="form-check-label" for="flexRadioDefault10">
+                                            기타
+                                        </label>
+                                    </div>
+									</td>
+		<!-- <td colspan="3">
 		<input type="radio" name="recipe_nation" id="한식" value="한식">한식
 		<input type="radio" name="recipe_nation" id="일식" value="일식">일식
 		<input type="radio" name="recipe_nation" id="양식" value="양식">양식
 		<input type="radio" name="recipe_nation" id="중식" value="중식">중식
 		<input type="radio" name="recipe_nation" value="기타">기타
-		</td>
+		</td> -->
 	</tr>
 	<tr>
 		<th>제목</th>
-		<td colspan="3"><input type="text" name="recipe_title" id="recipe_title" value="${recipe.recipe_title }"></td>
+		<td colspan="3"><input type="text" name="recipe_title" id="recipe_title" class="form-control w-75" value="${recipe.recipe_title }"></td>
 	</tr>
 	<tr>
 		<th>썸네일 사진</th>
 		<td colspan="3">
-		<input type="file" name="recipe_img" id="recipe_img" accept="image/*" onchange="view(event, 'img');"><br>
-		<table border ="1">
+		<input class="form-control" type="file" name="recipe_img" id="recipe_img" accept="image/*" onchange="view(event, 'img');"><br>
+		<table class="table mb-0 mt-2 w-50" style="vertical-align: middle;text-align: center;">
+				<tr>
+					<th>기존 이미지</th>
+					<th></th>
+					<th>변경 이미지</th>
+					
+					
+				</tr>
+				<tr>
+					
+					<td>
+	                        <div class="card card-span h-100 rounded-3" style="text-align: center;display: inline-block;">
+								<c:set var="recipe_img" value="${recipe.recipe_img }"/>
+								<c:if test="${fn:contains(recipe_img, 'https')}">
+									<img src="${recipe.recipe_img }" class="formimage">
+								</c:if>
+								<c:if test="${not fn:contains(recipe_img, 'https')  }">
+									<img src="/upload/${recipe.recipe_img }" class="formimage">
+								</c:if>
+							</div>
+	                     
+					</td>
+					<td><i class="fas fa-arrow-right" style="font-size: 1.8em;"></i></td>
+					<td><div id="img" class="card card-span h-100 rounded-3" style="text-align: center;display: inline-block;"><img src="upload/resultplus.png" alt="..." class="formimage"/></div></td>
+					<input type="hidden" name="img" value="${recipe.recipe_img }">
+				</tr>
+			</table>
+		
+		
+		<%-- <table border ="1">
 			<tr>
 			<th>기존 이미지</th>
 			<td>
@@ -123,21 +288,245 @@ String[] ingredient = {"소고기","돼지고기","닭고기","양고기","무�
 			<th>변경 이미지</th>
 			<td><div id="img"></div></td>
 			</tr>
-		</table>
+		</table> --%>
 		</td>
 	</tr>
 	<tr>
 		<th>음식 이름</th>
-		<td colspan="3"><input type="text" name="recipe_name" id="recipe_name" value="${recipe.recipe_name }"></td>
+		<td colspan="3"><input type="text" name="recipe_name" id="recipe_name" class="form-control w-75" value="${recipe.recipe_name }"></td>
 	</tr>
 	<tr>
 		<th>음식 설명</th>
-		<td colspan="3"><textarea rows="5" cols="50" id="recipe_desc" name="recipe_desc">${desc.recipe_desc }</textarea></td>
-		
+		<td colspan="3"><textarea rows="5" cols="50" name="recipe_desc" id="recipe_desc" class="form-control">${desc.recipe_desc }</textarea></td>
 	</tr>
 	<!-- 분류 -->
 <!-- 팝업창 재료 -->
-	<tr>
+
+<!-- 나 -->
+<tr>
+									<th>재료</th>
+									<td colspan="3">
+									<div class="a">
+										<button type="button" class="btn btn-outline-primary block" data-bs-toggle="modal"
+                                        data-bs-target="#default">
+                                        재료 선택
+                                    </button>
+									<div class="modal fade text-left" id="default" tabindex="-1" role="dialog"
+									aria-labelledby="myModalLabel1" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-scrollable" role="document" style="max-width: 880px;">
+                                            <div class="modal-content">
+                                                 <div class="modal-header">
+                                                    <h5 class="modal-title" id="myModalLabel1">최대 6개까지 선택 가능</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <!-- 모달 바디 -->
+                                                    <div class="card-body" style="padding:0px;">
+                	<nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                      <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">곡물류</button>
+                      <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">면/만두류</button>
+                      <button class="nav-link" id="nav-profile-tab1" data-bs-toggle="tab" data-bs-target="#nav-profile1" type="button" role="tab" aria-controls="nav-profile1" aria-selected="false">채소류</button>
+                      <button class="nav-link" id="nav-profile-tab2" data-bs-toggle="tab" data-bs-target="#nav-profile2" type="button" role="tab" aria-controls="nav-profile2" aria-selected="false">과일류</button>
+                      <button class="nav-link" id="nav-profile-tab3" data-bs-toggle="tab" data-bs-target="#nav-profile3" type="button" role="tab" aria-controls="nav-profile3" aria-selected="false">육류</button>
+                      <button class="nav-link" id="nav-profile-tab4" data-bs-toggle="tab" data-bs-target="#nav-profile4" type="button" role="tab" aria-controls="nav-profile4" aria-selected="false">달걀/유제품류</button>
+                      <button class="nav-link" id="nav-profile-tab5" data-bs-toggle="tab" data-bs-target="#nav-profile5" type="button" role="tab" aria-controls="nav-profile5" aria-selected="false">해물류</button>
+                      <button class="nav-link" id="nav-profile-tab6" data-bs-toggle="tab" data-bs-target="#nav-profile6" type="button" role="tab" aria-controls="nav-profile6" aria-selected="false">양념류</button>
+                      <button class="nav-link" id="nav-profile-tab7" data-bs-toggle="tab" data-bs-target="#nav-profile7" type="button" role="tab" aria-controls="nav-profile7" aria-selected="false">음료/주류</button>
+                    </div>
+                  </nav>
+                  <hr>
+                  
+                  <div class="tab-content mt-3" id="nav-tabContent">
+                  <!-- 곡물류 -->
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                      <div class="row gx-2 gy-2 align-items-center">
+                        <ul class="list-unstyled mb-0">
+                      	  <c:forEach items="${ingredvo.grains }" var="ingred">
+                                            <li class="d-inline-block me-2 mb-1">
+                                                <div class="form-check">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" name="ingredient" value="${ingred }" class="form-check-input" id="${ingred }">
+                                                        <label for="checkbox1">${ingred }</label>
+                                                    </div>
+                                                </div>
+                                            </li>
+                          </c:forEach>
+                                        </ul>
+			                      </div>
+			                    </div> 
+                   
+                    
+                    <!-- 면/만두류 -->
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                      <div class="row gx-2 gy-2 align-items-center">
+                      	 <ul class="list-unstyled mb-0">
+                          <c:forEach items="${ingredvo.noodles }" var="ingred">
+                                            <li class="d-inline-block me-2 mb-1">
+                                                <div class="form-check">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" name="ingredient" value="${ingred }" class="form-check-input" id="${ingred }">
+                                                        <label for="checkbox1">${ingred }</label>
+                                                    </div>
+                                                </div>
+                                            </li>
+                          </c:forEach>
+                                        </ul>
+			                      </div>
+			                    </div>
+                    
+                    <!-- 채소류 -->
+                    <div class="tab-pane fade" id="nav-profile1" role="tabpanel" aria-labelledby="nav-profile-tab1">
+                      <div class="row gx-2 gy-2 align-items-center">
+                      	 <ul class="list-unstyled mb-0">
+                              <c:forEach items="${ingredvo.vegetables }" var="ingred">
+                                            <li class="d-inline-block me-2 mb-1">
+                                                <div class="form-check">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" name="ingredient" value="${ingred }" class="form-check-input" id="${ingred }">
+                                                        <label for="checkbox1">${ingred }</label>
+                                                    </div>
+                                                </div>
+                                            </li>
+                          </c:forEach>
+                                        </ul>
+			                      </div>
+			                    </div>
+                    
+                    <!-- 과일류 -->
+                    <div class="tab-pane fade" id="nav-profile2" role="tabpanel" aria-labelledby="nav-profile-tab2">
+                      <div class="row gx-2 gy-2 align-items-center">
+                      	 <ul class="list-unstyled mb-0">
+                                <c:forEach items="${ingredvo.fruits }" var="ingred">
+                                            <li class="d-inline-block me-2 mb-1">
+                                                <div class="form-check">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" name="ingredient" value="${ingred }" class="form-check-input" id="${ingred }">
+                                                        <label for="checkbox1">${ingred }</label>
+                                                    </div>
+                                                </div>
+                                            </li>
+                        	  </c:forEach>
+                                        </ul>
+			                      </div>
+			                    </div>
+                    
+                    <!-- 육류 -->
+                    <div class="tab-pane fade" id="nav-profile3" role="tabpanel" aria-labelledby="nav-profile-tab3">
+                      <div class="row gx-2 gy-2 align-items-center">
+                      	 <ul class="list-unstyled mb-0">
+                                <c:forEach items="${ingredvo.meats }" var="ingred">
+                                            <li class="d-inline-block me-2 mb-1">
+                                                <div class="form-check">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" name="ingredient" value="${ingred }" class="form-check-input" id="${ingred }">
+                                                        <label for="checkbox1">${ingred }</label>
+                                                    </div>
+                                                </div>
+                                            </li>
+                        	  </c:forEach>
+                                        </ul>
+			                      </div>
+			                    </div>
+                    
+                    <!-- 달걀 유제품류 -->
+                    <div class="tab-pane fade" id="nav-profile4" role="tabpanel" aria-labelledby="nav-profile-tab4">
+                      <div class="row gx-2 gy-2 align-items-center">
+                      	 <ul class="list-unstyled mb-0">
+                              <c:forEach items="${ingredvo.eggs }" var="ingred">
+                                            <li class="d-inline-block me-2 mb-1">
+                                                <div class="form-check">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" name="ingredient" value="${ingred }" class="form-check-input" id="${ingred }">
+                                                        <label for="checkbox1">${ingred }</label>
+                                                    </div>
+                                                </div>
+                                            </li>
+                        	  </c:forEach>
+                                        </ul>
+			                      </div>
+			                    </div>
+                    
+                    <!-- 해물류 -->
+                    <div class="tab-pane fade" id="nav-profile5" role="tabpanel" aria-labelledby="nav-profile-tab5">
+                      <div class="row gx-2 gy-2 align-items-center">
+                      	 <ul class="list-unstyled mb-0">
+                               <c:forEach items="${ingredvo.seafoods }" var="ingred">
+                                            <li class="d-inline-block me-2 mb-1">
+                                                <div class="form-check">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" name="ingredient" value="${ingred }" class="form-check-input" id="${ingred }">
+                                                        <label for="checkbox1">${ingred }</label>
+                                                    </div>
+                                                </div>
+                                            </li>
+                        	  </c:forEach>
+                                        </ul>
+			                      </div>
+			                    </div>
+                    
+                    <!-- 양념류 -->
+                    <div class="tab-pane fade" id="nav-profile6" role="tabpanel" aria-labelledby="nav-profile-tab6">
+                      <div class="row gx-2 gy-2 align-items-center">
+                      	 <ul class="list-unstyled mb-0">
+                               <c:forEach items="${ingredvo.spices }" var="ingred">
+                                            <li class="d-inline-block me-2 mb-1">
+                                                <div class="form-check">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" name="ingredient" value="${ingred }" class="form-check-input" id="${ingred }">
+                                                        <label for="checkbox1">${ingred }</label>
+                                                    </div>
+                                                </div>
+                                            </li>
+                        	  </c:forEach>
+                                        </ul>
+			                      </div>
+			                    </div>
+                    
+                    <!-- 음료/주류 -->
+                    <div class="tab-pane fade" id="nav-profile7" role="tabpanel" aria-labelledby="nav-profile-tab7">
+                      <div class="row gx-2 gy-2 align-items-center">
+                      	 <ul class="list-unstyled mb-0">
+                                <c:forEach items="${ingredvo.drinks }" var="ingred">
+                                            <li class="d-inline-block me-2 mb-1">
+                                                <div class="form-check">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" name="ingredient" value="${ingred }" class="form-check-input" id="${ingred }">
+                                                        <label for="checkbox1">${ingred }</label>
+                                                    </div>
+                                                </div>
+                                            </li>
+                        	  </c:forEach>
+                                        </ul>
+			                      </div>
+			                    </div>
+
+		                  </div>
+		                </div>
+	                </div>
+                <!-- 모달 바디끝 -->
+                                                    
+				                <div class="modal-footer">
+				                    <button type="button" class="btn btn-primary ml-1" data-bs-dismiss="modal">
+				                        <i class="bx bx-x d-block d-sm-none"></i>
+				                        <span class="d-none d-sm-block">재료 저장</span>
+				                    </button>
+				                    <button type="button" class="btn"
+				                        data-bs-dismiss="modal">
+				                        <i class="bx bx-check d-block d-sm-none"></i>
+				                        <span class="d-none d-sm-block">취 소</span>
+				                    </button>
+				                </div>
+                                  
+                              </div>
+                          </div>
+                      </div>
+											
+				</div>
+				${recipe.recipe_ingredient }
+				</td>
+			</tr>
+
+<%-- 	<tr>
 		<th>재료</th>
 		<td colspan="3">
 		<div>
@@ -222,312 +611,450 @@ String[] ingredient = {"소고기","돼지고기","닭고기","양고기","무�
 		</div>
 		${recipe.recipe_ingredient }
 		</td>
-	</tr>
+	</tr> --%>
 <!-- 감정 -->
 	<tr>
-		<th>이런 감정일 때 먹으면 좋아요</th>
-		<td colspan="3">
-		<div id="tooltip">
-		<input type="radio" name="recipe_emotion" id="좋음" value="좋음"><div><span>😀</span><p class="tooltip_box">기분이 좋을 땐 손이 조금 가더라도 근사한 음식이 알맞아요</p></div>
-		<input type="radio" name="recipe_emotion" id="입맛없음" value="입맛없음"><div><span>😐</span><p class="tooltip_box">입맛이 없을 땐 입맛을 돋궈주는 상큼한 음식이 알맞아요</p></div>
-		<input type="radio" name="recipe_emotion" id="우울" value="우울"><div><span>😥</span><p class="tooltip_box">우울할 땐 마그네슘, 비타민 B, 엽산 등이 풍부한 음식이 알맞아요</p></div>
-		<input type="radio" name="recipe_emotion" id="화남" value="화남"><div><span>🤬</span><p class="tooltip_box">화가 날 땐 비타민 D, 오메가 3 등이 들어간 음식이나, 매운음식이 알맞아요</p></div>
-		<input type="radio" name="recipe_emotion" id="아픔" value="아픔"><div><span>😷</span><p class="tooltip_box">아플 땐 든든한 고기류나 염분이 많지 않은 속편한 음식이 알맞아요</p></div>
-		</div>
-		</td>
+		<th>어떤 기분일 때 먹으면 도움이 될까요?</th>
+									<td colspan="3">
+										<div class="form-check me-3" style="display:inline-block;">
+                                        <input class="form-check-input" type="radio" id="flexRadioDefault11" 
+                                        name="recipe_emotion" id="좋음" value="좋음" checked>
+                                        <label class="form-check-label" for="flexRadioDefault11" data-bs-toggle="tooltip" data-bs-placement="top" title="기분 좋은 날엔 손이 조금 가더라도 근사한 음식을 해먹어봐요!">
+                                            <i class="fas fa-smile text-warning" style="font-size: 1.7rem;"></i>
+                                        </label>
+                                    </div>
+                                    <div class="form-check me-3" style="display:inline-block;">
+                                        <input class="form-check-input" type="radio" name="recipe_emotion" value="입맛없음"
+                                            id="입맛없음">
+                                        <label class="form-check-label" for="입맛없음" data-bs-toggle="tooltip" data-bs-placement="top" title="입맛이 없을 땐 입맛을 돋궈주는 상큼한 음식을 먹어봐요">
+                                            <i class="fas fa-meh text-warning" style="font-size: 1.7rem;"></i>
+                                        </label>
+                                    </div>
+                                    <div class="form-check me-3" style="display:inline-block;">
+                                        <input class="form-check-input" type="radio" name="recipe_emotion" value="우울"
+                                            id="우울">
+                                        <label class="form-check-label" for="우울" data-bs-toggle="tooltip" data-bs-placement="top" title="우울함엔 마그네슘, 비타민 B, 엽산 등이 풍부한 음식을 추천드려요!">
+                                            <i class="fas fa-meh-rolling-eyes text-warning" style="font-size: 1.7rem;"></i>
+                                        </label>
+                                    </div>
+                                    <div class="form-check me-3" style="display:inline-block;">
+                                        <input class="form-check-input" type="radio" name="recipe_emotion" value="화남"
+                                            id="화남">
+                                        <label class="form-check-label" for="화남" data-bs-toggle="tooltip" data-bs-placement="top" title="화가 나는 날엔  비타민 D, 오메가 3 등이 들어간 음식을 먹어봐요! 또한, 매운음식은 아드레날린과 엔도르핀을 분비합니다.">
+                                            <i class="fas fa-angry text-warning" style="font-size: 1.7rem;"></i>
+                                        </label>
+                                    </div>
+                                    <div class="form-check me-3" style="display:inline-block;">
+                                        <input class="form-check-input" type="radio" name="recipe_emotion" value="아픔"
+                                            id="아픔">
+                                        <label class="form-check-label" for="아픔" data-bs-toggle="tooltip" data-bs-placement="top" title="아플 땐 든든한 고기류나 염분이 많지 않은 속편한 음식을 먹어보세요">
+                                            <i class="fas fa-tired text-warning" style="font-size: 1.7rem;"></i>
+                                        </label>
+                                    </div>
+									</td>
 	</tr>
 <!-- 사진 및 레시피 내용 -->
 		<tr>
 			<th>사진1</th>
 			<td>
-			<input type="file" name="recipe_img1" id="recipe_img1" accept="image/*" onchange="view(event, 'img1');"><br>
-			<table border ="1">
+			<input class="form-control" type="file" name="recipe_img1" id="recipe_img1" accept="image/*" onchange="view(event, 'img1');"><br>
+			
+			<table class="table mb-0 mt-2" style="vertical-align: middle;text-align: center;">
 				<tr>
-				<th>기존 이미지</th>
-				<td>
-					<c:set var="recipe_img1" value="${img.recipe_img1 }"/>
-					<c:if test="${fn:contains(recipe_img1, 'https')}">
-						<img src="${img.recipe_img1 }" height="200" width="200">
-					</c:if>
-					<c:if test="${not fn:contains(recipe_img1, 'https')  }">
-						<img src="/upload/${img.recipe_img1 }" height="200" width="200">
-					</c:if>
-				</td>
-				<input type="hidden" name="img1" value="${img.recipe_img1 }">
-				<th>변경 이미지</th>
-				<td><div id="img1"></div></td>
+					<th>기존 이미지</th>
+					<th></th>
+					<th>변경 이미지</th>
+					<input type="hidden" name="img1" value="${img.recipe_img1 }">
+					
+				</tr>
+				<tr>
+					
+					<td>
+	                        <div class="card card-span h-100 rounded-3">
+								<c:set var="recipe_img1" value="${img.recipe_img1 }"/>
+								<c:if test="${fn:contains(recipe_img1, 'https')}">
+									<img src="${img.recipe_img1 }"  class="formimage">
+								</c:if>
+								<c:if test="${not fn:contains(recipe_img1, 'https')  }">
+									<img src="/upload/${img.recipe_img1 }" class="formimage">
+								</c:if>
+							</div>
+	                     
+					</td>
+					<td><i class="fas fa-arrow-right" style="font-size: 1.8em;"></i></td>
+					<td><div id="img1" class="card card-span h-100 rounded-3"><img src="upload/resultplus.png" alt="..." class="formimage"/></div></td>
 				</tr>
 			</table>
 			</td>
 			<th>레시피 내용1</th>
-			<td><textarea rows="5" cols="50" id="recipe_desc1" name="recipe_desc">${desc.recipe_desc1}</textarea></td>
+			<td><textarea class="form-control" rows="9" cols="50" id="recipe_desc1" name="recipe_desc">${desc.recipe_desc1}</textarea></td>
 		</tr>
 		
 		<tr>
 			<th>사진2</th>
 			<td>
-			<input type="file" name="recipe_img2" accept="image/*" onchange="view(event, 'img2');">
+			<input class="form-control" type="file" name="recipe_img2" accept="image/*" onchange="view(event, 'img2');">
+			<br>
 	<c:if test="${!empty img.recipe_img2 }">
-			<table border ="1">
+	
+			<table class="table mb-0 mt-2" style="vertical-align: middle;text-align: center;">
 				<tr>
-				<th>기존 이미지</th>
-				<td>
-				<c:set var="recipe_img2" value="${img.recipe_img2 }"/>
-				<c:if test="${fn:contains(recipe_img2, 'https')}">
-					<img src="${img.recipe_img2 }" height="200" width="200">
-				</c:if>
-				<c:if test="${not fn:contains(recipe_img2, 'https')  }">
-					<img src="/upload/${img.recipe_img2 }" height="200" width="200">
-				</c:if>
-				</td>
-				<input type="hidden" name="img2" value="${img.recipe_img2 }">
-				<th>변경 이미지</th>
-				<td><div id="img2"></div></td>
+					<th>기존 이미지</th>
+					<th></th>
+					<th>변경 이미지</th>
+					<input type="hidden" name="img2" value="${img.recipe_img2 }">
+					
+				</tr>
+				<tr>
+					
+					<td>
+	                        <div class="card card-span h-100 rounded-3">
+								<c:set var="recipe_img2" value="${img.recipe_img2 }"/>
+								<c:if test="${fn:contains(recipe_img2, 'https')}">
+									<img src="${img.recipe_img2 }"  class="formimage">
+								</c:if>
+								<c:if test="${not fn:contains(recipe_img2, 'https')  }">
+									<img src="/upload/${img.recipe_img2 }" class="formimage">
+								</c:if>
+							</div>
+	                     
+					</td>
+					<td><i class="fas fa-arrow-right" style="font-size: 1.8em;"></i></td>
+					<td><div id="img2" class="card card-span h-100 rounded-3"><img src="upload/resultplus.png" alt="..." class="formimage"/></div></td>
 				</tr>
 			</table>
 	</c:if>
 			<div id="img2"></div>
 			</td>
 			<th>레시피 내용2</th>
-			<td><textarea rows="5" cols="50" name="recipe_desc">${desc.recipe_desc2}</textarea></td>
+			<td><textarea class="form-control" rows="9" cols="50" name="recipe_desc">${desc.recipe_desc2}</textarea></td>
 		</tr>
 		
 		<tr>
 			<th>사진3</th>
 			<td>
-			<input type="file" name="recipe_img3" accept="image/*" onchange="view(event, 'img3');">
+			<input class="form-control" type="file" name="recipe_img3" accept="image/*" onchange="view(event, 'img3');">
 	<c:if test="${!empty img.recipe_img3 }">
-			<table border ="1">
+			<table class="table mb-0 mt-2" style="vertical-align: middle;text-align: center;">
 				<tr>
-				<th>기존 이미지</th>
-				<td>
-					<c:set var="recipe_img3" value="${img.recipe_img3 }"/>
-					<c:if test="${fn:contains(recipe_img3, 'https')}">
-						<img src="${img.recipe_img3 }" height="200" width="200">
-					</c:if>
-					<c:if test="${not fn:contains(recipe_img3, 'https')  }">
-						<img src="/upload/${img.recipe_img3 }" height="200" width="200">
-					</c:if>
-				</td>
-				<input type="hidden" name="img3" value="${img.recipe_img3 }">
-				<th>변경 이미지</th>
-				<td><div id="img3"></div></td>
+					<th>기존 이미지</th>
+					<th></th>
+					<th>변경 이미지</th>
+					<input type="hidden" name="img3" value="${img.recipe_img3 }">
+					
+				</tr>
+				<tr>
+					
+					<td>
+	                        <div class="card card-span h-100 rounded-3">
+								<c:set var="recipe_img3" value="${img.recipe_img3 }"/>
+								<c:if test="${fn:contains(recipe_img3, 'https')}">
+									<img src="${img.recipe_img3 }"  class="formimage">
+								</c:if>
+								<c:if test="${not fn:contains(recipe_img3, 'https')  }">
+									<img src="/upload/${img.recipe_img3 }" class="formimage">
+								</c:if>
+							</div>
+	                     
+					</td>
+					<td><i class="fas fa-arrow-right" style="font-size: 1.8em;"></i></td>
+					<td><div id="img3" class="card card-span h-100 rounded-3"><img src="upload/resultplus.png" alt="..." class="formimage"/></div></td>
 				</tr>
 			</table>
 	</c:if>
 			<div id="img3"></div>
 			</td>
 			<th>레시피 내용3</th>
-			<td><textarea rows="5" cols="50" name="recipe_desc">${desc.recipe_desc3}</textarea></td>
+			<td><textarea class="form-control" rows="9" cols="50" name="recipe_desc">${desc.recipe_desc3}</textarea></td>
 		</tr>
 		
 		<tr>
 			<th>사진4</th>
 			<td>
-			<input type="file" name="recipe_img4" accept="image/*" onchange="view(event, 'img4');">
+			<input class="form-control" type="file" name="recipe_img4" accept="image/*" onchange="view(event, 'img4');">
 	<c:if test="${!empty img.recipe_img4 }">
-			<table border ="1">
+			<table class="table mb-0 mt-2" style="vertical-align: middle;text-align: center;">
 				<tr>
-				<th>기존 이미지</th>
-				<td>
-				<c:set var="recipe_img4" value="${img.recipe_img4 }"/>
-				<c:if test="${fn:contains(recipe_img4, 'https')}">
-					<img src="${img.recipe_img4 }" height="200" width="200">
-				</c:if>
-				<c:if test="${not fn:contains(recipe_img4, 'https')  }">
-					<img src="/upload/${img.recipe_img4 }" height="200" width="200">
-				</c:if>
-				</td>
-				<input type="hidden" name="img4" value="${img.recipe_img4 }">
-				<th>변경 이미지</th>
-				<td><div id="img4"></div></td>
+					<th>기존 이미지</th>
+					<th></th>
+					<th>변경 이미지</th>
+					<input type="hidden" name="img4" value="${img.recipe_img4 }">
+					
+				</tr>
+				<tr>
+					
+					<td>
+	                        <div class="card card-span h-100 rounded-3">
+								<c:set var="recipe_img4" value="${img.recipe_img4 }"/>
+								<c:if test="${fn:contains(recipe_img4, 'https')}">
+									<img src="${img.recipe_img4 }"  class="formimage">
+								</c:if>
+								<c:if test="${not fn:contains(recipe_img4, 'https')  }">
+									<img src="/upload/${img.recipe_img4 }" class="formimage">
+								</c:if>
+							</div>
+	                     
+					</td>
+					<td><i class="fas fa-arrow-right" style="font-size: 1.8em;"></i></td>
+					<td><div id="img4" class="card card-span h-100 rounded-3"><img src="upload/resultplus.png" alt="..." class="formimage"/></div></td>
 				</tr>
 			</table>
 	</c:if>
 			<div id="img4"></div>
 			</td>
 			<th>레시피 내용4</th>
-			<td><textarea rows="5" cols="50" name="recipe_desc">${desc.recipe_desc4}</textarea></td>
+			<td><textarea class="form-control" rows="9" cols="50" name="recipe_desc">${desc.recipe_desc4}</textarea></td>
 		</tr>
 		
 		<tr>
 			<th>사진5</th>
 			<td>
-			<input type="file" name="recipe_img5" accept="image/*" onchange="view(event, 'img5');">
+			<input class="form-control" type="file" name="recipe_img5" accept="image/*" onchange="view(event, 'img5');">
 	<c:if test="${!empty img.recipe_img5 }">
-			<table border ="1">
+			<table class="table mb-0 mt-2" style="vertical-align: middle;text-align: center;">
 				<tr>
-				<th>기존 이미지</th>
-				<td>
-					<c:set var="recipe_img5" value="${img.recipe_img5 }"/>
-					<c:if test="${fn:contains(recipe_img5, 'https')}">
-						<img src="${img.recipe_img5 }" height="200" width="200">
-					</c:if>
-					<c:if test="${not fn:contains(recipe_img5, 'https')  }">
-						<img src="/upload/${img.recipe_img5 }" height="200" width="200">
-					</c:if>
-				</td>
-				<input type="hidden" name="img5" value="${img.recipe_img5 }">
-				<th>변경 이미지</th>
-				<td><div id="img5"></div></td>
+					<th>기존 이미지</th>
+					<th></th>
+					<th>변경 이미지</th>
+					<input type="hidden" name="img5" value="${img.recipe_img5 }">
+					
+				</tr>
+				<tr>
+					
+					<td>
+	                        <div class="card card-span h-100 rounded-3">
+								<c:set var="recipe_img5" value="${img.recipe_img5 }"/>
+								<c:if test="${fn:contains(recipe_img5, 'https')}">
+									<img src="${img.recipe_img5 }"  class="formimage">
+								</c:if>
+								<c:if test="${not fn:contains(recipe_img5, 'https')  }">
+									<img src="/upload/${img.recipe_img5 }" class="formimage">
+								</c:if>
+							</div>
+	                     
+					</td>
+					<td><i class="fas fa-arrow-right" style="font-size: 1.8em;"></i></td>
+					<td><div id="img5" class="card card-span h-100 rounded-3"><img src="upload/resultplus.png" alt="..." class="formimage"/></div></td>
 				</tr>
 			</table>
 	</c:if>
 			<div id="img5"></div>
 			</td>
 			<th>레시피 내용5</th>
-			<td><textarea rows="5" cols="50" name="recipe_desc">${desc.recipe_desc5}</textarea></td>
+			<td><textarea class="form-control" rows="9" cols="50" name="recipe_desc">${desc.recipe_desc5}</textarea></td>
 		</tr>
 		
 		<tr>
 			<th>사진6</th>
 			<td>
-			<input type="file" name="recipe_img6" accept="image/*" onchange="view(event, 'img6');">
+			<input class="form-control" type="file" name="recipe_img6" accept="image/*" onchange="view(event, 'img6');">
 	<c:if test="${!empty img.recipe_img6 }">
-			<table border ="1">
+			<table class="table mb-0 mt-2" style="vertical-align: middle;text-align: center;">
 				<tr>
-				<th>기존 이미지</th>
-				<td>
-					<c:set var="recipe_img6" value="${img.recipe_img6 }"/>
-					<c:if test="${fn:contains(recipe_img6, 'https')}">
-						<img src="${img.recipe_img6 }" height="200" width="200">
-					</c:if>
-					<c:if test="${not fn:contains(recipe_img6, 'https')  }">
-						<img src="/upload/${img.recipe_img6 }" height="200" width="200">
-					</c:if>
-				</td>
-				<input type="hidden" name="img6" value="${img.recipe_img6 }">
-				<th>변경 이미지</th>
-				<td><div id="img6"></div></td>
+					<th>기존 이미지</th>
+					<th></th>
+					<th>변경 이미지</th>
+					<input type="hidden" name="img6" value="${img.recipe_img6 }">
+					
+				</tr>
+				<tr>
+					
+					<td>
+	                        <div class="card card-span h-100 rounded-3">
+								<c:set var="recipe_img6" value="${img.recipe_img6 }"/>
+								<c:if test="${fn:contains(recipe_img6, 'https')}">
+									<img src="${img.recipe_img6 }"  class="formimage">
+								</c:if>
+								<c:if test="${not fn:contains(recipe_img6, 'https')  }">
+									<img src="/upload/${img.recipe_img6 }" class="formimage">
+								</c:if>
+							</div>
+	                     
+					</td>
+					<td><i class="fas fa-arrow-right" style="font-size: 1.8em;"></i></td>
+					<td><div id="img6" class="card card-span h-100 rounded-3"><img src="upload/resultplus.png" alt="..." class="formimage"/></div></td>
 				</tr>
 			</table>
 	</c:if>
 			<div id="img6"></div>
 			</td>
 			<th>레시피 내용6</th>
-			<td><textarea rows="5" cols="50" name="recipe_desc">${desc.recipe_desc6}</textarea></td>
+			<td><textarea class="form-control" rows="9" cols="50" name="recipe_desc">${desc.recipe_desc6}</textarea></td>
 		</tr>
 		<tr>
 			<th>사진7</th>
 			<td>
-			<input type="file" name="recipe_img7" accept="image/*" onchange="view(event, 'img7');">
+			<input class="form-control" type="file" name="recipe_img7" accept="image/*" onchange="view(event, 'img7');">
 	<c:if test="${!empty img.recipe_img7 }">
-			<table border ="1">
+			<table class="table mb-0 mt-2" style="vertical-align: middle;text-align: center;">
 				<tr>
-				<th>기존 이미지</th>
-				<td>
-					<c:set var="recipe_img7" value="${img.recipe_img7 }"/>
-					<c:if test="${fn:contains(recipe_img7, 'https')}">
-						<img src="${img.recipe_img7 }" height="200" width="200">
-					</c:if>
-					<c:if test="${not fn:contains(recipe_img7, 'https')  }">
-						<img src="/upload/${img.recipe_img7 }" height="200" width="200">
-					</c:if>
-				</td>
-				<input type="hidden" name="img7" value="${img.recipe_img7 }">
-				<th>변경 이미지</th>
-				<td><div id="img7"></div></td>
+					<th>기존 이미지</th>
+					<th></th>
+					<th>변경 이미지</th>
+					<input type="hidden" name="img7" value="${img.recipe_img7 }">
+					
+				</tr>
+				<tr>
+					
+					<td>
+	                        <div class="card card-span h-100 rounded-3">
+								<c:set var="recipe_img7" value="${img.recipe_img7 }"/>
+								<c:if test="${fn:contains(recipe_img7, 'https')}">
+									<img src="${img.recipe_img7 }"  class="formimage">
+								</c:if>
+								<c:if test="${not fn:contains(recipe_img7, 'https')  }">
+									<img src="/upload/${img.recipe_img7 }" class="formimage">
+								</c:if>
+							</div>
+	                     
+					</td>
+					<td><i class="fas fa-arrow-right" style="font-size: 1.8em;"></i></td>
+					<td><div id="img7" class="card card-span h-100 rounded-3"><img src="upload/resultplus.png" alt="..." class="formimage"/></div></td>
 				</tr>
 			</table>
 	</c:if>
 			<div id="img7"></div>
 			</td>
 			<th>레시피 내용7</th>
-			<td><textarea rows="5" cols="50" name="recipe_desc">${desc.recipe_desc7}</textarea></td>
+			<td><textarea class="form-control" rows="9" cols="50" name="recipe_desc">${desc.recipe_desc7}</textarea></td>
 		</tr>
 		<tr>
 			<th>사진8</th>
 			<td>
-			<input type="file" name="recipe_img8" accept="image/*" onchange="view(event, 'img8');">	
+			<input class="form-control" type="file" name="recipe_img8" accept="image/*" onchange="view(event, 'img8');">	
 			<c:if test="${!empty img.recipe_img8 }">
-			<table border ="1">
+			<table class="table mb-0 mt-2" style="vertical-align: middle;text-align: center;">
 				<tr>
-				<th>기존 이미지</th>
-				<td>
-					<c:set var="recipe_img8" value="${img.recipe_img8 }"/>
-					<c:if test="${fn:contains(recipe_img8, 'https')}">
-						<img src="${img.recipe_img8 }" height="200" width="200">
-					</c:if>
-					<c:if test="${not fn:contains(recipe_img8, 'https')  }">
-						<img src="/upload/${img.recipe_img8 }" height="200" width="200">
-					</c:if>
-				</td>
-				<input type="hidden" name="img8" value="${img.recipe_img8 }">
-				<th>변경 이미지</th>
-				<td><div id="img8"></div></td>
+					<th>기존 이미지</th>
+					<th></th>
+					<th>변경 이미지</th>
+					<input type="hidden" name="img8" value="${img.recipe_img8 }">
+					
+				</tr>
+				<tr>
+					
+					<td>
+	                        <div class="card card-span h-100 rounded-3">
+								<c:set var="recipe_img8" value="${img.recipe_img8 }"/>
+								<c:if test="${fn:contains(recipe_img8, 'https')}">
+									<img src="${img.recipe_img8 }"  class="formimage">
+								</c:if>
+								<c:if test="${not fn:contains(recipe_img8, 'https')  }">
+									<img src="/upload/${img.recipe_img8 }" class="formimage">
+								</c:if>
+							</div>
+	                     
+					</td>
+					<td><i class="fas fa-arrow-right" style="font-size: 1.8em;"></i></td>
+					<td><div id="img8" class="card card-span h-100 rounded-3"><img src="upload/resultplus.png" alt="..." class="formimage"/></div></td>
 				</tr>
 			</table>
 	</c:if>
 			<div id="img8"></div>
 			</td>
 			<th>레시피 내용8</th>
-			<td><textarea rows="5" cols="50" name="recipe_desc">${desc.recipe_desc8}</textarea></td>
+			<td><textarea class="form-control" rows="9" cols="50" name="recipe_desc">${desc.recipe_desc8}</textarea></td>
 		</tr>
 		<tr>
 			<th>사진9</th>
 			<td>
-			<input type="file" name="recipe_img9" accept="image/*" onchange="view(event, 'img9');">
+			<input class="form-control" type="file" name="recipe_img9" accept="image/*" onchange="view(event, 'img9');">
 	<c:if test="${!empty img.recipe_img9 }">
-			<table border ="1">
+			<table class="table mb-0 mt-2" style="vertical-align: middle;text-align: center;">
 				<tr>
-				<th>기존 이미지</th>
-				<td>
-					<c:set var="recipe_img9" value="${img.recipe_img9 }"/>
-					<c:if test="${fn:contains(recipe_img9, 'https')}">
-						<img src="${img.recipe_img9 }" height="200" width="200">
-					</c:if>
-					<c:if test="${not fn:contains(recipe_img9, 'https')  }">
-						<img src="/upload/${img.recipe_img9 }" height="200" width="200">
-					</c:if>
-				</td>
-				<input type="hidden" name="img9" value="${img.recipe_img9 }">
-				<th>변경 이미지</th>
-				<td><div id="img9"></div></td>
+					<th>기존 이미지</th>
+					<th></th>
+					<th>변경 이미지</th>
+					<input type="hidden" name="img9" value="${img.recipe_img9 }">
+					
+				</tr>
+				<tr>
+					
+					<td>
+	                        <div class="card card-span h-100 rounded-3">
+								<c:set var="recipe_img9" value="${img.recipe_img9 }"/>
+								<c:if test="${fn:contains(recipe_img9, 'https')}">
+									<img src="${img.recipe_img9 }"  class="formimage">
+								</c:if>
+								<c:if test="${not fn:contains(recipe_img9, 'https')  }">
+									<img src="/upload/${img.recipe_img9 }" class="formimage">
+								</c:if>
+							</div>
+	                     
+					</td>
+					<td><i class="fas fa-arrow-right" style="font-size: 1.8em;"></i></td>
+					<td><div id="img9" class="card card-span h-100 rounded-3"><img src="upload/resultplus.png" alt="..." class="formimage"/></div></td>
 				</tr>
 			</table>
 	</c:if>
 			<div id="img9"></div>
 			</td>
 			<th>레시피 내용9</th>
-			<td><textarea rows="5" cols="50" name="recipe_desc">${desc.recipe_desc9}</textarea></td>
+			<td><textarea class="form-control" rows="9" cols="50" name="recipe_desc">${desc.recipe_desc9}</textarea></td>
 		</tr>
 		<tr>
 			<th>사진10</th>
 			<td>
-			<input type="file" name="recipe_img10" accept="image/*" onchange="view(event, 'img10');">
+			<input class="form-control" type="file" name="recipe_img10" accept="image/*" onchange="view(event, 'img10');">
 	<c:if test="${!empty img.recipe_img10 }">
-			<table border ="1">
+			<table class="table mb-0 mt-2" style="vertical-align: middle;text-align: center;">
 				<tr>
-				<th>기존 이미지</th>
-				<td>
-					<c:set var="recipe_img10" value="${img.recipe_img10 }"/>
-					<c:if test="${fn:contains(recipe_img10, 'https')}">
-						<img src="${img.recipe_img10 }" height="200" width="200">
-					</c:if>
-					<c:if test="${not fn:contains(recipe_img10, 'https')  }">
-						<img src="/upload/${img.recipe_img10 }" height="200" width="200">
-					</c:if>
-				</td>
-				<input type="hidden" name="img10" value="${img.recipe_img10 }">
-				<th>변경 이미지</th>
-				<td><div id="img10"></div></td>
+					<th>기존 이미지</th>
+					<th></th>
+					<th>변경 이미지</th>
+					<input type="hidden" name="img10" value="${img.recipe_img10 }">
+					
+				</tr>
+				<tr>
+					
+					<td>
+	                        <div class="card card-span h-100 rounded-3">
+								<c:set var="recipe_img10" value="${img.recipe_img10 }"/>
+								<c:if test="${fn:contains(recipe_img10, 'https')}">
+									<img src="${img.recipe_img10 }"  class="formimage">
+								</c:if>
+								<c:if test="${not fn:contains(recipe_img10, 'https')  }">
+									<img src="/upload/${img.recipe_img10 }" class="formimage">
+								</c:if>
+							</div>
+	                     
+					</td>
+					<td><i class="fas fa-arrow-right" style="font-size: 1.8em;"></i></td>
+					<td><div id="img10" class="card card-span h-100 rounded-3"><img src="upload/resultplus.png" alt="..." class="formimage"/></div></td>
 				</tr>
 			</table>
 	</c:if>
 			<div id="img10"></div>
 			</td>
 			<th>레시피 내용10</th>
-			<td><textarea rows="5" cols="50" name="recipe_desc">${desc.recipe_desc10}</textarea></td>
+			<td><textarea class="form-control" rows="9" cols="50" name="recipe_desc">${desc.recipe_desc10}</textarea></td>
 		</tr>
 
 </table>
 <!-- 저장이 완료되었습니다 함수 만들기 -->
-	<input type="submit" value="저장">
-	<a href="javascript:history.go(-1)">취소</a>
+
+	<div class="col-12 mt-2" id="div_add" style="padding-right:10px;"> 
+		<a href="javascript:history.go(-1)" style="float:right;" class="btn btn-lg btn-primary mb-2">취소</a>
+		<input type="submit" value="저장" style="float:right;" class="btn btn-lg btn-primary me-2 mb-2">
+    </div>
+    
 </form>
+
+</div>
+</div>
+</div>
+</div>
+</section>
+
+</div>
+</div>
+</div>
+</div>
+</section>
+
 <script>
 //재료 선택 팝업창
-$(function(){
+/* $(function(){
 	$(".openingred").click(function(){
 		$(".modal").fadeIn();
 	});
@@ -536,13 +1063,14 @@ $(function(){
 		$(".modal").fadeOut();
 	})
 	
-})
+}) */
 //레시피 사진 미리보기
 function view(event, img_name){
 	var reader = new FileReader();
 	reader.onload = function(event){
 		var img = document.createElement("img"); 
 		img.setAttribute("src", event.target.result);
+		img.setAttribute("class", "formimage");
 		$("div#"+img_name).empty();
 		document.querySelector("div#"+img_name).appendChild(img);
 	}
@@ -680,5 +1208,9 @@ function send(){
 	return true;
 }
 </script>
+<script src="adminassets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="adminassets/js/bootstrap.bundle.min.js"></script>
+	<script src="adminassets/js/main.js"></script>
+
 </body>
 </html>

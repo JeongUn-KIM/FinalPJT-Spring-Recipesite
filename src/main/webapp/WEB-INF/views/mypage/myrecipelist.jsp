@@ -55,7 +55,7 @@
 										$("#dis").append("<div class='col-sm-6 col-md-4 col-lg-3 h-100 mb-5'>" + 
 									              "<div class='card card-span h-100 text-white rounded-3' style='margin-bottom:0rem;'>" + 
 							              "<a href='javascript:void(0);' onclick='detail(" + answer[i].recipe_no + ");'>" + 
-							              "<img title='상세 페이지로 이동' class='img-fluid rounded-3' src='mainassets/assets/img/gallery/" + answer[i].recipe_img + "' alt='...' style='width:333px;height:283px;object-fit: cover;' /></a>" + 
+							              "<img title='상세 페이지로 이동' class='img-fluid rounded-3' src='/upload/" + answer[i].recipe_img + "' alt='...' style='width:333px;height:283px;object-fit: cover;' /></a>" + 
 							                "<div class='card-body p-2'>" + 
 							                  "<div class='d-flex align-items-center mb-1'>" + 
 							                    "<div class='flex-1'>" + 
@@ -72,7 +72,7 @@
 										$("#dis").append("<div class='col-sm-6 col-md-4 col-lg-3 h-100 mb-5 hide' style='display:none;'>" + 
 									              "<div class='card card-span h-100 text-white rounded-3' style='margin-bottom:0rem;'>" + 
 									              "<a href='javascript:void(0);' onclick='detail(" + answer[i].recipe_no + ");'>" + 
-									              "<img title='상세 페이지로 이동' class='img-fluid rounded-3' src='mainassets/assets/img/gallery/" + answer[i].recipe_img + "' alt='...' style='width:333px;height:283px;object-fit: cover;' /></a>" + 
+									              "<img title='상세 페이지로 이동' class='img-fluid rounded-3' src='/upload/" + answer[i].recipe_img + "' alt='...' style='width:333px;height:283px;object-fit: cover;' /></a>" + 
 									                "<div class='card-body p-2'>" + 
 									                  "<div class='d-flex align-items-center mb-1'>" + 
 									                    "<div class='flex-1'>" + 
@@ -209,7 +209,7 @@
             <div class="col-sm-6 col-md-4 col-lg-3 h-100 mb-5">
               <div class="card card-span h-100 text-white rounded-3" style="margin-bottom:0rem;">
               <a href="javascript:void(0);" onclick="detail('${myrecipelist.recipe_no}');">
-          		<img title="상세 페이지로 이동" alt="오류" class="img-fluid rounded-3" src="mainassets/assets/img/gallery/${myrecipelist.recipe_img }" style="width:333px;height:283px;object-fit: cover;" />
+          		<img title="상세 페이지로 이동" alt="오류" class="img-fluid rounded-3" src="/upload/${myrecipelist.recipe_img }" style="width:333px;height:283px;object-fit: cover;" />
               </a>
              
                 <div class="card-body p-2 " >
@@ -230,7 +230,7 @@
             <div class="col-sm-6 col-md-4 col-lg-3 h-100 mb-5 hide" style="display:none;">
               <div class="card card-span h-100 text-white rounded-3" style="margin-bottom:0rem;">
               <a href='javascript:void(0);' onclick="detail('${myrecipelist.recipe_no}');">
-              <img class="img-fluid rounded-3 h-100" src="mainassets/assets/img/gallery/${myrecipelist.recipe_img }" alt="..." />
+              <img class="img-fluid rounded-3 h-100" src="/upload/${myrecipelist.recipe_img }" alt="..." />
               </a>
             
                 <div class="card-body p-2 " >
