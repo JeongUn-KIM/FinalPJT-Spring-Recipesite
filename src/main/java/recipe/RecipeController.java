@@ -281,6 +281,8 @@ public class RecipeController {
 		mv.addObject("img", img);
 		mv.addObject("desc", desc);
 		mv.addObject("recipe", recipe);
+		IngredientVO ingredvo = ingred.getIngredient();
+		mv.addObject("ingredvo", ingredvo);
 		mv.setViewName("/recipe/recipemodify");
 		return mv;
 		}

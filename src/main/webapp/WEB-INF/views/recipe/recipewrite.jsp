@@ -7,10 +7,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="/static/jquery-3.2.1.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
 <style type="text/css">
-.modal{ position:absolute; width:50%; height:50%; background: rgba(0,0,0,0.8); top:0; left:10;display:none;  }
-.modalbox{ border: 1px solid; top: 10; bottom: 10;}
+.modal{ position:absolute; width:50%; height:50%; background: rgba(255,255,255,1); top:10; left:10;display:none;  }
+.modalbox{ border: 5px solid; top: -100; bottom: 10;}
 
 #tooltip {
     width: 600px;
@@ -128,15 +134,78 @@ String[] ingredient = {"소고기","돼지고기", "닭고기", "양고기", "�
 			<div class="modal" >
 				<div class="modalbox">
 				<!-- 보낼것 2. 재료 -->
-				<nav>
-                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                      <button class="nav-link active mb-3" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fas fa-keyboard me-2"></i>키워드로 찾기</button>
-                      <button class="nav-link mb-3" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-robot me-2"></i>챗봇 추천받기</button>
-                    </div>
-                  </nav>
-				<c:forEach items="<%=ingredient%>" var="ingred">
-					<input type="checkbox" name="ingredient" value="${ingred }">${ingred }
-				</c:forEach>
+					
+<!-- Tab을 구성할 영역 설정-->
+<div style="margin:10px;">
+<!-- Tab 영역 태그는 ul이고 클래스는 nav와 nav-tabs를 설정한다. -->
+<ul class="nav nav-tabs">
+<!-- a 태그의 href는 아래의 tab-content 영역의 id를 설정하고 data-toggle 속성을 tab으로 설정한다. -->
+<li><a href="#grains" data-toggle="tab">곡물류</a></li>
+<li><a href="#noodles" data-toggle="tab">면/만두류</a></li>
+<li><a href="#vegetables" data-toggle="tab">채소류</a></li>
+<li><a href="#fruits" data-toggle="tab">과일류</a></li>
+<li><a href="#meats" data-toggle="tab">육류</a></li>
+<li><a href="#eggs" data-toggle="tab">달걀/유제품류</a></li>
+<li><a href="#seafoods" data-toggle="tab">해물류</a></li>
+<li><a href="#spices" data-toggle="tab">양념류</a></li>
+<li><a href="#drinks" data-toggle="tab">음료/주류</a></li>
+</ul>
+<!-- Tab이 선택되면 내용이 보여지는 영역이다. -->
+<!-- 태그는 div이고 class는 tab-content로 설정한다. -->
+<div class="tab-content">
+<!-- 각 탭이 선택되면 보여지는 내용이다. 태그는 div이고 클래스는 tab-pane이다. -->
+<!-- active 클래스는 현재 선택되어 있는 탭 영역이다. -->
+<div class="tab-pane fade in active" id="grains">
+	<c:forEach items="${vo.grains }" var="ingred">
+		<input type="checkbox" name="ingredient" value="${ingred }">${ingred }
+	</c:forEach>
+</div>
+<!-- id는 고유한 이름으로 설정하고 tab의 href와 연결되어야 한다. -->
+<!-- fade 클래스는 선택적인 사항으로 트랜지션(transition)효과가 있다.
+<!-- in 클래스는 fade 클래스를 선언하여 트랜지션효과를 사용할 때 in은 active와 선택되어 있는 탭 영역의 설정이다. -->
+<div class="tab-pane fade" id="noodles">
+	<c:forEach items="${vo.noodles }" var="ingred">
+		<input type="checkbox" name="ingredient" value="${ingred }">${ingred }
+	</c:forEach>
+</div>
+<div class="tab-pane fade" id="vegetables">
+	<c:forEach items="${vo.vegetables }" var="ingred">
+		<input type="checkbox" name="ingredient" value="${ingred }">${ingred }
+	</c:forEach>
+</div>
+<div class="tab-pane fade" id="fruits">
+	<c:forEach items="${vo.fruits }" var="ingred">
+		<input type="checkbox" name="ingredient" value="${ingred }">${ingred }
+	</c:forEach>
+</div>
+<div class="tab-pane fade" id="meats">
+	<c:forEach items="${vo.meats }" var="ingred">
+		<input type="checkbox" name="ingredient" value="${ingred }">${ingred }
+	</c:forEach>
+</div>
+<div class="tab-pane fade" id="eggs">
+	<c:forEach items="${vo.eggs }" var="ingred">
+		<input type="checkbox" name="ingredient" value="${ingred }">${ingred }
+	</c:forEach>
+</div>
+<div class="tab-pane fade" id="seafoods">
+	<c:forEach items="${vo.seafoods }" var="ingred">
+		<input type="checkbox" name="ingredient" value="${ingred }">${ingred }
+	</c:forEach>
+</div>
+<div class="tab-pane fade" id="spices">
+	<c:forEach items="${vo.spices }" var="ingred">
+		<input type="checkbox" name="ingredient" value="${ingred }">${ingred }
+	</c:forEach>
+</div>
+<div class="tab-pane fade" id="drinks">
+	<c:forEach items="${vo.drinks }" var="ingred">
+		<input type="checkbox" name="ingredient" value="${ingred }">${ingred }
+	</c:forEach>
+</div>
+</div>
+</div>
+
 				<!-- 모달 박스 안에서 검색 기능을 만들 수 있을까? -->
 				</div>
 				<button class="closeingred" type="button">재료 저장</button>
@@ -329,6 +398,28 @@ String[] ingredient = {"소고기","돼지고기", "닭고기", "양고기", "�
 		alert('저장이 완료되었습니다.')
 		return true;
 	}
+/*	
+	// 메뉴가 선택되어 active가 되기 전 이벤트
+	$('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+	e.target // 현재 설정된 tab
+	e.relatedTarget // 이전에 설정된 탭
+	});
+	// 메뉴가 선택되어 active가 된 후 이벤트
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+	e.target // 현재 설정된 tab
+	e.relatedTarget // 이전에 설정된 탭
+	});
+	// 다른 메뉴가 선택되어 active가 remove 되기 전 이벤트
+	$('a[data-toggle="tab"]').on('hide.bs.tab', function (e) {
+	e.target // 현재 설정된 tab
+	e.relatedTarget // 이전에 설정된 탭
+	});
+	// 다른 메뉴가 선택되어 active가 remove 된 후 이벤트
+	$('a[data-toggle="tab"]').on('hidden.bs.tab', function (e) {
+	e.target // 현재 설정된 tab
+	e.relatedTarget // 이전에 설정된 탭
+	});
+*/
 </script>
 
 </body>

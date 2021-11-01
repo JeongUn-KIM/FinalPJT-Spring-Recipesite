@@ -7,8 +7,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 <style type="text/css">
-.modal{ position:absolute; width:50%; height:50%; background: rgba(0,0,0,0.8); top:5; left:10;display:none;  }
+.modal{ position:absolute; width:50%; height:50%; background: rgba(255,255,255,1); top:5; left:10;display:none;  }
 .modalbox{ border: 1px solid; top: 10; bottom: 10;}
 
 #tooltip {
@@ -139,14 +145,82 @@ String[] ingredient = {"소고기","돼지고기","닭고기","양고기","무�
 			<div class="modal" >
 				<div class="modalbox">
 				<!-- 보낼것 2. 재료 -->
-				<c:forEach items="<%=ingredient%>" var="ingred">
-					<input type="checkbox" name="ingredient" id="${ingred }" value="${ingred }">${ingred }
-				</c:forEach>
+<!-- Tab을 구성할 영역 설정-->
+<div style="margin:10px;">
+<!-- Tab 영역 태그는 ul이고 클래스는 nav와 nav-tabs를 설정한다. -->
+<ul class="nav nav-tabs">
+<!-- a 태그의 href는 아래의 tab-content 영역의 id를 설정하고 data-toggle 속성을 tab으로 설정한다. -->
+<li><a href="#grains" data-toggle="tab">곡물류</a></li>
+<li><a href="#noodles" data-toggle="tab">면/만두류</a></li>
+<li><a href="#vegetables" data-toggle="tab">채소류</a></li>
+<li><a href="#fruits" data-toggle="tab">과일류</a></li>
+<li><a href="#meats" data-toggle="tab">육류</a></li>
+<li><a href="#eggs" data-toggle="tab">달걀/유제품류</a></li>
+<li><a href="#seafoods" data-toggle="tab">해물류</a></li>
+<li><a href="#spices" data-toggle="tab">양념류</a></li>
+<li><a href="#drinks" data-toggle="tab">음료/주류</a></li>
+</ul>
+<!-- Tab이 선택되면 내용이 보여지는 영역이다. -->
+<!-- 태그는 div이고 class는 tab-content로 설정한다. -->
+<div class="tab-content">
+<!-- 각 탭이 선택되면 보여지는 내용이다. 태그는 div이고 클래스는 tab-pane이다. -->
+<!-- active 클래스는 현재 선택되어 있는 탭 영역이다. -->
+<div class="tab-pane fade in active" id="grains">
+	<c:forEach items="${ingredvo.grains }" var="ingred">
+		<input id="${ingred }" type="checkbox" name="ingredient" value="${ingred }">${ingred }
+	</c:forEach>
+</div>
+<!-- id는 고유한 이름으로 설정하고 tab의 href와 연결되어야 한다. -->
+<!-- fade 클래스는 선택적인 사항으로 트랜지션(transition)효과가 있다.
+<!-- in 클래스는 fade 클래스를 선언하여 트랜지션효과를 사용할 때 in은 active와 선택되어 있는 탭 영역의 설정이다. -->
+<div class="tab-pane fade" id="noodles">
+	<c:forEach items="${ingredvo.noodles }" var="ingred">
+		<input id="${ingred }" type="checkbox" name="ingredient" value="${ingred }">${ingred }
+	</c:forEach>
+</div>
+<div class="tab-pane fade" id="vegetables">
+	<c:forEach items="${ingredvo.vegetables }" var="ingred">
+		<input id="${ingred }" type="checkbox" name="ingredient" value="${ingred }">${ingred }
+	</c:forEach>
+</div>
+<div class="tab-pane fade" id="fruits">
+	<c:forEach items="${ingredvo.fruits }" var="ingred">
+		<input id="${ingred }" type="checkbox" name="ingredient" value="${ingred }">${ingred }
+	</c:forEach>
+</div>
+<div class="tab-pane fade" id="meats">
+	<c:forEach items="${ingredvo.meats }" var="ingred">
+		<input id="${ingred }" type="checkbox" name="ingredient" value="${ingred }">${ingred }
+	</c:forEach>
+</div>
+<div class="tab-pane fade" id="eggs">
+	<c:forEach items="${ingredvo.eggs }" var="ingred">
+		<input id="${ingred }" type="checkbox" name="ingredient" value="${ingred }">${ingred }
+	</c:forEach>
+</div>
+<div class="tab-pane fade" id="seafoods">
+	<c:forEach items="${ingredvo.seafoods }" var="ingred">
+		<input id="${ingred }" type="checkbox" name="ingredient" value="${ingred }">${ingred }
+	</c:forEach>
+</div>
+<div class="tab-pane fade" id="spices">
+	<c:forEach items="${ingredvo.spices }" var="ingred">
+		<input id="${ingred }" type="checkbox" name="ingredient" value="${ingred }">${ingred }
+	</c:forEach>
+</div>
+<div class="tab-pane fade" id="drinks">
+	<c:forEach items="${ingredvo.drinks }" var="ingred">
+		<input id="${ingred }" type="checkbox" name="ingredient" value="${ingred }">${ingred }
+	</c:forEach>
+</div>
+</div>
+</div>
 				<!-- 모달 박스 안에서 검색 기능을 만들 수 있을까? -->
 				</div>
 				<button class="closeingred" type="button">재료 저장</button>
 			</div>
 		</div>
+		${recipe.recipe_ingredient }
 		</td>
 	</tr>
 <!-- 감정 -->
@@ -154,11 +228,11 @@ String[] ingredient = {"소고기","돼지고기","닭고기","양고기","무�
 		<th>이런 감정일 때 먹으면 좋아요</th>
 		<td colspan="3">
 		<div id="tooltip">
-		<input type="radio" name="recipe_emotion" value="좋음"><div><span>😀</span><p class="tooltip_box">기분이 좋을 땐 손이 조금 가더라도 근사한 음식이 알맞아요</p></div>
-		<input type="radio" name="recipe_emotion" value="입맛없음"><div><span>😐</span><p class="tooltip_box">입맛이 없을 땐 입맛을 돋궈주는 상큼한 음식이 알맞아요</p></div>
-		<input type="radio" name="recipe_emotion" value="우울"><div><span>😥</span><p class="tooltip_box">우울할 땐 마그네슘, 비타민 B, 엽산 등이 풍부한 음식이 알맞아요</p></div>
-		<input type="radio" name="recipe_emotion" value="화남"><div><span>🤬</span><p class="tooltip_box">화가 날 땐 비타민 D, 오메가 3 등이 들어간 음식이나, 매운음식이 알맞아요</p></div>
-		<input type="radio" name="recipe_emotion" value="아픔"><div><span>😷</span><p class="tooltip_box">아플 땐 든든한 고기류나 염분이 많지 않은 속편한 음식이 알맞아요</p></div>
+		<input type="radio" name="recipe_emotion" id="좋음" value="좋음"><div><span>😀</span><p class="tooltip_box">기분이 좋을 땐 손이 조금 가더라도 근사한 음식이 알맞아요</p></div>
+		<input type="radio" name="recipe_emotion" id="입맛없음" value="입맛없음"><div><span>😐</span><p class="tooltip_box">입맛이 없을 땐 입맛을 돋궈주는 상큼한 음식이 알맞아요</p></div>
+		<input type="radio" name="recipe_emotion" id="우울" value="우울"><div><span>😥</span><p class="tooltip_box">우울할 땐 마그네슘, 비타민 B, 엽산 등이 풍부한 음식이 알맞아요</p></div>
+		<input type="radio" name="recipe_emotion" id="화남" value="화남"><div><span>🤬</span><p class="tooltip_box">화가 날 땐 비타민 D, 오메가 3 등이 들어간 음식이나, 매운음식이 알맞아요</p></div>
+		<input type="radio" name="recipe_emotion" id="아픔" value="아픔"><div><span>😷</span><p class="tooltip_box">아플 땐 든든한 고기류나 염분이 많지 않은 속편한 음식이 알맞아요</p></div>
 		</div>
 		</td>
 	</tr>
@@ -483,8 +557,8 @@ var arr = "${recipe.recipe_ingredient }".split(",");
 for(var i = 0 ; i < arr.length ; i++){
 	var ingredient = document.getElementById(arr[i])
 	ingredient.setAttribute("checked", "checked");
-
 }
+ingredient.setAttribute("checked", "checked");
 //감정 체크되었던 거 체크
 var emotion = document.getElementById("${recipe.recipe_emotion }");
 emotion.setAttribute("checked", "checked");
