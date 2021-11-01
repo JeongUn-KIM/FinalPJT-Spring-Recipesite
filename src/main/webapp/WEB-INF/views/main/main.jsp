@@ -36,9 +36,7 @@
 	min-width: 8rem;
 }
 
-
-
-#emotion_q, #emotion_a, #nation_q, #nation_a ,#cate_q ,#cate_a, #ingredient_q, #ingredient_a, #findbtn {display:none; text-align: center; font-size: 18px;}
+#emotion_q, #emotion_a, #nation_q, #nation_a ,#cate_q ,#cate_a, #ingredient_q, #ingredient_a, #findbtn {display:none; text-align: center;}
 
 #tooltip {
     width: 500px;
@@ -61,13 +59,13 @@
   position: absolute;
   width: 300px;
   padding: 8px;
-  left: -126px;
+  left: -125px;
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;  
   border-radius: 8px;
   background: #333;
   color: #fff;
-  font-size: 18px;
+  font-size: 14px;
 }
 
 .tooltip_box:after {
@@ -111,7 +109,7 @@
         
          <c:if test="${empty keyword}">   
 	         <div class="col-md-5 col-lg-6 order-0 order-md-1 mt-8">
-	        	 <a class="img-landing-banner" href=""><img class="img-fluid" src="mainassets/assets/img/gallery/hero-header.png" alt="hero-header" /></a>
+	        	 <a class="img-landing-banner" href=""><img class="img-fluid" src="mainassets/assets/img/gallery/MainImage.png" alt="hero-header" /></a>
 	         </div>
          </c:if> 
            
@@ -136,7 +134,7 @@
 		              
                     	<div class="col-sm-6 col-md-4 col-xl mb-5 h-100">
                         <div class="card card-span h-100 rounded-3">
-                        <img class="img-fluid rounded-3" src="mainassets/assets/img/gallery/resultx.png" alt="" />
+                        <img class="img-fluid rounded-3" src="upload/resultx.png" alt="" />
                           <div class="card-body ps-0">
                             <h5 class="fw-bold text-1000 text-truncate mb-1"> </h5>
                             <div><span class="text-warning me-2"> </span></div>
@@ -268,7 +266,7 @@
 		<tr><th>추천레시피</th></tr>
 		<c:forEach items="${findList }" var="recipe">
 					<tr>
-				<td><a href="/recipedetail?no=${recipe.recipe_no }">
+				<td><a href="/recipedetail?recipe_no=${recipe.recipe_no }">
 	
 				<c:set var="recipe_img" value="${recipe.recipe_img }"/>
 				<c:if test="${fn:contains(recipe_img, 'https')}">
@@ -281,7 +279,7 @@
 				</td>
 			</tr>
 				<tr>
-				<td><a href="/recipedetail?no=${recipe.recipe_no }">${recipe.recipe_title }</a></td>
+				<td><a href="/recipedetail?recipe_no=${recipe.recipe_no }">${recipe.recipe_title }</a></td>
 			</tr>
 		</c:forEach>
 		
@@ -291,14 +289,14 @@
         
         
         <div class="col-md-7 col-lg-6 py-8 text-md-start text-center">
-              <h2 class="display-1 fs-md-4 fs-lg-4 fs-xl-4" >드시고 싶은 음식을 추천 받으세요!</h2>
+              <h2 class="display-1 fs-md-4 fs-lg-4 fs-xl-4 text-light">드시고 싶은 음식을 추천 받으세요.</h2>
               <br>
               <div class="card w-xxl-75">
                 <div class="card-body">
                 	<nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                       <button class="nav-link active mb-3" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fas fa-keyboard me-2"></i>키워드로 찾기</button>
-                      <button class="nav-link mb-3" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-robot me-2"></i>챗봇 추천받기</button>
+                      <button class="nav-link mb-3" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-robot me-2"></i>먹깨비로 추천받기</button>
                     </div>
                   </nav>
                   
@@ -434,10 +432,10 @@
                         <a href="javascript:void(0);" onclick="detail(${popularlist.recipe_no});" >
                         	<c:set var="recipe_img" value="${popularlist.recipe_img }"/>
 							<c:if test="${fn:contains(recipe_img, 'https')}">
-								<img class="rounded-3" src="${popularlist.recipe_img }" height="200" width="260">
+								<img class="img-fluid rounded-3" src="${popularlist.recipe_img }" height="200" width="260" style="object-fit: cover;">
 							</c:if>
 							<c:if test="${not fn:contains(recipe_img, 'https')  }">
-								<img class="rounded-3" src="/upload/${popularlist.recipe_img }" alt="..." style="width:333px;height:283px;object-fit: cover;">
+								<img class="img-fluid rounded-3" src="/upload/${popularlist.recipe_img }" alt="..." height="200" width="260" style="object-fit: cover;">
 							</c:if>
                         </a>  
                           <div class="card-body ps-0">
@@ -453,7 +451,7 @@
                     </div>
                   </div>
                   
-                  <div class="carousel-item" data-bs-interval="5000">
+                  <div class="carousel-item" data-bs-interval="1">
                     <div class="row gx-3 h-100 align-items-center">
                       
                       <c:forEach items="${popularlist }" begin="5" end="9" var="popularlist">
@@ -463,20 +461,18 @@
                         	
 							<c:set var="recipe_img" value="${popularlist.recipe_img }"/>
 							<c:if test="${fn:contains(recipe_img, 'https')}">
-
-								<img class="rounded-3" src="${popularlist.recipe_img }" height="200" width="260">
-
+								<img class="img-fluid rounded-3" src="${popularlist.recipe_img }" height="200" width="260" style="object-fit: cover;">
 							</c:if>
 							<c:if test="${not fn:contains(recipe_img, 'https')  }">
-								<img class="img-fluid rounded-3" src="/upload/${popularlist.recipe_img }" alt="..." style="width:333px;height:283px;object-fit: cover;">
+								<img class="img-fluid rounded-3" src="/upload/${popularlist.recipe_img }" alt="..." height="200" width="260" style="object-fit: cover;">
 							</c:if>
 							
                         </a>  
                           <div class="card-body ps-0">
                             <h5 class="fw-bold text-1000 text-truncate mb-1">${popularlist.recipe_title }</h5>
                             <div><span style="color:black;">${popularlist.recipe_name }</span></div>
-                            <span class="text-primary fs--1" style="justify-content: flex-end;">조회수</span>
-                      		<span class="mb-0 text-primary"> ${popularlist.recipe_hits}</span>
+                            <span class="text-primary fs-1" style="justify-content: flex-end;">조회수</span>
+                      		<span class="mb-1 text-primary"> ${popularlist.recipe_hits}</span>
                           </div>
                         </div>
                       </div>
