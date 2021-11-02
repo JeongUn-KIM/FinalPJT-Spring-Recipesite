@@ -55,7 +55,7 @@ order by a.recipe_hits asc limit 3
 <select id="getMainRecipePopular" resultType="myrecipeVO">
 select recipe_no, user_no, recipe_date, recipe_title, recipe_name, recipe_nation, recipe_img, recipe_hits 
 from recipe 
-order by recipe_hits asc limit 10
+order by recipe_hits desc limit 10
 </select>
 
 </mapper>

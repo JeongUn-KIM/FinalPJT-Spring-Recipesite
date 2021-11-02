@@ -3,7 +3,7 @@ package recipe;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.springframework.web.multipart.MultipartFile;
+
 
 public class RecipeVO {
 	int recipe_no, user_no, recipe_hits;
@@ -11,7 +11,6 @@ public class RecipeVO {
 	String recipe_img, recipe_title, recipe_name, recipe_ingredient, recipe_emotion;
 	String recipe_cate;
 	String recipe_nation;
-	
 
 	public int getRecipe_hits() {
 		return recipe_hits;
