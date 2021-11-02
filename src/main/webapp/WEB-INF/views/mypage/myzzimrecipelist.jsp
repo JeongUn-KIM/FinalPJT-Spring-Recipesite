@@ -285,7 +285,7 @@
             <div class="col-sm-6 col-md-4 col-lg-3 h-100 mb-5 hide" style="display:none;">
               <div class="card card-span h-100 text-white rounded-3" style="margin-bottom:0rem;">
               <a href='javascript:void(0);' onclick="detail(${myzzimrecipelist.recipe_no});">
-            	  <img title="상세 페이지로 이동" class="img-fluid rounded-3 h-100" src="/upload/${myzzimrecipelist.recipe_img }" alt="..." />
+            	  <img title="상세 페이지로 이동" class="img-fluid rounded-3 h-100" src="/upload/${myzzimrecipelist.recipe_img }" alt="..." style="width:333px;height:283px;object-fit: cover;"/>
               </a>
                 
                 <div class="card-body p-2 " >
@@ -353,7 +353,7 @@
 				var result = confirm("해당 레시피를 목록에서 삭제하시겠습니까?");
 				if(result){
 					alert("찜한레시피 메인으로 이동합니다.");
-					location.href = "http://localhost:9009/myzzimdelete?recipe_no=" + recipe_no;
+					location.href = "/myzzimdelete?recipe_no=" + recipe_no;
 				}
 			}
 			
@@ -361,7 +361,7 @@
 			function detail(recipe_no){
 				var result = confirm("해당 레시피로 이동하시겠습니까?");
 				if(result){
-					location.href = "http://localhost:9009/recipedetail?recipe_no=" + recipe_no;
+					location.href = "/recipedetail?recipe_no=" + recipe_no;
 				}
 			}
 			
