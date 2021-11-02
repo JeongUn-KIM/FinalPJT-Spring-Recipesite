@@ -67,6 +67,10 @@
 		#recipe{
 			font-size : 18px;
 		}
+		#recipe1{
+			background-color: #435ebe;
+			color:white !important;
+		}
 	</style> 
 	
 </head>
@@ -146,7 +150,7 @@
 	</tr>
 	<tr>
 		<td></td>
-		<td class="font-weight-light fst-italic" colspan="1" style="float:right; overflow:hidden;">${recipe.recipe_date } 작성</td>
+		<td class="font-weight-light fst-italic" colspan="1" style="float:right; ">${recipe.recipe_date } 작성</td>
 	</tr>
 	<tr style="height:"class="mt-4" >
 		<th>음식 이름</th>
@@ -456,6 +460,6 @@ $(".zzim-notlogin").click(function() {
 	return false;
 });
 </script>
-
 </body>
+	
 </html>
