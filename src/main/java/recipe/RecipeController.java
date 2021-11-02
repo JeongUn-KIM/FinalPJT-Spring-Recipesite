@@ -555,8 +555,8 @@ public class RecipeController {
 		service.modifyRecipe(recipeVO);
 		descservice.modifyDesc(descVO);
 		imgservice.modifyImg(imgVO);
-		return "redirect:recipedetail?recipe_no=" + recipe_no;
 
+		return "redirect:recipedetail?recipe_no=" + recipe_no;
 	}
 	
 	public static String getUuid() {
