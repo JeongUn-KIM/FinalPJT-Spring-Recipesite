@@ -146,7 +146,7 @@
 	</tr>
 	<tr>
 		<td></td>
-		<td class="font-weight-light fst-italic" colspan="1" style="float:right; overflow:hidden;">${recipe.recipe_date } 작성</td>
+		<td class="font-weight-light fst-italic" colspan="1" style="float:right; ">${recipe.recipe_date } 작성</td>
 	</tr>
 	<tr style="height:"class="mt-4" >
 		<th>음식 이름</th>
@@ -456,10 +456,5 @@ $(".zzim-notlogin").click(function() {
 	return false;
 });
 </script>
-<script src="adminassets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="adminassets/js/bootstrap.bundle.min.js"></script>
-	<script src="adminassets/js/main.js"></script>
-	</div>
-	</div>
 </body>
 </html>

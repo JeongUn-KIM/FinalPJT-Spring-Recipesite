@@ -555,7 +555,7 @@ public class RecipeController {
 		service.modifyRecipe(recipeVO);
 		descservice.modifyDesc(descVO);
 		imgservice.modifyImg(imgVO);
-		return "redirect:recipedetail?no=" + recipe_no;
+		return "redirect:recipedetail?reicpe_no=" + recipe_no;
 
 	}
 	
