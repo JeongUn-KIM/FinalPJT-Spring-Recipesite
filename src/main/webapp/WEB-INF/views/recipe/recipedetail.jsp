@@ -83,12 +83,12 @@
 
 <div class="page-heading" style="margin-top:90px;">
 	<div class="row">
-        <div class="col-12 col-md-6 order-md-3 order-last mb-3"> 
+        <div class="col-12 col-md-6 mb-4"> 
 			<h3>레시피</h3>
 		</div>
 	</div>
 <div class=card id="recipe">
-<div class="card-body px-2 py-2">
+<div class="card-body px-2 py-1">
 	<div class="row">
 		<div class="col"  style="min-height:400px; max-width:470px;">
 
@@ -106,7 +106,7 @@
 	<!-- nation -->
 	<tr>
 		<td colspan="3">
-		<h4 style="font::bold;" class="mb-2">
+		<h4 style="font::bold; max-width:650px; float: center" class="mb-2">
 		${recipe.recipe_title }
 		<c:choose>
 			<%-- 로그인 상태시 하트 클릭가능 --%>
@@ -150,7 +150,7 @@
 	</tr>
 	<tr style="height:"class="mt-4" >
 		<th>음식 이름</th>
-		<td colspan="2" style="max-width:550px">${recipe.recipe_name }
+		<td colspan="2">${recipe.recipe_name }
 		</td>
 	</tr>
 	<!-- 분류 -->
@@ -163,13 +163,13 @@
 	<!-- 재료 -->	
 	<tr>
 		<th>레시피 재료</th>
-		<td colspan="2">
+		<td colspan="2" style="max-width:500px;">
 		${recipe.recipe_ingredient }
 		</td>
 	</tr>
 	<tr>
 		<th>레시피 설명</th>
-		<td colspan="2" style="max-width:550px; height:auto;">${desc.recipe_desc }</td>
+		<td colspan="2" style="max-width:500px; height:auto;">${desc.recipe_desc }</td>
 	</tr>
 
 	
