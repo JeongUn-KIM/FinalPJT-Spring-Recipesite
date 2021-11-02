@@ -56,6 +56,7 @@
 <div class="page-heading" style="margin-top:90px;">	 
     <div class="col-lg-5 mx-auto text-center mb-4" style="background-color:#fff;border-radius:3rem;padding:1.5rem;">
 
+
             <h2>이메일 인증하기</h2>
                 아래 이메일주소를 입력하시면,<br> 입력하신 이메일로 인증코드를 보내드립니다<br>
                 <br>

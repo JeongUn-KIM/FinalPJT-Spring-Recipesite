@@ -28,8 +28,9 @@
 	
 	<script>
 		/* 비번, 이름 정규식 체크 */
-		const regex = /^.{8,16}$/
+		const regex = /^.*(?=^.{8,16}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
 		const regex2 = /^[가-힣a-zA-Z]+$/;
+		const regex3 = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/;
 	</script>
 	
 	<style>
@@ -151,7 +152,7 @@
                                                                 <div class="form-group">
                                                                     <input type="text" placeholder="ex)xxx@xxx.com"
                                                                         class="form-control" 
-                                                                        id='${userlist.user_no}user_email' value='${userlist.user_email}'>
+                                                                        id='${userlist.user_no}user_email' value='${userlist.user_email}' readonly="readonly">
                                                                 </div>
                                                                 
                                                                 
@@ -260,10 +261,19 @@
 										function test3${userlist.user_no}(){
 											var test1 = $('#${userlist.user_no}user_pw').val();
 											var test2 = $('#${userlist.user_no}user_name').val();
+											var test3 = $('#${userlist.user_no}user_phone').val();
+											var test4 = $('#${userlist.user_no}user_address1').val();
+											var test5 = $('#${userlist.user_no}user_address2').val();
+											var test6 = $('#${userlist.user_no}user_address3').val();
+											
 											if(!regex.test(test1)){
 												alert('암호 형식이 알맞지 않습니다.');
 											}else if(!regex2.test(test2)){
 												alert('이름 형식이 알맞지 않습니다.');
+											}else if(!regex3.test(test3)){
+												alert('전화번호 형식이 알맞지 않습니다.');
+											}else if(test4 == "" || test5 == "" && test6 == ""){
+												alert('주소를 입력하세요.');
 											}else{
 												location.href = "http://localhost:9009/usermodify?user_no=" + 
 															${userlist.user_no} + "&user_email=" + 

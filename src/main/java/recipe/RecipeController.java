@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import ingredient.IngredientService;
+import ingredient.IngredientVO;
 import main.UserVO;
 import mypage.MypageService;
 import mypage.MyzzimVO;
@@ -31,10 +33,13 @@ public class RecipeController {
 	RecipeService service;
 	
 	@Autowired
+	@Qualifier("ingred")
+	IngredientService ingred;
+	
+	@Autowired
 	RecipeDescService descservice;
 	@Autowired
 	RecipeImgService imgservice;
-	
 	@Autowired
 	@Qualifier("mypage")
 	MypageService mypage;
@@ -105,8 +110,12 @@ public class RecipeController {
 	
 	//레시피 글쓰기 뷰
 	@RequestMapping(value="/recipewrite", method=RequestMethod.GET)
-	public String recipewriteview() {
-		return "/recipe/recipewrite";
+	public ModelAndView recipewriteview() {
+		IngredientVO vo = ingred.getIngredient();
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("vo", vo);
+		mv.setViewName("/recipe/recipewrite");
+		return mv;
 	}
 	//레시피 글 내용 저장
 	@RequestMapping(value="/recipewrite", method=RequestMethod.POST)
@@ -208,6 +217,8 @@ public class RecipeController {
 	public ModelAndView recipedetailview(int recipe_no, HttpSession session) {
 		UserVO vo = (UserVO)session.getAttribute("login_info");
 		
+		System.out.println(recipe_no);
+		
 		RecipeImgVO img = imgservice.getImgOne(recipe_no);
 		RecipeDescVO desc= descservice.getDescOne(recipe_no);
 		RecipeVO recipe= service.getRecipeDetail(recipe_no);
@@ -272,6 +283,8 @@ public class RecipeController {
 		mv.addObject("img", img);
 		mv.addObject("desc", desc);
 		mv.addObject("recipe", recipe);
+		IngredientVO ingredvo = ingred.getIngredient();
+		mv.addObject("ingredvo", ingredvo);
 		mv.setViewName("/recipe/recipemodify");
 		return mv;
 		}

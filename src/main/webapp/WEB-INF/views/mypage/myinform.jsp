@@ -78,10 +78,13 @@
 					
 				const regex = /^.*(?=^.{8,16}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
 				const regex2 = /^[가-힣a-zA-Z]+$/;
+				const regex3 = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/;
+				
 				function updatecheck() {
 				var test1 = $("#user_name").val();
 				var test2 = $("#user_pw").val();
 				var test3 = $("#user_pw_c").val();
+				var test4 = $("#user_phone").val();
 				
 						if (test2 == ""){
 						alert("변경 비밀번호를 입력해주세요.");
@@ -132,6 +135,12 @@
 								$("#user_phone").focus();
 								return false;
 							}
+						
+						if(!regex3.test(test4)){
+							alert("-을 입력해주세요.");
+							$("#user_phone").focus();
+							return false;
+						}
 							
 						if ($("#user_address").val() == ""){
 								alert("주소를 입력해주세요.");
