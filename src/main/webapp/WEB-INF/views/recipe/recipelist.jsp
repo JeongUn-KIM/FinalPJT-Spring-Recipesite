@@ -92,7 +92,7 @@ div.editable {
 
 }
 #recipe1{
-	background-color: #ffb30e;
+	background-color: #FFB30E;
 	color:white !important;
 }
 #tr1 #${nation}{

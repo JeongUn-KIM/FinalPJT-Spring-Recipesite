@@ -107,7 +107,7 @@ div.editable {
  
 }
 #recipe1{
-			background-color: #435ebe;
+			background-color: #FFB30E;
 			color:white !important;
 		}
 </style>
