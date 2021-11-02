@@ -343,16 +343,16 @@
 										<p class="tooltip_box">기분 좋은 날엔 손이 조금 가더라도 근사한 음식을 해먹어봐요!</p></div>
 										
 										<div><span><input class="emotion" type="radio" name="recipe_emotion" value="입맛없음">😐</span>
-										<p class="tooltip_box">입맛이 없을 땐 입맛을 돋궈주는 상큼한 음식을 먹어봐요</p></div>
+										<p class="tooltip_box">입맛이 없을 땐, 입맛을 돋궈주는 상큼한 음식을 먹어봐요!</p></div>
 										
 										<div><span><input class="emotion" type="radio" name="recipe_emotion" value="우울">😥</span> 
-										<p class="tooltip_box">우울함엔 마그네슘, 비타민 B, 엽산 등이 풍부한 음식을 추천드려요!</p></div>
+										<p class="tooltip_box">우울할 때는 마그네슘, 비타민 B, 엽산 등이 풍부한 음식을 추천드려요!</p></div>
 										
 										<div><span><input class="emotion" type="radio" name="recipe_emotion" value="화남">🤬</span>
 										<p class="tooltip_box">화가 나는 날엔  비타민 D, 오메가 3 등이 들어간 음식을 먹어봐요! 또한, 매운음식은 아드레날린과 엔도르핀을 분비합니다.</p></div>
 										
 										<div><span><input class="emotion" type="radio" name="recipe_emotion" value="아픔">😷</span>
-										<p class="tooltip_box">아플 땐 든든한 고기류나 염분이 많지 않은 속편한 음식을 먹어보세요</p></div>
+										<p class="tooltip_box">아플 땐 든든한 고기류나 염분이 많지 않은 속편한 음식을 먹어보세요~</p></div>
 									</div>
 								</td>
 							</tr>
