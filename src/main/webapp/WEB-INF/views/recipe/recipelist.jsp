@@ -115,7 +115,7 @@ $(document).ready(function(){
 				                    "<div class='flex-1'>" + 
 				                      "<div class='mb-0 fw-bold text-1000'>" + 
 				                      "<a href='/recipedetail?recipe_no=" + serverdata[i].recipe_no + "'>" + serverdata[i].recipe_title + "</a>" + 
-					                	"<a href='javascript:void(0);' onclick='' style='color:#dc3545; float: right;'><i class='fas fa-heart' title='목록에서 삭제'></i></a>" +  
+					                	"<a href='javascript:void(0);' onclick='' style='color:#dc3545; float: right;'></i></a>" +  
 					                 "</div>" + 
 				                      "<div><span style='color:black;padding:0px;'>" + serverdata[i].recipe_name + "</span></div>" + 
 				                    "</div>" + 
@@ -134,7 +134,7 @@ $(document).ready(function(){
 						                    "<div class='flex-1'>" + 
 						                      "<div class='mb-0 fw-bold text-1000'>" + 
 						                      "<a href='/recipedetail?recipe_no=" + serverdata[i].recipe_no + "'>" + serverdata[i].recipe_title + "</a>" + 
-							                	"<a href='javascript:void(0);' onclick='' style='color:#dc3545; float: right;'><i class='fas fa-heart' title='목록에서 삭제'></i></a>" +  
+							                	"<a href='javascript:void(0);' onclick='' style='color:#dc3545; float: right;'></a>" +  
 							                 "</div>" + 
 						                      "<div><span style='color:black;padding:0px;'>" + serverdata[i].recipe_name + "</span></div>" + 
 						                    "</div>" + 
@@ -317,8 +317,8 @@ $(document).ready(function(){
                   <div class="d-flex align-items-center mb-1">
                     <div class="flex-1">
                       <div class="mb-0 fw-bold text-1000">
-                      <a href="/recipedetail?recipe_no=${recipe.recipe_no }">${recipe.recipe_title }</a>
-	                	<a href='javascript:void(0);' onclick="delete1(${recipe.recipe_no});" style="color:#dc3545; float: right;"><i class="fas fa-heart" title="목록에서 삭제"></i></a>
+                  	    <a class="text-truncate" style="width:240px;" href="/recipedetail?recipe_no=${recipe.recipe_no }">${recipe.recipe_title }</a>
+	                	<a href='javascript:void(0);' onclick="delete1(${recipe.recipe_no});" style="color:#dc3545; float: right;"></a>
 	                 </div>
                       <div><span style="color:black;padding:0px;">${recipe.recipe_name }</span></div>  
                     </div>

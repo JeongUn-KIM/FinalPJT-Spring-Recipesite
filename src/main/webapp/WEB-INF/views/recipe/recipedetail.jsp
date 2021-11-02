@@ -72,12 +72,12 @@
 </head>
 
 <body>
-
+<div>
 <jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include>
-
+</div>
 <!-- 1. recipe_title, recipe_name, 사진, recipe_date, recipe_emotion  -->
 <section class="py-4 overflow-hidden">
-	<div class="container">
+	<div class="mt-2 container">
     <div class="row h-100">  
     <div class="col-12">
 
@@ -456,10 +456,6 @@ $(".zzim-notlogin").click(function() {
 	return false;
 });
 </script>
-<script src="adminassets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="adminassets/js/bootstrap.bundle.min.js"></script>
-	<script src="adminassets/js/main.js"></script>
-	</div>
-	</div>
+
 </body>
 </html>
