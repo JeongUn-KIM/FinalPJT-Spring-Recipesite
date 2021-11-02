@@ -58,7 +58,10 @@
 			font-weight: 700;
 		
 		}
-		
+		#notice1{
+			background-color: #435ebe;
+			color:white !important;
+		}
 	</style>
 	
 </head>
@@ -198,5 +201,4 @@
 
     
   </body>
-
 </html>
