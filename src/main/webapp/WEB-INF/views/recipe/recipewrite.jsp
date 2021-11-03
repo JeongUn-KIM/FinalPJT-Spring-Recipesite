@@ -107,7 +107,7 @@ div.editable {
  
 }
 #recipe1{
-			background-color: #435ebe;
+			background-color: #FFB30E;
 			color:white !important;
 		}
 </style>
@@ -166,6 +166,7 @@ String[] ingredient = {"소고기","돼지고기", "닭고기", "양고기", "�
 								<tr>
 									<th>음식 설명</th>
 									<td colspan="3"><textarea rows="5" cols="50" name="recipe_desc" id="recipe_desc" class="form-control"></textarea></td>
+									<input type="hidden" name="recipe_desc" id="recipe_desc" value="구간나누기입니다">
 								</tr>
 							<!-- 분류 -->
 								<tr>
@@ -547,6 +548,7 @@ String[] ingredient = {"소고기","돼지고기", "닭고기", "양고기", "�
 									</td>
 									<th>레시피 내용1</th>
 									<td><textarea rows="9" cols="50" id="recipe_desc1" name="recipe_desc" class="form-control"></textarea></td>
+									<input type="hidden" name="recipe_desc" id="recipe_desc" value="구간나누기입니다">
 								</tr>
 							<c:forEach var="i" begin="2" end="10">
 								<tr>
@@ -558,6 +560,7 @@ String[] ingredient = {"소고기","돼지고기", "닭고기", "양고기", "�
 									</td>
 									<th>레시피 내용${i }</th>
 									<td><textarea rows="9" cols="50" name="recipe_desc" class="form-control"></textarea></td>
+									<input type="hidden" name="recipe_desc" id="recipe_desc" value="구간나누기입니다">
 								</tr>
 							</c:forEach>
 							

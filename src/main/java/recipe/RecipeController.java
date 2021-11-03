@@ -154,7 +154,7 @@ public class RecipeController {
 		recipeVO.setRecipe_emotion(recipe_emotion);
 		
 		//name=recipe_desc가 11개 있어서 분리
-		String[] desc = recipe_desc.split(",");
+		String[] desc = recipe_desc.split(",구간나누기입니다,");
 		
 		//음식 설명 vo에 저장
 		descVO.setRecipe_desc(desc[0]);
@@ -313,7 +313,7 @@ public class RecipeController {
 		recipeVO.setRecipe_nation(recipe_nation);
 		
 		//name=recipe_desc가 11개 있어서 분리
-		String[] desc = recipe_desc.split(",");
+		String[] desc = recipe_desc.split(",구간나누기입니다,");
 		
 		//음식 설명 vo에 저장
 		descVO.setRecipe_desc(desc[0]);

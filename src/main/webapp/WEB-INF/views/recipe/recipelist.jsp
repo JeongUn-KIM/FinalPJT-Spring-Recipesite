@@ -92,7 +92,7 @@ div.editable {
 
 }
 #recipe1{
-	background-color: #435ebe;
+	background-color: #FFB30E;
 	color:white !important;
 }
 #tr1 #${nation}{
@@ -325,6 +325,7 @@ $(document).ready(function(){
             <div class="col-sm-6 col-md-4 col-lg-3 h-100 mb-5">
               <div class="card card-span h-100 text-white rounded-3" style="margin-bottom:0rem;">
               <a href="/recipedetail?recipe_no=${recipe.recipe_no }">
+              <c:set var="recipe_img" value="${recipe.recipe_img }"/>
              	<c:if test="${fn:contains(recipe_img, 'https')}">
           			<img title="상세 페이지로 이동" alt="오류" class="img-fluid rounded-3" src="${recipe.recipe_img }" style="width:333px;height:283px;object-fit: cover;" />
           		</c:if>

@@ -78,21 +78,18 @@ public class NoticeController{
 	@RequestMapping(value="/noticemodify", method=RequestMethod.POST)
 	public ModelAndView modifyNotice(NoticeVO vo) throws IOException {
 		
-		
-		if(vo.getNotice_file() != ) {
-			
+		if(vo.getUploadfile()!=null) {
 			if(!vo.getUploadfile().isEmpty()) {
-				
-				MultipartFile uploadfile = vo.getUploadfile();
-				// 파일명
-				String filename = uploadfile.getOriginalFilename();
-				// 저장소
-				String savePath = "c:/kdigital2/notice/";
-				// 저장
-				File file_result = new File(savePath + filename);
-				uploadfile.transferTo(file_result);
-				
-				vo.setNotice_file(filename);
+			MultipartFile uploadfile = vo.getUploadfile();
+			// 파일명
+			String filename = uploadfile.getOriginalFilename();
+			// 저장소
+			String savePath = "c:/kdigital2/notice/";
+			// 저장
+			File file_result = new File(savePath + filename);
+			uploadfile.transferTo(file_result);
+			
+			vo.setNotice_file(filename);
 			}
 		}
 		
