@@ -155,42 +155,48 @@
 			
 			}
 </script>
+<style>
+.jo {
+width : 100%
+
+}
+</style>
 </head>
 <body>
 
 	<jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include><br>
     <div id="main">
 <div class="page-heading" style="margin-top:90px;">	  	
-<div class="col-lg-7 mx-auto text-center mb-4"><h5 class="fw-bold fs-3 fs-lg-5 lh-sm mb-1" style="margin-right:220px;">회원가입</h5></div>  
+<div class="col-lg-10 mx-auto text-center mb-4"><h5 class="fw-bold fs-3 fs-lg-5 lh-sm mb-1" style="margin-right:220px;">회원가입</h5></div>  
 
 
  <div class="modal-content w-75" style="margin-left:50px;">
      <form action="/join" method = 'post' id ="form" onsubmit="return joincheck()">
          <div class="modal-body">
-             <label>이메일: </label>
+             <label class ="jo">이메일: </label>
              <div class="form-group">
                  <input class="form-control" type="text" id="user_email" name="user_email" value="${email }" readonly="readonly"/>
              </div>
              
-             <label>비밀번호: </label>
+             <label class ="jo">비밀번호: </label>
              <div class="form-group">
                  <input class="form-control" type="password" id="user_pw" name="user_pw" placeholder="비밀번호" />
              </div>
              <label>(8~16자내에서 영문 대 소문자, 숫자, 특수문자를 전부 사용하세요.)</label><br><br>
              
-             <label>비밀번호 확인: </label>
+             <label class ="jo">비밀번호 확인: </label>
              <div class="form-group">
                  <input class="form-control" type="password" id="user_pwCheck" name="user_pwCheck" placeholder="비밀번호확인" />
              </div>
              <label>(8~16자내에서 영문 대 소문자, 숫자, 특수문자를 전부 사용하세요.)</label><br><br>
              
-             <label>이름: </label>
+             <label class ="jo">이름: </label>
              <div class="form-group">
                  <input class="form-control" type="text" id="user_name" name="user_name" placeholder="이름" />
              </div>
              <label>(한글과 영문 대 소문자를 사용하세요. (특수기호, 공백 사용 불가))</label><br><br>
              
-             <label>휴대전화: </label>
+             <label class ="jo">휴대전화: </label>
              <div class="form-group">
                  <input class="form-control" type="text" id="user_phone" name="user_phone" placeholder="전화번호" />
              </div>

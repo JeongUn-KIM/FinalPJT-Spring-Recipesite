@@ -48,13 +48,18 @@
 		})
 	})
 	</script>
+	<style>
+	.col-md-3 fw-bold fs-5 mt-1 {
+	width:100%
+	}
+	</style>
 </head>
 <body>
 <%-- <jsp:include page="/WEB-INF/views/main/joinheader.jsp"></jsp:include><br> --%>
 <jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include><br>
     <div id="main" style="margin-left:50px;">
 <div class="page-heading" style="margin-top:90px;">	 
-    <div class="col-lg-5 mx-auto text-center mb-4" style="background-color:#fff;border-radius:3rem;padding:1.5rem;">
+    <div class="col-lg-8 mx-auto text-center mb-5" style="background-color:#fff;border-radius:3rem;padding:1.5rem;">
 
 
             <h2>이메일 인증하기</h2>
@@ -63,7 +68,7 @@
                 
         <form action="/sendCode" method="post">
             <div class="row">
-				<div class="col-md-3 fw-bold fs-5 mt-1" style="text-align: left;">이메일 입력 : </div>
+				<div class="col-md-3 fw-bold fs-5 mt-1" style="text-align: left;">이메일 입력 : 	</div>
 				<div class="col-md-9 form-group">
 					<input class="form-control" type="text" id="mail" name="email" value="이메일을 입력하세요" onclick="this.value=''">
 				</div>
