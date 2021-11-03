@@ -68,7 +68,7 @@
 			font-size : 18px;
 		}
 		#recipe1{
-			background-color: #435ebe;
+			background-color: #FFB30E;
 			color:white !important;
 		}
 	</style> 
@@ -76,12 +76,12 @@
 </head>
 
 <body>
-
+<div>
 <jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include>
-
+</div>
 <!-- 1. recipe_title, recipe_name, 사진, recipe_date, recipe_emotion  -->
 <section class="py-4 overflow-hidden">
-	<div class="container">
+	<div class="mt-2 container">
     <div class="row h-100">  
     <div class="col-12">
 

@@ -78,8 +78,8 @@ public class NoticeController{
 	@RequestMapping(value="/noticemodify", method=RequestMethod.POST)
 	public ModelAndView modifyNotice(NoticeVO vo) throws IOException {
 		
-		if(!vo.getUploadfile().isEmpty()) {
-			
+		if(vo.getUploadfile()!=null) {
+			if(!vo.getUploadfile().isEmpty()) {
 			MultipartFile uploadfile = vo.getUploadfile();
 			// 파일명
 			String filename = uploadfile.getOriginalFilename();
@@ -90,6 +90,7 @@ public class NoticeController{
 			uploadfile.transferTo(file_result);
 			
 			vo.setNotice_file(filename);
+			}
 		}
 		
 		ModelAndView mv = new ModelAndView();

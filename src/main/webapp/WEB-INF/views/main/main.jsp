@@ -26,7 +26,7 @@
 	/* 키워드 관련 */
 	$(document).ready(function(){
 		$("#btn_search").on("click", function(){
-			$(location).attr("href", "http://localhost:9009/search?keyword=" + $("#keyword").val());
+			$(location).attr("href", "/search?keyword=" + $("#keyword").val());
 		});
 	});
 </script>
@@ -187,7 +187,7 @@
 								<img class="rounded-3" src="${resultlist.recipe_img }" height="200" width="200">
 							</c:if>
 							<c:if test="${not fn:contains(recipe_img, 'https')  }">
-								<img class="rounded-3" src="mainassets/assets/img/gallery/resultx.png" alt="..." style="width:200px;height:200px;object-fit: cover;">
+								<img class="rounded-3" src="upload/${resultlist.recipe_img }" alt="..." style="width:200px;height:200px;object-fit: cover;">
 							</c:if>
                         
                         <div class="card-img-overlay ps-0" style="padding:0rem;">
@@ -343,16 +343,16 @@
 										<p class="tooltip_box">기분 좋은 날엔 손이 조금 가더라도 근사한 음식을 해먹어봐요!</p></div>
 										
 										<div><span><input class="emotion" type="radio" name="recipe_emotion" value="입맛없음">😐</span>
-										<p class="tooltip_box">입맛이 없을 땐 입맛을 돋궈주는 상큼한 음식을 먹어봐요</p></div>
+										<p class="tooltip_box">입맛이 없을 땐, 입맛을 돋궈주는 상큼한 음식을 먹어봐요!</p></div>
 										
 										<div><span><input class="emotion" type="radio" name="recipe_emotion" value="우울">😥</span> 
-										<p class="tooltip_box">우울함엔 마그네슘, 비타민 B, 엽산 등이 풍부한 음식을 추천드려요!</p></div>
+										<p class="tooltip_box">우울할 때는 마그네슘, 비타민 B, 엽산 등이 풍부한 음식을 추천드려요!</p></div>
 										
 										<div><span><input class="emotion" type="radio" name="recipe_emotion" value="화남">🤬</span>
 										<p class="tooltip_box">화가 나는 날엔  비타민 D, 오메가 3 등이 들어간 음식을 먹어봐요! 또한, 매운음식은 아드레날린과 엔도르핀을 분비합니다.</p></div>
 										
 										<div><span><input class="emotion" type="radio" name="recipe_emotion" value="아픔">😷</span>
-										<p class="tooltip_box">아플 땐 든든한 고기류나 염분이 많지 않은 속편한 음식을 먹어보세요</p></div>
+										<p class="tooltip_box">아플 땐 든든한 고기류나 염분이 많지 않은 속편한 음식을 먹어보세요~</p></div>
 									</div>
 								</td>
 							</tr>
@@ -554,7 +554,7 @@
 		function detail(recipe_no){
 			var result = confirm("해당 레시피로 이동하시겠습니까?");
 			if(result){
-				location.href = "http://localhost:9009/recipedetail?recipe_no=" + recipe_no;
+				location.href = "/recipedetail?recipe_no=" + recipe_no;
 			}
 		}
     </script>

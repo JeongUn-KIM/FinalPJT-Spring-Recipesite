@@ -106,16 +106,13 @@ div.editable {
  
 }
 #recipe1{
-			background-color: #435ebe;
+			background-color: #FFB30E;
 			color:white !important;
 		}
 </style>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include>
-<%
-String[] ingredient = {"소고기","돼지고기","닭고기","양고기","무슨고기"};
-%>
 
 <section class="py-4 overflow-hidden">
    <div class="container">
@@ -170,7 +167,7 @@ String[] ingredient = {"소고기","돼지고기","닭고기","양고기","무�
                                     </div>
                                     <div class="form-check me-3" style="display:inline-block;">
                                         <input class="form-check-input" type="radio" name="recipe_cate" value="달걀유제품류"
-                                            id="달걀유제품류">
+                                            id="달걀/유제품류">
                                         <label class="form-check-label" for="달걀유제품류">
                                             달걀/유제품류
                                         </label>
@@ -182,15 +179,6 @@ String[] ingredient = {"소고기","돼지고기","닭고기","양고기","무�
                                         </label>
                                     </div>
 									</td>
-		
-		<!-- <th rowspan="2">분류</th>
-		<td colspan="3">
-		<input type="radio" name="recipe_cate" id="육류" value="육류">육류
-		<input type="radio" name="recipe_cate" id="해물류" value="해물류">해물류
-		<input type="radio" name="recipe_cate" id="채소류" value="채소류">채소류
-		<input type="radio" name="recipe_cate" id="달걀유제품류" value="달걀유제품류">달걀/유제품류
-		<input type="radio" name="recipe_cate" value="기타">기타
-		</td> -->
 	</tr>
 	<tr>
 									<td colspan="3">
@@ -229,13 +217,7 @@ String[] ingredient = {"소고기","돼지고기","닭고기","양고기","무�
                                         </label>
                                     </div>
 									</td>
-		<!-- <td colspan="3">
-		<input type="radio" name="recipe_nation" id="한식" value="한식">한식
-		<input type="radio" name="recipe_nation" id="일식" value="일식">일식
-		<input type="radio" name="recipe_nation" id="양식" value="양식">양식
-		<input type="radio" name="recipe_nation" id="중식" value="중식">중식
-		<input type="radio" name="recipe_nation" value="기타">기타
-		</td> -->
+
 	</tr>
 	<tr>
 		<th>제목</th>
@@ -273,24 +255,6 @@ String[] ingredient = {"소고기","돼지고기","닭고기","양고기","무�
 				</tr>
 			</table>
 		
-		
-		<%-- <table border ="1">
-			<tr>
-			<th>기존 이미지</th>
-			<td>
-			<c:set var="recipe_img" value="${recipe.recipe_img }"/>
-			<c:if test="${fn:contains(recipe_img, 'https')}">
-				<img src="${recipe.recipe_img }" height="200" width="200">
-			</c:if>
-			<c:if test="${not fn:contains(recipe_img, 'https')  }">
-				<img src="/upload/${recipe.recipe_img }" height="200" width="200">
-			</c:if>
-			</td>
-			<input type="hidden" name="img" value="${recipe.recipe_img }">
-			<th>변경 이미지</th>
-			<td><div id="img"></div></td>
-			</tr>
-		</table> --%>
 		</td>
 	</tr>
 	<tr>
@@ -300,6 +264,7 @@ String[] ingredient = {"소고기","돼지고기","닭고기","양고기","무�
 	<tr>
 		<th>음식 설명</th>
 		<td colspan="3"><textarea rows="5" cols="50" name="recipe_desc" id="recipe_desc" class="form-control">${desc.recipe_desc }</textarea></td>
+		<input type="hidden" name="recipe_desc" id="recipe_desc" value="구간나누기입니다">
 	</tr>
 	<!-- 분류 -->
 <!-- 팝업창 재료 -->
@@ -530,98 +495,12 @@ String[] ingredient = {"소고기","돼지고기","닭고기","양고기","무�
 				</td>
 			</tr>
 
-<%-- 	<tr>
-		<th>재료</th>
-		<td colspan="3">
-		<div>
-			<button class="openingred" type="button" id="ingredient">재료 선택</button>
-			<div class="modal" >
-				<div class="modalbox">
-				<!-- 보낼것 2. 재료 -->
-<!-- Tab을 구성할 영역 설정-->
-<div style="margin:10px;">
-<!-- Tab 영역 태그는 ul이고 클래스는 nav와 nav-tabs를 설정한다. -->
-<ul class="nav nav-tabs">
-<!-- a 태그의 href는 아래의 tab-content 영역의 id를 설정하고 data-toggle 속성을 tab으로 설정한다. -->
-<li><a href="#grains" data-toggle="tab">곡물류</a></li>
-<li><a href="#noodles" data-toggle="tab">면/만두류</a></li>
-<li><a href="#vegetables" data-toggle="tab">채소류</a></li>
-<li><a href="#fruits" data-toggle="tab">과일류</a></li>
-<li><a href="#meats" data-toggle="tab">육류</a></li>
-<li><a href="#eggs" data-toggle="tab">달걀/유제품류</a></li>
-<li><a href="#seafoods" data-toggle="tab">해물류</a></li>
-<li><a href="#spices" data-toggle="tab">양념류</a></li>
-<li><a href="#drinks" data-toggle="tab">음료/주류</a></li>
-</ul>
-<!-- Tab이 선택되면 내용이 보여지는 영역이다. -->
-<!-- 태그는 div이고 class는 tab-content로 설정한다. -->
-<div class="tab-content">
-<!-- 각 탭이 선택되면 보여지는 내용이다. 태그는 div이고 클래스는 tab-pane이다. -->
-<!-- active 클래스는 현재 선택되어 있는 탭 영역이다. -->
-<div class="tab-pane fade in active" id="grains">
-	<c:forEach items="${ingredvo.grains }" var="ingred">
-		<input id="${ingred }" type="checkbox" name="ingredient" value="${ingred }">${ingred }
-	</c:forEach>
-</div>
-<!-- id는 고유한 이름으로 설정하고 tab의 href와 연결되어야 한다. -->
-<!-- fade 클래스는 선택적인 사항으로 트랜지션(transition)효과가 있다.
-<!-- in 클래스는 fade 클래스를 선언하여 트랜지션효과를 사용할 때 in은 active와 선택되어 있는 탭 영역의 설정이다. -->
-<div class="tab-pane fade" id="noodles">
-	<c:forEach items="${ingredvo.noodles }" var="ingred">
-		<input id="${ingred }" type="checkbox" name="ingredient" value="${ingred }">${ingred }
-	</c:forEach>
-</div>
-<div class="tab-pane fade" id="vegetables">
-	<c:forEach items="${ingredvo.vegetables }" var="ingred">
-		<input id="${ingred }" type="checkbox" name="ingredient" value="${ingred }">${ingred }
-	</c:forEach>
-</div>
-<div class="tab-pane fade" id="fruits">
-	<c:forEach items="${ingredvo.fruits }" var="ingred">
-		<input id="${ingred }" type="checkbox" name="ingredient" value="${ingred }">${ingred }
-	</c:forEach>
-</div>
-<div class="tab-pane fade" id="meats">
-	<c:forEach items="${ingredvo.meats }" var="ingred">
-		<input id="${ingred }" type="checkbox" name="ingredient" value="${ingred }">${ingred }
-	</c:forEach>
-</div>
-<div class="tab-pane fade" id="eggs">
-	<c:forEach items="${ingredvo.eggs }" var="ingred">
-		<input id="${ingred }" type="checkbox" name="ingredient" value="${ingred }">${ingred }
-	</c:forEach>
-</div>
-<div class="tab-pane fade" id="seafoods">
-	<c:forEach items="${ingredvo.seafoods }" var="ingred">
-		<input id="${ingred }" type="checkbox" name="ingredient" value="${ingred }">${ingred }
-	</c:forEach>
-</div>
-<div class="tab-pane fade" id="spices">
-	<c:forEach items="${ingredvo.spices }" var="ingred">
-		<input id="${ingred }" type="checkbox" name="ingredient" value="${ingred }">${ingred }
-	</c:forEach>
-</div>
-<div class="tab-pane fade" id="drinks">
-	<c:forEach items="${ingredvo.drinks }" var="ingred">
-		<input id="${ingred }" type="checkbox" name="ingredient" value="${ingred }">${ingred }
-	</c:forEach>
-</div>
-</div>
-</div>
-				<!-- 모달 박스 안에서 검색 기능을 만들 수 있을까? -->
-				</div>
-				<button class="closeingred" type="button">재료 저장</button>
-			</div>
-		</div>
-		${recipe.recipe_ingredient }
-		</td>
-	</tr> --%>
 <!-- 감정 -->
 	<tr>
 		<th>어떤 기분일 때 먹으면 도움이 될까요?</th>
 									<td colspan="3">
 										<div class="form-check me-3" style="display:inline-block;">
-                                        <input class="form-check-input" type="radio" id="flexRadioDefault11" 
+                                        <input class="form-check-input" type="radio"
                                         name="recipe_emotion" id="좋음" value="좋음" checked>
                                         <label class="form-check-label" for="flexRadioDefault11" data-bs-toggle="tooltip" data-bs-placement="top" title="기분 좋은 날엔 손이 조금 가더라도 근사한 음식을 해먹어봐요!">
                                             <i class="fas fa-smile text-warning" style="font-size: 1.7rem;"></i>
@@ -692,6 +571,7 @@ String[] ingredient = {"소고기","돼지고기","닭고기","양고기","무�
 			</td>
 			<th>레시피 내용1</th>
 			<td><textarea class="form-control" rows="9" cols="50" id="recipe_desc1" name="recipe_desc">${desc.recipe_desc1}</textarea></td>
+			<input type="hidden" name="recipe_desc" id="recipe_desc" value="구간나누기입니다">
 		</tr>
 		
 		<tr>
@@ -732,6 +612,7 @@ String[] ingredient = {"소고기","돼지고기","닭고기","양고기","무�
 			</td>
 			<th>레시피 내용2</th>
 			<td><textarea class="form-control" rows="9" cols="50" name="recipe_desc">${desc.recipe_desc2}</textarea></td>
+			<input type="hidden" name="recipe_desc" id="recipe_desc" value="구간나누기입니다">
 		</tr>
 		
 		<tr>
@@ -770,6 +651,7 @@ String[] ingredient = {"소고기","돼지고기","닭고기","양고기","무�
 			</td>
 			<th>레시피 내용3</th>
 			<td><textarea class="form-control" rows="9" cols="50" name="recipe_desc">${desc.recipe_desc3}</textarea></td>
+			<input type="hidden" name="recipe_desc" id="recipe_desc" value="구간나누기입니다">
 		</tr>
 		
 		<tr>
@@ -808,6 +690,7 @@ String[] ingredient = {"소고기","돼지고기","닭고기","양고기","무�
 			</td>
 			<th>레시피 내용4</th>
 			<td><textarea class="form-control" rows="9" cols="50" name="recipe_desc">${desc.recipe_desc4}</textarea></td>
+			<input type="hidden" name="recipe_desc" id="recipe_desc" value="구간나누기입니다">
 		</tr>
 		
 		<tr>
@@ -846,6 +729,7 @@ String[] ingredient = {"소고기","돼지고기","닭고기","양고기","무�
 			</td>
 			<th>레시피 내용5</th>
 			<td><textarea class="form-control" rows="9" cols="50" name="recipe_desc">${desc.recipe_desc5}</textarea></td>
+			<input type="hidden" name="recipe_desc" id="recipe_desc" value="구간나누기입니다">
 		</tr>
 		
 		<tr>
@@ -884,6 +768,7 @@ String[] ingredient = {"소고기","돼지고기","닭고기","양고기","무�
 			</td>
 			<th>레시피 내용6</th>
 			<td><textarea class="form-control" rows="9" cols="50" name="recipe_desc">${desc.recipe_desc6}</textarea></td>
+			<input type="hidden" name="recipe_desc" id="recipe_desc" value="구간나누기입니다">
 		</tr>
 		<tr>
 			<th>사진7</th>
@@ -921,6 +806,7 @@ String[] ingredient = {"소고기","돼지고기","닭고기","양고기","무�
 			</td>
 			<th>레시피 내용7</th>
 			<td><textarea class="form-control" rows="9" cols="50" name="recipe_desc">${desc.recipe_desc7}</textarea></td>
+			<input type="hidden" name="recipe_desc" id="recipe_desc" value="구간나누기입니다">
 		</tr>
 		<tr>
 			<th>사진8</th>
@@ -958,6 +844,7 @@ String[] ingredient = {"소고기","돼지고기","닭고기","양고기","무�
 			</td>
 			<th>레시피 내용8</th>
 			<td><textarea class="form-control" rows="9" cols="50" name="recipe_desc">${desc.recipe_desc8}</textarea></td>
+			<input type="hidden" name="recipe_desc" id="recipe_desc" value="구간나누기입니다">
 		</tr>
 		<tr>
 			<th>사진9</th>
@@ -995,6 +882,7 @@ String[] ingredient = {"소고기","돼지고기","닭고기","양고기","무�
 			</td>
 			<th>레시피 내용9</th>
 			<td><textarea class="form-control" rows="9" cols="50" name="recipe_desc">${desc.recipe_desc9}</textarea></td>
+			<input type="hidden" name="recipe_desc" id="recipe_desc" value="구간나누기입니다">
 		</tr>
 		<tr>
 			<th>사진10</th>
@@ -1030,8 +918,9 @@ String[] ingredient = {"소고기","돼지고기","닭고기","양고기","무�
 	</c:if>
 			<div id="img10"></div>
 			</td>
-			<th>레시피 내용10</th>
+			<th width="140px;">레시피 내용10</th>
 			<td><textarea class="form-control" rows="9" cols="50" name="recipe_desc">${desc.recipe_desc10}</textarea></td>
+			<input type="hidden" name="recipe_desc" id="recipe_desc" value="구간나누기입니다">
 		</tr>
 
 </table>
@@ -1135,14 +1024,10 @@ function send(){
 		$("#recipe_name").focus();
 		return false;
 	}
-	else if(regex3.test(name) == false) {
-		alert("음식 이름은 한글로만 작성해주세요")
-		$("#recipe_name").focus();
-		return false;
-	}
+
 	//음식설명
 	const desc = document.getElementById('recipe_desc').value;
-	const regex4 = /^.{10,}$/;
+	const regex4 = /^[\s\S]{10,}$/;
 	if(regex4.test(desc) == false) {
 		alert("음식 설명은 10글자 이상 작성해주세요")
 		$("#recipe_desc").focus();
@@ -1208,7 +1093,7 @@ function send(){
 	}
 	//레시피 설명1
 	const desc1 = document.getElementById('recipe_desc1').value;
-	const regex5 = /^.{10,}$/;
+	const regex5 = /^[\s\S]{10,}$/;
 	if(regex5.test(desc1) == false) {
 		alert("레시피 내용1은 10글자 이상 작성해주세요.")
 		$("#recipe_desc1").focus();
