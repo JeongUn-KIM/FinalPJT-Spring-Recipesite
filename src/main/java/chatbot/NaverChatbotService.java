@@ -15,7 +15,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
-
 @Service
 public class NaverChatbotService implements NaverService {
 	@Override

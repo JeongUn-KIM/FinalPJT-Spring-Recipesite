@@ -230,11 +230,14 @@
             <div class="col-sm-6 col-md-4 col-lg-3 h-100 mb-5 hide" style="display:none;">
               <div class="card card-span h-100 text-white rounded-3" style="margin-bottom:0rem;">
               <a href='javascript:void(0);' onclick="detail('${myrecipelist.recipe_no}');">
-<<<<<<< HEAD
+
               <img class="img-fluid rounded-3 h-100" src="/upload/${myrecipelist.recipe_img }" alt="..." style="width:333px;height:283px;object-fit: cover;"/>
-=======
-              <img class="img-fluid rounded-3 h-100" src="/upload/${myrecipelist.recipe_img }" alt="..." />
->>>>>>> branch 'junhyuk' of https://github.com/mellunk/FinalPJT-Spring-Recipesite.git
+
+         
+
+
+
+
               </a>
             
                 <div class="card-body p-2 " >

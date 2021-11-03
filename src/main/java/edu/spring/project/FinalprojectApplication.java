@@ -39,7 +39,6 @@ import recipe.RecipeImgDAO;
 @ComponentScan(basePackageClasses = IngredientController.class)
 @ComponentScan(basePackageClasses = NaverChatbotController.class)
 
-
 @MapperScan
 @MapperScan(basePackageClasses = UserDAO.class)
 @MapperScan(basePackageClasses = RecipeDAO.class)
