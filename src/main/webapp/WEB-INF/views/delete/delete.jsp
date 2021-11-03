@@ -118,7 +118,7 @@ function deletecheck() {
 <div class="page-heading text-center" style="margin-top:90px;">
 <!-- 이 줄 아래에다가만 추가해주세요 -->     
 <h2 class="fw-bold fs-2 fs-lg-5 lh-sm mb-4">가입시 입력한 이메일과 비밀번호를 입력해주세요!</h2>
-	<div class="col-lg-5 mx-auto text-center mb-4" style="background-color:#fff;border-radius:2rem;padding:1.5rem;">
+	<div class="col-lg-10 mx-8 text-center mb-8" style="background-color:#fff;border-radius:2rem;padding:1.5rem;">
 		<form action="/delete" method="post" id="form">
 			
 			<div class="row">
@@ -136,7 +136,7 @@ function deletecheck() {
 			<div class="row">
 				<div class="col-md-3 fw-bold fs-5 mt-1" style="text-align: left">탈퇴사유 : </div>
 				<div class="col-md-9 form-group">
-				<textarea id = "de_reson" name="de_reson" class="form_control" rows="10" cols="44" placeholder="탈퇴하는 사유를 입력해주세요."> </textarea>
+				<textarea id = "de_reson" name="de_reson" class="form_controller" rows="10" cols="100%" style ="resize: none" placeholder="탈퇴하는 사유를 입력해주세요."  > </textarea>
 				</div>
 			</div>
 		</form>

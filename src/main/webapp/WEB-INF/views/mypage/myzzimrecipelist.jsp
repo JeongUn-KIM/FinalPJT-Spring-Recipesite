@@ -285,7 +285,12 @@
             <div class="col-sm-6 col-md-4 col-lg-3 h-100 mb-5 hide" style="display:none;">
               <div class="card card-span h-100 text-white rounded-3" style="margin-bottom:0rem;">
               <a href='javascript:void(0);' onclick="detail(${myzzimrecipelist.recipe_no});">
+
+     
+
+
             	  <img title="상세 페이지로 이동" class="img-fluid rounded-3 h-100" src="/upload/${myzzimrecipelist.recipe_img }" alt="..." style="width:333px;height:283px;object-fit: cover;"/>
+
               </a>
                 
                 <div class="card-body p-2 " >

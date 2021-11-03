@@ -12,13 +12,6 @@ public class RecipeVO {
 	String recipe_cate;
 	String recipe_nation;
 
-	public int getRecipe_hits() {
-		return recipe_hits;
-	}
-
-	public void setRecipe_hits(int recipe_hits) {
-		this.recipe_hits = recipe_hits;
-	}
 
 	public RecipeVO() {	}
 	
